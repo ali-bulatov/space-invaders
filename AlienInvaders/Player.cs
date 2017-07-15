@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace AlienInvaders
 {
@@ -36,7 +37,11 @@ namespace AlienInvaders
 
         private Direction _direction;
 
-        public Player(Byte lives, Color color)
+        private byte _type;
+
+        private Image _uiPlayer;
+
+        public Player(Byte lives, Color color, Image _uiPlayer)
         {
 
         }
@@ -57,6 +62,11 @@ namespace AlienInvaders
         }
 
         public void Respawn()
+        {
+
+        }
+
+        public void SetImage()
         {
 
         }

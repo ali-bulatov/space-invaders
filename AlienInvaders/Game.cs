@@ -78,5 +78,15 @@ namespace AlienInvaders
         {
 
         }
+
+        public void Pause()
+        {
+
+        }
+
+        public void Save()
+        {
+
+        }
     }
 }
