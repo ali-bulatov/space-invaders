@@ -41,7 +41,7 @@ namespace AlienInvaders
 
         private Image _uiPlayer;
 
-        public Player(Byte lives, Color color, Image _uiPlayer)
+        public Player(Byte lives, Color color, byte type)
         {
 
         }
