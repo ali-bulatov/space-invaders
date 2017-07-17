@@ -142,6 +142,30 @@ namespace AlienInvaders
 
         public void ShiftAliens()
         {
+            //TODO: FIX THIS METHOD.
+            List<List<bool>> isHittingEdge = new List<List<bool>>();
+            foreach (List<Alien> alienRow in _alienList)
+            {
+                foreach (Alien alienCell in alienRow)
+                {
+                    if (alienCell != null)
+                    {
+                        isHittingEdge.Add(alienCell.MoveHorizontal());
+                    }
+
+                }
+            }
+            foreach (List<Alien> alienRow in _alienList)
+            {
+                foreach (Alien alienCell in alienRow)
+                {
+                    if (alienCell != null)
+                    {
+                        alienCell.MoveVertical();
+                    }
+
+                }
+            }
             //Go through all 55 aliens in the list of aliens.
             //Store the return values in the IsHittingEdge list.
             //Go through all Aliens again.
@@ -152,11 +176,6 @@ namespace AlienInvaders
 
         public void Pause()
         {
-            //Stop the Alien Movement Timer.
-            //Prevent the player from activating the movement timer.
-            //Prevent the player from shooting.
-            //Stop the Alien bullet shooting timer.
-            //Stop the alien bullet movement timer.
 
         }
 

@@ -17,8 +17,8 @@ namespace AlienInvaders
 
     public enum Direction
     {
-        left,
-        right
+        Left,
+        Right
     }
 
     public class Player
@@ -43,7 +43,17 @@ namespace AlienInvaders
 
         public Player(Byte lives, Color color, byte type)
         {
-
+            //Set the position of the player.
+            _alive = true;
+            _lives = lives;
+            //TODO: Change Speed.
+            _speed = 0.25;
+            _bullet = new Bullet();
+            _color = color;
+            _type = type;
+            _direction = Direction.Left;
+            _uiPlayer = _imgPlayer;
+            SetImage(color, type);
         }
 
         public void Move()
@@ -66,9 +76,14 @@ namespace AlienInvaders
 
         }
 
-        public void SetImage()
+        public void SetImage(Color color, byte type)
         {
-
+            _color = color;
+            _type = type;
+            List<List<Image>> imageCombo = new List<List<Image>>();
+            //TODO: Add the images into the list, each row representing a color.
+            //set the image of the player to the image in the list.
+            _uiPlayer = List<List<Image>>[(int)color][type];
         }
     }
 }
