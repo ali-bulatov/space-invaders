@@ -42,7 +42,7 @@ namespace AlienInvaders
 
         private Image _uiPlayer;
 
-        public Player(Byte lives, Color color, byte type)
+        public Player(Byte lives, Color color, byte type, Image uiPlayer)
         {
             //Set the position of the player.
             _alive = true;
@@ -53,7 +53,7 @@ namespace AlienInvaders
             _color = color;
             _type = type;
             _direction = Direction.Left;
-            _uiPlayer = _imgPlayer;
+            _uiPlayer = uiPlayer;
             SetImage(color, type);
         }
 
@@ -100,6 +100,7 @@ namespace AlienInvaders
 
         public void OnShoot()
         {
+            //Cause the bullet to be visible.
 
         }
 

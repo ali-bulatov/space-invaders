@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace AlienInvaders
 {
@@ -62,7 +63,7 @@ namespace AlienInvaders
             _player = new Player(3, _colorOption, _imageOption);
             _bulletList = new List<EnemyBullet>();
             _alienList = new List<List<Alien>>();
-            _motherShip = new MotherShip();
+            _motherShip = new MotherShip(Canvas.ActualWidth, 0.25);
             _shieldList = new List<Shield>();
             _difficulty = difficulty;
         }
@@ -156,14 +157,16 @@ namespace AlienInvaders
             List<List<bool>> isHittingEdge = new List<List<bool>>();
             foreach (List<Alien> alienRow in _alienList)
             {
+                List<bool> isHittingEdgeRow = new List<bool>();
                 foreach (Alien alienCell in alienRow)
                 {
                     if (alienCell != null)
                     {
-                        isHittingEdge.Add(alienCell.MoveHorizontal());
+                        isHittingEdgeRow.Add(alienCell.MoveHorizontal());
                     }
 
                 }
+                isHittingEdge.Add(isHittingEdgeRow);
             }
             foreach (List<Alien> alienRow in _alienList)
             {
