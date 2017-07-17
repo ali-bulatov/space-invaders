@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace AlienInvaders
 {
+    /// <summary>
+    /// 
+    /// </summary>
     class MotherShip
     {
+
     }
 }

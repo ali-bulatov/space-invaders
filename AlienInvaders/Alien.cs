@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace AlienInvaders
 {
+    /// <summary>
+    /// Class rerpresenting the alien object
+    /// </summary>
     class Alien
     {
+        
     }
 }
