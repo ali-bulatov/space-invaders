@@ -31,7 +31,6 @@ namespace AlienInvaders
         {
 
         }
-
         private void OnExitButtonClicked(object sender, RoutedEventArgs e)
         {
 
@@ -39,7 +38,7 @@ namespace AlienInvaders
 
         private void OnHowToButtonClicked(object sender, RoutedEventArgs e)
         {
-
+            _flyHowTo.ShowAt(_menuGrid);
         }
 
         private void OnScoreButtonClicked(object sender, RoutedEventArgs e)
