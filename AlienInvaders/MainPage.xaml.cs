@@ -26,5 +26,30 @@ namespace AlienInvaders
         {
             this.InitializeComponent();
         }
+
+        private void OnStartButtonClicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnExitButtonClicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnHowToButtonClicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnScoreButtonClicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnCreditsButtonClicked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
