@@ -103,7 +103,17 @@ namespace AlienInvaders
             //Add the aliens to the list and position them for all aliens.
 
             //Otherwise, simply load in the aliens and set their position.
+
+            
             //Give three random aliens a bullet from the list to start.
+            for (int alienCount = 0; alienCount < 3; alienCount++)
+            {
+                _bulletList.Add(new EnemyBullet());
+                int randRow = _randomizer.Next(0, 4);
+                int randCol = _randomizer.Next(0, 11);
+                //TODO: Make the _enemyBullet available.
+                _alienList[randRow][randCol]._enemyBullet = _bulletList[alienCount];
+            }
             
         }
 
