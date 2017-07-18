@@ -118,6 +118,17 @@
     <None Include="AlienInvaders_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Alien1.png" />
+    <Content Include="Assets\Alien2.png" />
+    <Content Include="Assets\Alien3.png" />
+    <Content Include="Assets\Bullet.png" />
+    <Content Include="Assets\EnemyBullet.png" />
+    <Content Include="Assets\Mothership.png" />
+    <Content Include="Assets\Shield.png" />
+    <Content Include="Assets\SpB1.png" />
+    <Content Include="Assets\SpG1.png" />
+    <Content Include="Assets\SpR1.png" />
+    <Content Include="Assets\SpY1.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
