@@ -42,7 +42,7 @@ namespace AlienInvaders
 
         private Image _uiPlayer;
 
-        public Player(Byte lives, Color color, byte type)
+        public Player(Byte lives, Color color, byte type, Image uiPlayer)
         {
             //Set the position of the player.
             _alive = true;
@@ -53,8 +53,20 @@ namespace AlienInvaders
             _color = color;
             _type = type;
             _direction = Direction.Left;
-            _uiPlayer = _imgPlayer;
+            _uiPlayer = uiPlayer;
             SetImage(color, type);
+        }
+
+        public Direction Direction
+        {
+            get
+            {
+                return _direction;
+            }
+            set
+            {
+                _direction = value;
+            }
         }
 
         public void Move()
@@ -87,7 +99,8 @@ namespace AlienInvaders
                 }
                 else
                 {
-                    Canvas.SetLeft(_uiPlayer, (Canvas.ActualWidth -_uiPlayer.Width));
+                    //TODO: USE ACTUALWIDTH INSTEAD.
+                    Canvas.SetLeft(_uiPlayer, (720 -_uiPlayer.Width));
                 }
             }
 
@@ -100,6 +113,7 @@ namespace AlienInvaders
 
         public void OnShoot()
         {
+            //Cause the bullet to be visible.
 
         }
 
@@ -121,7 +135,7 @@ namespace AlienInvaders
             List<List<Image>> imageCombo = new List<List<Image>>();
             //TODO: Add the images into the list, each row representing a color.
             //set the image of the player to the image in the list.
-            _uiPlayer = List<List<Image>>[(int)color][type];
+            //_uiPlayer = List<List<Image>>[(int)color][type];
 
         }
     }

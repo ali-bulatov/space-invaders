@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace AlienInvaders
 {
@@ -49,7 +50,7 @@ namespace AlienInvaders
         /// <param name="difficulty">Represents the difficulty of the game.</param>
         /// <param name="colorOption">Represents the color of the player selected as an option.</param>
         /// <param name="imageOption">Represents the image option of the player.</param>
-        public Game(GameDifficulty difficulty, Color colorOption, byte imageOption)
+        public Game(GameDifficulty difficulty, Color colorOption, byte imageOption, Image playerImage)
         {
             //Load the basic assets of the game before playing or resuming.
             _gameScore = 0;
@@ -59,10 +60,11 @@ namespace AlienInvaders
             _colorOption = colorOption;
             _imageOption = imageOption;
             //Set the player color 
-            _player = new Player(3, _colorOption, _imageOption);
+            _player = new Player(3, _colorOption, _imageOption, playerImage);
             _bulletList = new List<EnemyBullet>();
             _alienList = new List<List<Alien>>();
-            _motherShip = new MotherShip();
+            //TODO: FIX WIDTH TO CANVAS.ACTUALWIDTH.
+            _motherShip = new MotherShip(720, 0.25);
             _shieldList = new List<Shield>();
             _difficulty = difficulty;
         }
@@ -91,6 +93,18 @@ namespace AlienInvaders
             }
         }
 
+        public Player Player
+        {
+            get
+            {
+                return _player;
+            }
+            set
+            {
+                _player = value;
+            }
+        }
+
         public void Play()
         {
             //Check to see if there is an existing game going on.
@@ -112,7 +126,7 @@ namespace AlienInvaders
                 int randRow = _randomizer.Next(0, 4);
                 int randCol = _randomizer.Next(0, 11);
                 //TODO: Make the _enemyBullet available.
-                _alienList[randRow][randCol]._enemyBullet = _bulletList[alienCount];
+                //_alienList[randRow][randCol]._enemyBullet = _bulletList[alienCount];
             }
             
         }
@@ -156,14 +170,17 @@ namespace AlienInvaders
             List<List<bool>> isHittingEdge = new List<List<bool>>();
             foreach (List<Alien> alienRow in _alienList)
             {
+                List<bool> isHittingEdgeRow = new List<bool>();
                 foreach (Alien alienCell in alienRow)
                 {
                     if (alienCell != null)
                     {
-                        isHittingEdge.Add(alienCell.MoveHorizontal());
+                        //TODO: FIX.
+                        //isHittingEdgeRow.Add(alienCell.MoveHorizontal());
                     }
 
                 }
+                isHittingEdge.Add(isHittingEdgeRow);
             }
             foreach (List<Alien> alienRow in _alienList)
             {
