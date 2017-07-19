@@ -8,7 +8,22 @@
     mc:Ignorable="d">
 
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RenderTransformOrigin="0.478,0.464">
+    <Grid x:Name="_mainGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RenderTransformOrigin="0.478,0.464">
+        <FlyoutBase.AttachedFlyout>
+            <Flyout x:Name="_flyHowTo">
+                <Flyout.FlyoutPresenterStyle>
+                    <Style TargetType="FlyoutPresenter">
+                        <Setter Property="ScrollViewer.ZoomMode" Value="Enabled"/>
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderBrush" Value="Gray"/>
+                        <Setter Property="BorderThickness" Value="5"/>
+                        <Setter Property="MinHeight" Value="200"/>
+                        <Setter Property="MinWidth" Value="800"/>
+                    </Style>
+                </Flyout.FlyoutPresenterStyle>
+                <TextBlock x:Name="_txtHowTo" HorizontalAlignment="Center" Margin="0" Grid.Row="1" TextWrapping="Wrap" Text="Space Invaders is a two-dimensional fixed shooter game in which the player controls a laser cannon by moving it horizontally across the bottom of the screen and firing at descending aliens. The aim is to defeat five rows of eleven aliens—some versions feature different numbers—that move horizontally back and forth across the screen as they advance towards the bottom of the screen. The player defeats an alien, and earns points, by shooting it with the laser cannon. As more aliens are defeated, the aliens' movement and the game's music both speed up. Defeating the aliens brings another wave that is more difficult, a loop which can continue without end. " VerticalAlignment="Center" RenderTransformOrigin="0.451,0.545" Width="760" Height="176"/>
+            </Flyout>
+        </FlyoutBase.AttachedFlyout>
         <Grid.RowDefinitions>
             <RowDefinition Height="86*"/>
             <RowDefinition Height="91*"/>
@@ -16,13 +31,8 @@
             <RowDefinition Height="78*"/>
         </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="Alien Invaders" VerticalAlignment="Center" Height="88" Width="520" FontSize="72" FontStyle="Italic" FontWeight="Bold" FontFamily="Comic Sans MS"/>
-
-
-
-        <TextBlock HorizontalAlignment="Center" Height="102" Margin="0" Grid.Row="3" TextWrapping="Wrap" Text="Space Invaders is a two-dimensional fixed shooter game in which the player controls a laser cannon by moving it horizontally across the bottom of the screen and firing at descending aliens. The aim is to defeat five rows of eleven aliens—some versions feature different numbers—that move horizontally back and forth across the screen as they advance towards the bottom of the screen. The player defeats an alien, and earns points, by shooting it with the laser cannon. As more aliens are defeated, the aliens' movement and the game's music both speed up. Defeating the aliens brings another wave that is more difficult, a loop which can continue without end. " VerticalAlignment="Center" Width="1068"/>
-
         <Grid HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100"/>
-        <Grid HorizontalAlignment="Center" Height="195" Margin="0" Grid.Row="2" VerticalAlignment="Center" Width="1270">
+        <Grid x:Name="_menuGrid" HorizontalAlignment="Center" Height="195" Margin="0" Grid.Row="2" VerticalAlignment="Center" Width="1270">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
