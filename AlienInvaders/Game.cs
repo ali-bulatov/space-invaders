@@ -185,7 +185,7 @@ namespace AlienInvaders
                 {
                     if (alienCell != null)
                     {
-                        //TODO: FIX.
+                        //TODO: TALK TO PARTNER.
                         //isHittingEdgeRow.Add(alienCell.MoveHorizontal());
                     }
 
@@ -219,6 +219,7 @@ namespace AlienInvaders
         public void Save()
         {
             //Save the list of objects into the file.
+
         }
     }
 }
