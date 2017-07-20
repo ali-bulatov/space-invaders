@@ -18,9 +18,9 @@
         <TextBlock HorizontalAlignment="Left" Margin="113,114,0,0" TextWrapping="Wrap" Text="Seach for Players: " VerticalAlignment="Top" FontSize="20"/>
         <TextBox x:Name="txtSearchPlayer" HorizontalAlignment="Left" Margin="272,114,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="185"/>
         <Button x:Name="btnEditPlayerName" Content="Edit Player Name" HorizontalAlignment="Left" Margin="139,655,0,0" VerticalAlignment="Top" Width="140"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="1154,545,0,0" VerticalAlignment="Top"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="1002,594,0,0" VerticalAlignment="Top"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="1105,594,0,0" VerticalAlignment="Top"/>
+        <Button Content="Submit" HorizontalAlignment="Left" Margin="1154,545,0,0" VerticalAlignment="Top"/>
+        <Button Content="Play Again" HorizontalAlignment="Left" Margin="1002,594,0,0" VerticalAlignment="Top"/>
+        <Button Content="Exit" HorizontalAlignment="Left" Margin="1105,594,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Margin="946,545,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="185"/>
         <TextBlock HorizontalAlignment="Left" Margin="991,493,0,0" TextWrapping="Wrap" Text="Enter your name:" VerticalAlignment="Top" Height="28" Width="204" FontSize="20"/>
         <Border HorizontalAlignment="Left" Height="215" Margin="968,190,0,0" VerticalAlignment="Top" Width="215" BorderBrush="Black" BorderThickness="2" CornerRadius="2">
