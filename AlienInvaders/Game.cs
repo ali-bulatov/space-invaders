@@ -83,6 +83,10 @@ namespace AlienInvaders
             {
                 return _time;
             }
+            set
+            {
+                _time = value;
+            }
         }
 
         public byte Round
@@ -117,8 +121,11 @@ namespace AlienInvaders
             //Add the aliens to the list and position them for all aliens.
 
             //Otherwise, simply load in the aliens and set their position.
-
-            
+            for (int alienRowCount = 0; alienRowCount < 5; alienRowCount++)
+            {
+                _alienList.Add(new List<Alien>());
+            }
+            //TODO: TALK TO PARTNER ABOUT CHANGING ALIEN POSITION.
             //Give three random aliens a bullet from the list to start.
             for (int alienCount = 0; alienCount < 3; alienCount++)
             {
@@ -143,10 +150,9 @@ namespace AlienInvaders
 
         public void ResetRound()
         {
-            //Check to see if the player has enough lives.
-            //If so, set the player position by calling the move method.
-            //Decrement the number of lives.
-            //Otherwise, call the End() method.
+            //Add the aliens to the list once again.
+            //Spawn the four shields with full armor.
+
         }
 
         public void IncreaseSpeed()
@@ -157,9 +163,13 @@ namespace AlienInvaders
         public void DespawnAliens(int alienRow, int alienColumn)
         {
             //Pop the alien object out of the list.
+            Alien selectedAlien = _alienList[alienRow][alienColumn];
             //Move the alien offscreen.
+            //TODO: IMPLEMENT MOVING METHOD.
             //Set the alien visibility to false.
+            //TODO: IMPLEMENT.
             //Add a null refernce to the list.
+            _alienList[alienRow][alienColumn] = null;
             //Destroy the Alien Object.
 
         }
@@ -209,7 +219,6 @@ namespace AlienInvaders
         public void Save()
         {
             //Save the list of objects into the file.
-            //Navigate back to the MainPage.
         }
     }
 }

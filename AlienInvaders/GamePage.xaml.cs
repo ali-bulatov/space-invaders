@@ -45,7 +45,7 @@ namespace AlienInvaders
             //TODO: MUST CHANGE VALUES FOR TIMER.
             _playerMoveTimer = new DispatcherTimer();
             _playerMoveTimer.Tick += OnPlayerMoveTimerTick;
-            _playerMoveTimer.Interval = TimeSpan.FromMilliseconds(100);
+            _playerMoveTimer.Interval = TimeSpan.FromMilliseconds(0.25);
 
             _alienMoveTimer = new DispatcherTimer();
             _alienMoveTimer.Tick += OnAlienMoveTimerTick;
@@ -72,11 +72,24 @@ namespace AlienInvaders
 
             //TODO: REMOVE. THIS IS FOR TESTING PURPOSES.
             _game = new Game(GameDifficulty.Beginner, Color.Green, 1, _imgPlayer);
+            _game.Play();
+            _alienMoveTimer.Start();
+            _clockTimer.Start();
         }
 
         private void OnClockTimerTick(object sender, object e)
         {
-            throw new NotImplementedException();
+            _game.Time += 1;
+            int seconds = _game.Time % 60;
+            int minutes = _game.Time / 60;
+            if (seconds < 10)
+            {
+                _txtTime.Text = $"Time: {minutes}:0{seconds}";
+            }
+            else
+            {
+                _txtTime.Text = $"Time: {minutes}:{seconds}";
+            }
         }
 
         private void OnEnemyBulletMoveTimerTick(object sender, object e)
@@ -86,7 +99,7 @@ namespace AlienInvaders
 
         private void OnShipMoveTimerTick(object sender, object e)
         {
-            throw new NotImplementedException();
+
         }
 
         private void OnBulletMoveTimerTick(object sender, object e)
@@ -112,6 +125,18 @@ namespace AlienInvaders
                 if (_game.Player.Direction == Direction.Right)
                 {
                     _game.Player.Direction = Direction.Left;
+                    _playerMoveTimer.Start();
+                }
+                else
+                {
+                    _playerMoveTimer.Start();
+                }
+            }
+            else
+            {
+                if (_game.Player.Direction == Direction.Left)
+                {
+                    _game.Player.Direction = Direction.Right;
                     _playerMoveTimer.Start();
                 }
                 else
@@ -146,5 +171,14 @@ namespace AlienInvaders
             }
             
         }
+
+        private void OnSaveClicked(object sender, RoutedEventArgs e)
+        {
+            //TODO: IMPLEMENT SAVING FUNCTIONALITY.
+            //Call the save method of the Game.
+            //Navigate Back to MainPage.
+            this.Frame.GoBack();
+        }
+
     }
 }

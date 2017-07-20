@@ -75,11 +75,11 @@ namespace AlienInvaders
             if (_direction == Direction.Left)
             {
                 //Check to see if the player will be able to have the space on the screen to move or not.
-                if (Canvas.GetLeft(_uiPlayer) - 20 > 0)
+                if (Canvas.GetLeft(_uiPlayer) - 2 > 0)
                 {
                     //If so, move the player.
                     double location = Canvas.GetLeft(_uiPlayer);
-                    location -= 20;
+                    location -= 2;
                     Canvas.SetLeft(_uiPlayer, location);
                 }
                 else
@@ -90,17 +90,17 @@ namespace AlienInvaders
             else
             {
                 //Check to see if the player will be able to have the space on the screen to move or not.
-                if ((Canvas.GetLeft(_uiPlayer) + _uiPlayer.Width) - 20 > 0)
+                if (Canvas.GetLeft(_uiPlayer) + 2 < 720)
                 {
                     //If so, move the player.
                     double location = Canvas.GetLeft(_uiPlayer);
-                    location += 20;
+                    location += 2;
                     Canvas.SetLeft(_uiPlayer, location);
                 }
                 else
                 {
                     //TODO: USE ACTUALWIDTH INSTEAD.
-                    Canvas.SetLeft(_uiPlayer, (720 -_uiPlayer.Width));
+                    Canvas.SetLeft(_uiPlayer, (720));
                 }
             }
 
@@ -120,12 +120,14 @@ namespace AlienInvaders
         public void OnDeath()
         {
             _uiPlayer.Visibility = Visibility.Collapsed;
+            //TODO: ADD MORE FUNCTIONALITY.
         }
 
         public void Respawn()
         {
             _uiPlayer.Visibility = Visibility.Visible;
             _lives -= 1;
+            //TODO: ADD MORE FUNCTIONALITY.
         }
 
         public void SetImage(Color color, byte type)
