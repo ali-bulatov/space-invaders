@@ -8,5 +8,21 @@ namespace AlienInvaders
 {
     class Bullet
     {
+
+        public void DrawBullet()
+        {
+
+        }
+
+        public void ResetPosition()
+        {
+
+        }
+
+        public void Collide()
+        {
+
+        }
+
     }
 }
