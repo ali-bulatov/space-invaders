@@ -109,6 +109,22 @@ namespace AlienInvaders
             }
         }
 
+        public Random Randomizer
+        {
+            get
+            {
+                return _randomizer;
+            }
+        }
+
+        public MotherShip MotherShip
+        {
+            get
+            {
+                return _motherShip;
+            }
+        }
+
         public void Play()
         {
             //Check to see if there is an existing game going on.
@@ -150,9 +166,23 @@ namespace AlienInvaders
 
         public void ResetRound()
         {
-            //Add the aliens to the list once again.
-            //Spawn the four shields with full armor.
+            _alienList = new List<List<Alien>>();
+            for (int alienRowCount = 0; alienRowCount < 5; alienRowCount++)
+            {
+                _alienList.Add(new List<Alien>());
+            }
+            //TODO: TALK TO PARTNER ABOUT CHANGING ALIEN POSITION.
+            //Give three random aliens a bullet from the list to start.
+            for (int alienCount = 0; alienCount < 3; alienCount++)
+            {
+                _bulletList.Add(new EnemyBullet());
+                int randRow = _randomizer.Next(0, 4);
+                int randCol = _randomizer.Next(0, 11);
+                //TODO: Make the _enemyBullet available.
+                //_alienList[randRow][randCol]._enemyBullet = _bulletList[alienCount];
+            }
 
+            _player.Reset();
         }
 
         public void IncreaseSpeed()
@@ -165,33 +195,42 @@ namespace AlienInvaders
             //Pop the alien object out of the list.
             Alien selectedAlien = _alienList[alienRow][alienColumn];
             //Move the alien offscreen.
-            //TODO: IMPLEMENT MOVING METHOD.
+            //Canvas.SetLeft(selectedAlien._imgAlien, 0);
+            //Canvas.SetTop(selectedAlien._imgAlien, 0);
             //Set the alien visibility to false.
+            //selectedAlien._imgAlien.Visibility = Visibility.Collapsed;
             //TODO: IMPLEMENT.
             //Add a null refernce to the list.
             _alienList[alienRow][alienColumn] = null;
             //Destroy the Alien Object.
+            foreach (List<Alien> alienRowNum in _alienList)
+            {
+                foreach (Alien alien in alienRowNum)
+                {
+                    if (alien != null)
+                    {
+                        return;
+                    }
 
+                }
+            }
+            ResetRound();
         }
 
         public void ShiftAliens()
         {
-            //TODO: FIX THIS METHOD.
-            List<List<bool>> isHittingEdge = new List<List<bool>>();
             foreach (List<Alien> alienRow in _alienList)
             {
-                List<bool> isHittingEdgeRow = new List<bool>();
                 foreach (Alien alienCell in alienRow)
                 {
                     if (alienCell != null)
                     {
-                        //TODO: TALK TO PARTNER.
-                        //isHittingEdgeRow.Add(alienCell.MoveHorizontal());
+                        //bool isHittingEdge = alienCell.MoveHorizontal();
                     }
 
                 }
-                isHittingEdge.Add(isHittingEdgeRow);
             }
+
             foreach (List<Alien> alienRow in _alienList)
             {
                 foreach (Alien alienCell in alienRow)
@@ -213,7 +252,7 @@ namespace AlienInvaders
 
         public void Pause()
         {
-
+            _player.CanMove = false;
         }
 
         public void Save()
@@ -221,5 +260,22 @@ namespace AlienInvaders
             //Save the list of objects into the file.
 
         }
+
+        public int CountAliens()
+        {
+            int count = 0;
+            foreach(List<Alien> alienRow in _alienList)
+            {
+                foreach(Alien alien in alienRow)
+                {
+                    if (alien != null)
+                    {
+                        count += 1;
+                    }
+                }
+            }
+            return count;
+        }
+
     }
 }
