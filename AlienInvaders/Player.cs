@@ -42,6 +42,8 @@ namespace AlienInvaders
 
         private Image _uiPlayer;
 
+        private bool _canMove;
+
         public Player(Byte lives, Color color, byte type, Image uiPlayer)
         {
             //Set the position of the player.
@@ -54,7 +56,10 @@ namespace AlienInvaders
             _type = type;
             _direction = Direction.Left;
             _uiPlayer = uiPlayer;
+            _position = 0;
+            _canMove = true;
             SetImage(color, type);
+            
         }
 
         public Direction Direction
@@ -69,41 +74,59 @@ namespace AlienInvaders
             }
         }
 
+        public bool CanMove
+        {
+            get
+            {
+                return _canMove;
+            }
+            set
+            {
+                _canMove = value;
+            }
+        }
+
         public void Move()
         {
-            //Check to see which direction the player is currently facing.
-            if (_direction == Direction.Left)
+            if (_canMove)
             {
-                //Check to see if the player will be able to have the space on the screen to move or not.
-                if (Canvas.GetLeft(_uiPlayer) - 20 > 0)
+                //Check to see which direction the player is currently facing.
+                if (_direction == Direction.Left)
                 {
-                    //If so, move the player.
-                    double location = Canvas.GetLeft(_uiPlayer);
-                    location -= 20;
-                    Canvas.SetLeft(_uiPlayer, location);
+                    //Check to see if the player will be able to have the space on the screen to move or not.
+                    if (_position - 2 > 0)
+                    {
+                        //If so, move the player.
+                        double location = Canvas.GetLeft(_uiPlayer);
+                        location -= 2;
+                        Canvas.SetLeft(_uiPlayer, location);
+                        _position -= 2;
+                    }
+                    else
+                    {
+                        Canvas.SetLeft(_uiPlayer, 0);
+                        _position = 0;
+                    }
                 }
                 else
                 {
-                    Canvas.SetLeft(_uiPlayer, 0);
+                    //Check to see if the player will be able to have the space on the screen to move or not.
+                    if (_position + 2 < 720)
+                    {
+                        //If so, move the player.
+                        double location = Canvas.GetLeft(_uiPlayer);
+                        location += 2;
+                        Canvas.SetLeft(_uiPlayer, location);
+                        _position += 2;
+                    }
+                    else
+                    {
+                        //TODO: USE ACTUALWIDTH INSTEAD.
+                        Canvas.SetLeft(_uiPlayer, 720);
+                        _position = 720;
+                    }
                 }
             }
-            else
-            {
-                //Check to see if the player will be able to have the space on the screen to move or not.
-                if ((Canvas.GetLeft(_uiPlayer) + _uiPlayer.Width) - 20 > 0)
-                {
-                    //If so, move the player.
-                    double location = Canvas.GetLeft(_uiPlayer);
-                    location += 20;
-                    Canvas.SetLeft(_uiPlayer, location);
-                }
-                else
-                {
-                    //TODO: USE ACTUALWIDTH INSTEAD.
-                    Canvas.SetLeft(_uiPlayer, (720 -_uiPlayer.Width));
-                }
-            }
-
 
             // Else if space the player is going to move is not enough but has some space remaining between it and the edge.
             // Move the player to the end of the screen.
@@ -120,12 +143,14 @@ namespace AlienInvaders
         public void OnDeath()
         {
             _uiPlayer.Visibility = Visibility.Collapsed;
+            //TODO: ADD MORE FUNCTIONALITY.
         }
 
         public void Respawn()
         {
             _uiPlayer.Visibility = Visibility.Visible;
             _lives -= 1;
+            //TODO: ADD MORE FUNCTIONALITY.
         }
 
         public void SetImage(Color color, byte type)
@@ -137,6 +162,12 @@ namespace AlienInvaders
             //set the image of the player to the image in the list.
             //_uiPlayer = List<List<Image>>[(int)color][type];
 
+        }
+
+        public void Reset()
+        {
+            Canvas.SetLeft(_uiPlayer, 0);
+            _position = 0;
         }
     }
 }

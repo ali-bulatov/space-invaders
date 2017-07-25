@@ -1,0 +1,33 @@
+﻿<Page
+    x:Class="AlienInvaders.HighScore"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AlienInvaders"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBlock HorizontalAlignment="Center" Margin="452,9,433,623" TextWrapping="Wrap" Text="Game Over" VerticalAlignment="Center" Height="88" Width="395" FontSize="72" FontStyle="Italic" FontWeight="Bold" FontFamily="Comic Sans MS"/>
+        <Border HorizontalAlignment="Left" Height="487" Margin="113,155,0,0" VerticalAlignment="Top" Width="757" BorderBrush="Black" BorderThickness="2" CornerRadius="2" >
+            <Canvas Background="WhiteSmoke">
+                <TextBlock Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="35" FontSize="20"/>
+            </Canvas>
+
+        </Border>
+        <TextBlock HorizontalAlignment="Left" Margin="113,114,0,0" TextWrapping="Wrap" Text="Seach for Players: " VerticalAlignment="Top" FontSize="20"/>
+        <TextBox x:Name="txtSearchPlayer" HorizontalAlignment="Left" Margin="272,114,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="185"/>
+        <Button x:Name="btnEditPlayerName" Content="Edit Player Name" HorizontalAlignment="Left" Margin="139,655,0,0" VerticalAlignment="Top" Width="140"/>
+        <Button Content="Submit" HorizontalAlignment="Left" Margin="1154,545,0,0" VerticalAlignment="Top"/>
+        <Button Content="Play Again" HorizontalAlignment="Left" Margin="1002,594,0,0" VerticalAlignment="Top"/>
+        <Button Content="Exit" HorizontalAlignment="Left" Margin="1105,594,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="946,545,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="185"/>
+        <TextBlock HorizontalAlignment="Left" Margin="991,493,0,0" TextWrapping="Wrap" Text="Enter your name:" VerticalAlignment="Top" Height="28" Width="204" FontSize="20"/>
+        <Border HorizontalAlignment="Left" Height="215" Margin="968,190,0,0" VerticalAlignment="Top" Width="215" BorderBrush="Black" BorderThickness="2" CornerRadius="2">
+            <Image/>
+
+        </Border>
+        <ComboBox HorizontalAlignment="Left" Margin="968,425,0,0" VerticalAlignment="Top" Width="215"/>
+
+    </Grid>
+</Page>

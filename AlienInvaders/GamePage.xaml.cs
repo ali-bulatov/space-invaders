@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -45,7 +46,7 @@ namespace AlienInvaders
             //TODO: MUST CHANGE VALUES FOR TIMER.
             _playerMoveTimer = new DispatcherTimer();
             _playerMoveTimer.Tick += OnPlayerMoveTimerTick;
-            _playerMoveTimer.Interval = TimeSpan.FromMilliseconds(100);
+            _playerMoveTimer.Interval = TimeSpan.FromMilliseconds(0.25);
 
             _alienMoveTimer = new DispatcherTimer();
             _alienMoveTimer.Tick += OnAlienMoveTimerTick;
@@ -72,31 +73,69 @@ namespace AlienInvaders
 
             //TODO: REMOVE. THIS IS FOR TESTING PURPOSES.
             _game = new Game(GameDifficulty.Beginner, Color.Green, 1, _imgPlayer);
+            _game.Play();
+            _alienMoveTimer.Start();
+            _clockTimer.Start();
         }
 
         private void OnClockTimerTick(object sender, object e)
         {
-            throw new NotImplementedException();
+            _game.Time += 1;
+            int seconds = _game.Time % 60;
+            int minutes = _game.Time / 60;
+            if (seconds < 10)
+            {
+                _txtTime.Text = $"Time: {minutes}:0{seconds}";
+            }
+            else
+            {
+                _txtTime.Text = $"Time: {minutes}:{seconds}";
+            }
+
+            if (_shipMoveTimer.IsEnabled == false)
+            {
+                int spawnNum = _game.Randomizer.Next(1, 25);
+                if (spawnNum == 25)
+                {
+                    _shipMoveTimer.Start();
+                }
+            }
+
         }
 
         private void OnEnemyBulletMoveTimerTick(object sender, object e)
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnShipMoveTimerTick(object sender, object e)
         {
-            throw new NotImplementedException();
+            //Move the mothership.
+            _game.MotherShip.Fly();
+            //Check to see if the mothership hit the wall.
+            //Set the visibility of the mothership to false.
+            //Reset the position of the mothership.
+            _game.MotherShip.ResetLocation();
+            //Stop the timer.
+            _shipMoveTimer.Stop();
         }
 
         private void OnBulletMoveTimerTick(object sender, object e)
         {
-            throw new NotImplementedException();
+
         }
 
         private void OnAlienMoveTimerTick(object sender, object e)
         {
-            //TODO: IMPLEMENT.
+            _game.ShiftAliens();
+            int count = _game.CountAliens();
+            //Check to see if there are half the number of aliens remaining.
+            //Increase the speed of the alien movement.
+            //Check to see if there are 1/5 number of aliens left.
+            //Increas the speed of hte aliens.
+            //Check to see if there is 1 alien left.
+            //Increase the speed of the alien.
+
         }
 
         private void OnPlayerMoveTimerTick(object sender, object e)
@@ -119,13 +158,25 @@ namespace AlienInvaders
                     _playerMoveTimer.Start();
                 }
             }
+            else
+            {
+                if (_game.Player.Direction == Direction.Left)
+                {
+                    _game.Player.Direction = Direction.Right;
+                    _playerMoveTimer.Start();
+                }
+                else
+                {
+                    _playerMoveTimer.Start();
+                }
+            }
         }
 
         private void OnFireClicked(object sender, RoutedEventArgs e)
         {
 
         }
-
+        
         private void OnPauseClicked(object sender, RoutedEventArgs e)
         {
             if (_btnPause.Content == "Pause")
@@ -135,6 +186,7 @@ namespace AlienInvaders
                 _clockTimer.Stop();
                 _shipMoveTimer.Stop();
                 _btnSave.Visibility = Visibility.Visible;
+                _game.Pause();
             }
             else
             {
@@ -145,6 +197,70 @@ namespace AlienInvaders
                 _btnSave.Visibility = Visibility.Collapsed;
             }
             
+        }
+
+        private void OnSaveClicked(object sender, RoutedEventArgs e)
+        {
+            //TODO: IMPLEMENT SAVING FUNCTIONALITY.
+            //Call the save method of the Game.
+            //Navigate Back to MainPage.
+            this.Frame.GoBack();
+        }
+
+        private void OnKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            switch(e.Key)
+            {
+                case (Windows.System.VirtualKey.Right):
+                    if (_game.Player.Direction == Direction.Left)
+                    {
+                        _game.Player.Direction = Direction.Right;
+                        _playerMoveTimer.Start();
+                    }
+                    else
+                    {
+                        _playerMoveTimer.Start();
+                    }
+                    break;
+
+                case (Windows.System.VirtualKey.Left):
+                    if (_game.Player.Direction == Direction.Right)
+                    {
+                        _game.Player.Direction = Direction.Left;
+                        _playerMoveTimer.Start();
+                    }
+                    else
+                    {
+                        _playerMoveTimer.Start();
+                    }
+                    break;
+
+                case (Windows.System.VirtualKey.Space):
+                    //_game._player.OnShoot();
+                    break;
+                
+                default:
+                    //Do nothing.
+                    break;
+            }
+        }
+
+        private void OnKeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case (Windows.System.VirtualKey.Right):
+                    _playerMoveTimer.Stop();
+                    break;
+
+                case (Windows.System.VirtualKey.Left):
+                    _playerMoveTimer.Stop();
+                    break;
+
+                default:
+                    //Do nothing.
+                    break;
+            }
         }
     }
 }
