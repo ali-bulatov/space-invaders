@@ -12,16 +12,31 @@
         <Border HorizontalAlignment="Left" Height="487" Margin="113,155,0,0" VerticalAlignment="Top" Width="757" BorderBrush="Black" BorderThickness="2" CornerRadius="2" >
             <Canvas Background="WhiteSmoke">
                 <TextBlock Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="35" FontSize="20"/>
+                <TextBlock x:Name="txt1" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="67" FontSize="20"/>
+                <TextBlock x:Name="txt2" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="94" FontSize="20"/>
+                <TextBlock x:Name="txt3" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="121" FontSize="20"/>
+                <TextBlock x:Name="txt4" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="148" FontSize="20"/>
+                <TextBlock x:Name="txt5" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="175" FontSize="20"/>
+                <TextBlock x:Name="txt6" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="202" FontSize="20"/>
+                <TextBlock x:Name="txt7" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="229" FontSize="20"/>
+                <TextBlock x:Name="txt8" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="256" FontSize="20"/>
+                <TextBlock x:Name="txt9" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="283" FontSize="20"/>
+                <TextBlock x:Name="txt10" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="310" FontSize="20"/>
+                <TextBlock x:Name="txt11" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="337" FontSize="20"/>
+                <TextBlock x:Name="txt12" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="364" FontSize="20"/>
+                <TextBlock x:Name="txt13" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="391" FontSize="20"/>
+                <TextBlock x:Name="txt14" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="418" FontSize="20"/>
+                <TextBlock x:Name="txt15" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="445" FontSize="20"/>
             </Canvas>
 
         </Border>
         <TextBlock HorizontalAlignment="Left" Margin="113,114,0,0" TextWrapping="Wrap" Text="Seach for Players: " VerticalAlignment="Top" FontSize="20"/>
         <TextBox x:Name="txtSearchPlayer" HorizontalAlignment="Left" Margin="272,114,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="185"/>
         <Button x:Name="btnEditPlayerName" Content="Edit Player Name" HorizontalAlignment="Left" Margin="139,655,0,0" VerticalAlignment="Top" Width="140"/>
-        <Button Content="Submit" HorizontalAlignment="Left" Margin="1154,545,0,0" VerticalAlignment="Top"/>
-        <Button Content="Play Again" HorizontalAlignment="Left" Margin="1002,594,0,0" VerticalAlignment="Top"/>
-        <Button Content="Exit" HorizontalAlignment="Left" Margin="1105,594,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="946,545,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="185"/>
+        <Button x:Name="btnSubmit" Content="Submit" HorizontalAlignment="Left" Margin="1154,545,0,0" VerticalAlignment="Top" Click="OnSubmitClicked"/>
+        <Button x:Name="btnPlayAgain" Content="Play Again" HorizontalAlignment="Left" Margin="1002,594,0,0" VerticalAlignment="Top" Click="OnPlayAgainClicked"/>
+        <Button x:Name="btnExit" Content="Exit" HorizontalAlignment="Left" Margin="1105,594,0,0" VerticalAlignment="Top" Click="OnExitClicked"/>
+        <TextBox x:Name="txtPlayerName" HorizontalAlignment="Left" Margin="946,545,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="185"/>
         <TextBlock HorizontalAlignment="Left" Margin="991,493,0,0" TextWrapping="Wrap" Text="Enter your name:" VerticalAlignment="Top" Height="28" Width="204" FontSize="20"/>
         <Border HorizontalAlignment="Left" Height="215" Margin="968,190,0,0" VerticalAlignment="Top" Width="215" BorderBrush="Black" BorderThickness="2" CornerRadius="2">
             <Image/>
