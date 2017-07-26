@@ -43,6 +43,7 @@
 
         </Border>
         <ComboBox HorizontalAlignment="Left" Margin="968,425,0,0" VerticalAlignment="Top" Width="215"/>
+        <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Left" Margin="470,114,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>

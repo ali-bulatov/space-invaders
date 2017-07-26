@@ -70,6 +70,14 @@ namespace AlienInvaders
             }
         }
 
+        public Bullet Bullet
+        {
+            get
+            {
+                return _bullet;
+            }
+        }
+
         public void Move()
         {
             //Check to see which direction the player is currently facing.
