@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid KeyDown="OnKeyDown" KeyUp="OnKeyUp">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FF43087C" Offset="0"/>
@@ -25,7 +25,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Canvas x:Name="_cnvBattleground" Grid.Column="1" Grid.RowSpan="2" Background="Black">
-            <Image x:Name="_imgPlayer" Height="34" Canvas.Top="604" Width="44" Source="Assets/SpG1.png" Stretch="Fill" Canvas.Left="300"/>
+            <Image x:Name="_imgPlayer" Height="34" Canvas.Top="604" Width="44" Source="Assets/SpG1.png" Stretch="Fill"/>
             <Image x:Name="_imgAlien" Height="50" Canvas.Left="80" Canvas.Top="28" Width="50" Source="Assets/Alien1.png" Stretch="Fill"/>
             <Image x:Name="_imgAlien1" Height="50" Canvas.Left="135" Canvas.Top="28" Width="50" Source="Assets/Alien1.png" Stretch="Fill"/>
             <Image x:Name="_imgAlien2" Height="50" Canvas.Left="190" Canvas.Top="28" Width="50" Source="Assets/Alien1.png" Stretch="Fill"/>
@@ -127,7 +127,7 @@
 
         </Border>
         <Border Grid.Column="1" HorizontalAlignment="Left" Margin="80,0,0,0" Grid.Row="2" VerticalAlignment="Stretch" Width="80" Height="72">
-            <Button x:Name="_btnRight" Content="-&gt;" FontSize="36" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="OnMoveClicked">
+            <Button x:Name="_btnRight" Content="-&gt;" FontSize="36" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="OnMoveClicked" KeyDown="OnKeyDown">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black" Offset="0"/>
@@ -154,10 +154,10 @@
             </Button>
 
         </Border>
-        <Image x:Name="_imgBullet" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="15,505,0,0" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="Assets/Bullet.png"/>
-        <Image x:Name="_imgEnemyBullet" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="182,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="Assets/EnemyBullet.png"/>
-        <Image x:Name="_imgEnemyBullet1" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="347,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="Assets/EnemyBullet.png"/>
-        <Image x:Name="_imgEnemyBullet2" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="530,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="Assets/EnemyBullet.png"/>
+        <Image x:Name="_imgBullet" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="15,505,0,0" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="Assets/Bullet.png" Visibility="Collapsed"/>
+        <Image x:Name="_imgEnemyBullet" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="182,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="Assets/EnemyBullet.png" Visibility="Collapsed"/>
+        <Image x:Name="_imgEnemyBullet1" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="347,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="Assets/EnemyBullet.png" Visibility="Collapsed"/>
+        <Image x:Name="_imgEnemyBullet2" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="530,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="Assets/EnemyBullet.png" Visibility="Collapsed"/>
         <Button x:Name="_btnSave" Content="Save" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Stretch" Width="160" Margin="320,0,0,0" FontSize="36" Foreground="White" Visibility="Collapsed" Click="OnSaveClicked">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

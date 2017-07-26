@@ -54,6 +54,7 @@ namespace AlienInvaders
             _type = type;
             _direction = Direction.Left;
             _uiPlayer = uiPlayer;
+            _position = 0;
             SetImage(color, type);
         }
 
@@ -75,32 +76,36 @@ namespace AlienInvaders
             if (_direction == Direction.Left)
             {
                 //Check to see if the player will be able to have the space on the screen to move or not.
-                if (Canvas.GetLeft(_uiPlayer) - 2 > 0)
+                if (_position - 2 > 0)
                 {
                     //If so, move the player.
                     double location = Canvas.GetLeft(_uiPlayer);
                     location -= 2;
                     Canvas.SetLeft(_uiPlayer, location);
+                    _position -= 2;
                 }
                 else
                 {
                     Canvas.SetLeft(_uiPlayer, 0);
+                    _position = 0;
                 }
             }
             else
             {
                 //Check to see if the player will be able to have the space on the screen to move or not.
-                if (Canvas.GetLeft(_uiPlayer) + 2 < 720)
+                if (_position + 2 < 720)
                 {
                     //If so, move the player.
                     double location = Canvas.GetLeft(_uiPlayer);
                     location += 2;
                     Canvas.SetLeft(_uiPlayer, location);
+                    _position += 2;
                 }
                 else
                 {
                     //TODO: USE ACTUALWIDTH INSTEAD.
-                    Canvas.SetLeft(_uiPlayer, (720));
+                    Canvas.SetLeft(_uiPlayer, 720);
+                    _position = 720;
                 }
             }
 

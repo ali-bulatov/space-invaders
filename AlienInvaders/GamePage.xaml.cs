@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -180,5 +181,60 @@ namespace AlienInvaders
             this.Frame.GoBack();
         }
 
+        private void OnKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            switch(e.Key)
+            {
+                case (Windows.System.VirtualKey.Right):
+                    if (_game.Player.Direction == Direction.Left)
+                    {
+                        _game.Player.Direction = Direction.Right;
+                        _playerMoveTimer.Start();
+                    }
+                    else
+                    {
+                        _playerMoveTimer.Start();
+                    }
+                    break;
+
+                case (Windows.System.VirtualKey.Left):
+                    if (_game.Player.Direction == Direction.Right)
+                    {
+                        _game.Player.Direction = Direction.Left;
+                        _playerMoveTimer.Start();
+                    }
+                    else
+                    {
+                        _playerMoveTimer.Start();
+                    }
+                    break;
+
+                case (Windows.System.VirtualKey.Space):
+                    _game._player._bullet.DrawBullet();
+                    break;
+                
+                default:
+                    //Do nothing.
+                    break;
+            }
+        }
+
+        private void OnKeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case (Windows.System.VirtualKey.Right):
+                    _playerMoveTimer.Stop();
+                    break;
+
+                case (Windows.System.VirtualKey.Left):
+                    _playerMoveTimer.Stop();
+                    break;
+
+                default:
+                    //Do nothing.
+                    break;
+            }
+        }
     }
 }
