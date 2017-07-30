@@ -241,7 +241,7 @@ namespace AlienInvaders
                     break;
 
                 case (Windows.System.VirtualKey.Space):
-                    //_game._player.OnShoot();
+                    _game.Player.Bullet.DrawBullet();
                     break;
                 
                 default:

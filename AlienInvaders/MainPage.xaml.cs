@@ -43,7 +43,7 @@ namespace AlienInvaders
 
         private void OnScoreButtonClicked(object sender, RoutedEventArgs e)
         {
-
+            this.Frame.Navigate(typeof(HighScore));
         }
 
         private void OnCreditsButtonClicked(object sender, RoutedEventArgs e)
