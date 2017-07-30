@@ -209,6 +209,7 @@ namespace AlienInvaders
             //TODO: IMPLEMENT SAVING FUNCTIONALITY.
             //Call the save method of the Game.
             //Navigate Back to MainPage.
+            _game.Save()''
             this.Frame.GoBack();
         }
 
