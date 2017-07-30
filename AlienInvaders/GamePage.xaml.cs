@@ -72,7 +72,8 @@ namespace AlienInvaders
             _arcadeMachine = new ArcadeMachine();
 
             //TODO: REMOVE. THIS IS FOR TESTING PURPOSES.
-            _game = new Game(GameDifficulty.Beginner, Color.Green, 1, _imgPlayer);
+            List<Image> imageList = new List<Image> { _imgAlien, _imgAlien1, _imgAlien2, _imgAlien3, _imgAlien4, _imgAlien5, _imgAlien6, _imgAlien7, _imgAlien8, _imgAlien9, _imgAlien10, _imgAlien11, _imgAlien12, _imgAlien13, _imgAlien14, _imgAlien15, _imgAlien16, _imgAlien17, _imgAlien18, _imgAlien19, _imgAlien20, _imgAlien21, _imgAlien22, _imgAlien23, _imgAlien24, _imgAlien25, _imgAlien26, _imgAlien27, _imgAlien28, _imgAlien29, _imgAlien30, _imgAlien31, _imgAlien32, _imgAlien33, _imgAlien34, _imgAlien35, _imgAlien36, _imgAlien37, _imgAlien38, _imgAlien39, _imgAlien40, _imgAlien41, _imgAlien42, _imgAlien43, _imgAlien44, _imgAlien45, _imgAlien46, _imgAlien47, _imgAlien48, _imgAlien49, _imgAlien50, _imgAlien51, _imgAlien52, _imgAlien53, _imgAlien54 };
+            _game = new Game(GameDifficulty.Beginner, Color.Green, 1, _imgPlayer, imageList);
             _game.Play();
             _alienMoveTimer.Start();
             _clockTimer.Start();
@@ -110,12 +111,13 @@ namespace AlienInvaders
 
         private void OnShipMoveTimerTick(object sender, object e)
         {
-            //Move the mothership.
+            //Move the mothership
+            _imgMotherShip.Visibility = Visibility.Visible;
             _game.MotherShip.Fly();
             //Check to see if the mothership hit the wall.
             //Set the visibility of the mothership to false.
             //Reset the position of the mothership.
-            _game.MotherShip.ResetLocation();
+            //_game.MotherShip.ResetLocation();
             //Stop the timer.
             _shipMoveTimer.Stop();
         }
@@ -128,7 +130,7 @@ namespace AlienInvaders
         private void OnAlienMoveTimerTick(object sender, object e)
         {
             _game.ShiftAliens();
-            int count = _game.CountAliens();
+            //Count the number of aliens in the list.
             //Check to see if there are half the number of aliens remaining.
             //Increase the speed of the alien movement.
             //Check to see if there are 1/5 number of aliens left.
@@ -143,6 +145,7 @@ namespace AlienInvaders
             _game.Player.Move();
         }
 
+        
         private void OnMoveClicked(object sender, RoutedEventArgs e)
         {
             if (sender == _btnLeft)
@@ -171,7 +174,7 @@ namespace AlienInvaders
                 }
             }
         }
-
+        
         private void OnFireClicked(object sender, RoutedEventArgs e)
         {
 
@@ -179,6 +182,7 @@ namespace AlienInvaders
         
         private void OnPauseClicked(object sender, RoutedEventArgs e)
         {
+            //TODO: FIX THIS.
             if (_btnPause.Content == "Pause")
             {
                 _btnPause.Content = "Resume";
@@ -195,6 +199,7 @@ namespace AlienInvaders
                 _clockTimer.Start();
                 _shipMoveTimer.Start();
                 _btnSave.Visibility = Visibility.Collapsed;
+                _game.Pause();
             }
             
         }

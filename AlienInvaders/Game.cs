@@ -32,7 +32,7 @@ namespace AlienInvaders
 
         private List<EnemyBullet> _bulletList;
 
-        private List<List<Alien>> _alienList;
+        private List<Alien> _alienList;
 
         private MotherShip _motherShip;
 
@@ -44,13 +44,15 @@ namespace AlienInvaders
 
         private byte _imageOption;
 
+        private List<Image> _alienImageList;
+
         /// <summary>
         /// Represents the constructor of the game that is being played.
         /// </summary>
         /// <param name="difficulty">Represents the difficulty of the game.</param>
         /// <param name="colorOption">Represents the color of the player selected as an option.</param>
         /// <param name="imageOption">Represents the image option of the player.</param>
-        public Game(GameDifficulty difficulty, Color colorOption, byte imageOption, Image playerImage)
+        public Game(GameDifficulty difficulty, Color colorOption, byte imageOption, Image playerImage, List<Image> alienImageList)
         {
             //Load the basic assets of the game before playing or resuming.
             _gameScore = 0;
@@ -62,11 +64,12 @@ namespace AlienInvaders
             //Set the player color 
             _player = new Player(3, _colorOption, _imageOption, playerImage);
             _bulletList = new List<EnemyBullet>();
-            _alienList = new List<List<Alien>>();
+            _alienList = new List<Alien>();
             //TODO: FIX WIDTH TO CANVAS.ACTUALWIDTH.
             _motherShip = new MotherShip(720, 0.25);
             _shieldList = new List<Shield>();
             _difficulty = difficulty;
+            _alienImageList = alienImageList;
         }
 
         public int GameScore
@@ -116,7 +119,6 @@ namespace AlienInvaders
                 return _randomizer;
             }
         }
-
         public MotherShip MotherShip
         {
             get
@@ -124,7 +126,7 @@ namespace AlienInvaders
                 return _motherShip;
             }
         }
-
+        
         public void Play()
         {
             //Check to see if there is an existing game going on.
@@ -135,14 +137,13 @@ namespace AlienInvaders
             //Update the Time and Round Number.
             //Set the image of the player to the loaded settings.
             //Add the aliens to the list and position them for all aliens.
-
-            //Otherwise, simply load in the aliens and set their position.
-            for (int alienRowCount = 0; alienRowCount < 5; alienRowCount++)
-            {
-                _alienList.Add(new List<Alien>());
-            }
             //TODO: TALK TO PARTNER ABOUT CHANGING ALIEN POSITION.
+            for (int alienImageIndex = 0; alienImageIndex < _alienImageList.Count; alienImageIndex++)
+            {
+                _alienList.Add(new Alien(0.25, _alienImageList[alienImageIndex]));
+            }
             //Give three random aliens a bullet from the list to start.
+
             for (int alienCount = 0; alienCount < 3; alienCount++)
             {
                 _bulletList.Add(new EnemyBullet());
@@ -166,11 +167,7 @@ namespace AlienInvaders
 
         public void ResetRound()
         {
-            _alienList = new List<List<Alien>>();
-            for (int alienRowCount = 0; alienRowCount < 5; alienRowCount++)
-            {
-                _alienList.Add(new List<Alien>());
-            }
+            _alienList = new List<Alien>();
             //TODO: TALK TO PARTNER ABOUT CHANGING ALIEN POSITION.
             //Give three random aliens a bullet from the list to start.
             for (int alienCount = 0; alienCount < 3; alienCount++)
@@ -190,10 +187,10 @@ namespace AlienInvaders
 
         }
 
-        public void DespawnAliens(int alienRow, int alienColumn)
+        public void DespawnAliens(int alienNum)
         {
             //Pop the alien object out of the list.
-            Alien selectedAlien = _alienList[alienRow][alienColumn];
+            Alien selectedAlien = _alienList[alienNum];
             //Move the alien offscreen.
             //Canvas.SetLeft(selectedAlien._imgAlien, 0);
             //Canvas.SetTop(selectedAlien._imgAlien, 0);
@@ -201,11 +198,9 @@ namespace AlienInvaders
             //selectedAlien._imgAlien.Visibility = Visibility.Collapsed;
             //TODO: IMPLEMENT.
             //Add a null refernce to the list.
-            _alienList[alienRow][alienColumn] = null;
+            _alienList[alienNum] = null;
             //Destroy the Alien Object.
-            foreach (List<Alien> alienRowNum in _alienList)
-            {
-                foreach (Alien alien in alienRowNum)
+                foreach (Alien alien in _alienList)
                 {
                     if (alien != null)
                     {
@@ -213,35 +208,48 @@ namespace AlienInvaders
                     }
 
                 }
-            }
+            
             ResetRound();
         }
 
         public void ShiftAliens()
         {
-            foreach (List<Alien> alienRow in _alienList)
+            if (_alienList[0].Direction == Direction.Left)
             {
-                foreach (Alien alienCell in alienRow)
+                foreach (Alien alien in _alienList)
                 {
-                    if (alienCell != null)
+                    if (alien != null)
                     {
-                        //bool isHittingEdge = alienCell.MoveHorizontal();
+                        bool isHittingEdge = alien.MoveHorizontal();
+                        if (isHittingEdge)
+                        {
+                            AdvanceAliens();
+                            break;
+                        }
                     }
 
                 }
             }
-
-            foreach (List<Alien> alienRow in _alienList)
+            else
             {
-                foreach (Alien alienCell in alienRow)
+                for (int leftAlienIndex = 0; leftAlienIndex < 55; leftAlienIndex += 11)
                 {
-                    if (alienCell != null)
+                    for (int alienIndex = (10 + leftAlienIndex); alienIndex >= leftAlienIndex; alienIndex--)
                     {
-                        alienCell.MoveVertical();
+                        if (_alienList[alienIndex] != null)
+                        {
+                            bool isHittingEdge = _alienList[alienIndex].MoveHorizontal();
+                            if (isHittingEdge)
+                            {
+                                AdvanceAliens();
+                                break;
+                            }
+                        }
                     }
-
                 }
             }
+            
+            
             //Go through all 55 aliens in the list of aliens.
             //Store the return values in the IsHittingEdge list.
             //Go through all Aliens again.
@@ -251,8 +259,15 @@ namespace AlienInvaders
         }
 
         public void Pause()
-        {
-            _player.CanMove = false;
+        { 
+            if (_player.CanMove == true)
+            {
+                _player.CanMove = false;
+            }
+            else
+            {
+                _player.CanMove = true;
+            }
         }
 
         public void Save()
@@ -261,21 +276,28 @@ namespace AlienInvaders
 
         }
 
-        public int CountAliens()
+        public void AdvanceAliens()
         {
-            int count = 0;
-            foreach(List<Alien> alienRow in _alienList)
+            foreach (Alien alienCell in _alienList)
             {
-                foreach(Alien alien in alienRow)
+                if (alienCell != null)
                 {
-                    if (alien != null)
+                    alienCell.MoveVertical();
+                    if (alienCell.Direction == Direction.Left)
                     {
-                        count += 1;
+                        alienCell.Direction = Direction.Right;
+                    }
+                    else
+                    {
+                        alienCell.Direction = Direction.Left;
                     }
                 }
-            }
-            return count;
-        }
 
+            }
+            
+            //Check to see if any aliens have hit the bottom of the screen.
+            //Kill the player.
+
+        }
     }
 }
