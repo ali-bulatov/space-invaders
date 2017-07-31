@@ -200,7 +200,7 @@ namespace AlienInvaders
                 }
 
             }
-            return 
+            return; 
         }
 
         public void DespawnAliens(int alienNum)
