@@ -26,5 +26,22 @@ namespace AlienInvaders
         {
             this.InitializeComponent();
         }
+
+        private void OnSubmitClicked(object sender, RoutedEventArgs e)
+        {
+            string PlayerName = txtPlayerName.Text;
+
+            //TODO: Implementing the score, time, and level from game page to HighScore page
+        }
+
+        private void OnPlayAgainClicked(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(MainPage));
+        }
+
+        private void OnExitClicked(object sender, RoutedEventArgs e)
+        {
+            //TODO: Exit application
+        }
     }
 }
