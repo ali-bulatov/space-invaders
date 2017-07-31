@@ -30,8 +30,9 @@ namespace AlienInvaders
 
         private void OnStartButtonClicked(object sender, RoutedEventArgs e)
         {
-
-        }
+            this.Frame.Navigate(typeof(GamePage));
+        }    
+        
         private void OnExitButtonClicked(object sender, RoutedEventArgs e)
         {
             CoreApplication.Exit();
@@ -44,7 +45,7 @@ namespace AlienInvaders
 
         private void OnScoreButtonClicked(object sender, RoutedEventArgs e)
         {
-            //this.Frame.Navigate(typeof(ScorePage));
+            this.Frame.Navigate(typeof(HighScore));
         }
 
         private void OnCreditsButtonClicked(object sender, RoutedEventArgs e)

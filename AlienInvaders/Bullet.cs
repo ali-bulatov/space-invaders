@@ -21,7 +21,6 @@ namespace AlienInvaders
 
         public void Collide()
         {
-
         }
 
     }
