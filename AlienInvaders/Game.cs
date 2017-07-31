@@ -126,6 +126,14 @@ namespace AlienInvaders
                 return _motherShip;
             }
         }
+
+        public int AlienCount
+        {
+            get
+            {
+                return _alienList.Count;
+            }
+        }
         
         public void Play()
         {
@@ -147,10 +155,9 @@ namespace AlienInvaders
             for (int alienCount = 0; alienCount < 3; alienCount++)
             {
                 _bulletList.Add(new EnemyBullet());
-                int randRow = _randomizer.Next(0, 4);
-                int randCol = _randomizer.Next(0, 11);
+                int randomIndex = _randomizer.Next(44, 54);
                 //TODO: Make the _enemyBullet available.
-                //_alienList[randRow][randCol]._enemyBullet = _bulletList[alienCount];
+                _alienList[randomIndex]._enemyBullet = _bulletList[alienCount];
             }
             
         }
@@ -182,9 +189,18 @@ namespace AlienInvaders
             _player.Reset();
         }
 
-        public void IncreaseSpeed()
+        public double IncreaseSpeed(int alienCount)
         {
+            double speed;
+            foreach (Alien alien in _alienList)
+            {
+                if (alien != null)
+                {
+                    speed = alien.Speed;
+                }
 
+            }
+            return 
         }
 
         public void DespawnAliens(int alienNum)
@@ -192,24 +208,32 @@ namespace AlienInvaders
             //Pop the alien object out of the list.
             Alien selectedAlien = _alienList[alienNum];
             //Move the alien offscreen.
-            //Canvas.SetLeft(selectedAlien._imgAlien, 0);
-            //Canvas.SetTop(selectedAlien._imgAlien, 0);
+            Canvas.SetLeft(selectedAlien._uiAlien, 0);
+            Canvas.SetTop(selectedAlien._uiAlien, 0);
             //Set the alien visibility to false.
-            //selectedAlien._imgAlien.Visibility = Visibility.Collapsed;
+            selectedAlien._uiAlien.Visibility = Visibility.Collapsed;
             //TODO: IMPLEMENT.
             //Add a null refernce to the list.
             _alienList[alienNum] = null;
             //Destroy the Alien Object.
+            //TODO: ASK PARTNER FOR THAT.
+            //Check to see if there are any more aliens.
+            bool isClear = true;
                 foreach (Alien alien in _alienList)
                 {
-                    if (alien != null)
+                    if (alien == null)
                     {
-                        return;
+                        isClear = false;
                     }
 
                 }
+
+            if (isClear)
+            {
+                ResetRound();
+                return;
+            }
             
-            ResetRound();
         }
 
         public void ShiftAliens()

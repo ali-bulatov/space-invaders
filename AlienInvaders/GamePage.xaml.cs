@@ -117,7 +117,7 @@ namespace AlienInvaders
             //Check to see if the mothership hit the wall.
             //Set the visibility of the mothership to false.
             //Reset the position of the mothership.
-            //_game.MotherShip.ResetLocation();
+            _game.MotherShip.ResetLocation();
             //Stop the timer.
             _shipMoveTimer.Stop();
         }
@@ -131,13 +131,7 @@ namespace AlienInvaders
         {
             _game.ShiftAliens();
             //Count the number of aliens in the list.
-            //Check to see if there are half the number of aliens remaining.
-            //Increase the speed of the alien movement.
-            //Check to see if there are 1/5 number of aliens left.
-            //Increas the speed of hte aliens.
-            //Check to see if there is 1 alien left.
-            //Increase the speed of the alien.
-
+            _alienMoveTimer.Interval = TimeSpan.FromMilliseconds(_game.IncreaseSpeed(_game.AlienCount));
         }
 
         private void OnPlayerMoveTimerTick(object sender, object e)
@@ -209,7 +203,7 @@ namespace AlienInvaders
             //TODO: IMPLEMENT SAVING FUNCTIONALITY.
             //Call the save method of the Game.
             //Navigate Back to MainPage.
-            _game.Save()''
+            _game.Save();
             this.Frame.GoBack();
         }
 
@@ -242,7 +236,7 @@ namespace AlienInvaders
                     break;
 
                 case (Windows.System.VirtualKey.Space):
-                    _game.Player.Bullet.DrawBullet();
+                    //_game.Player.Bullet.DrawBullet();
                     break;
                 
                 default:
