@@ -31,7 +31,8 @@ namespace AlienInvaders
         private void OnStartButtonClicked(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(GamePage));
-        }
+        }    
+        
         private void OnExitButtonClicked(object sender, RoutedEventArgs e)
         {
             CoreApplication.Exit();

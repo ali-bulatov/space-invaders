@@ -66,7 +66,7 @@ namespace AlienInvaders
             _bulletList = new List<EnemyBullet>();
             _alienList = new List<Alien>();
             //TODO: FIX WIDTH TO CANVAS.ACTUALWIDTH.
-            _motherShip = new MotherShip(720, 0.25);
+            _motherShip = new MotherShip(720, 0.25,_randomizer);
             _shieldList = new List<Shield>();
             _difficulty = difficulty;
             _alienImageList = alienImageList;
