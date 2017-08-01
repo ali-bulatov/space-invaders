@@ -12,6 +12,7 @@ namespace AlienInvaders
     /// </summary>
     public class MotherShip
     {
+        private Direction _direction;
         /// <summary>
         /// 
         /// </summary>
@@ -52,11 +53,27 @@ namespace AlienInvaders
         /// </summary>
         public void Fly()
         {
+           //check the direction of the ship
+           if (_direction == Direction.Left)
+            {
+                if(_position >= 720)
+                {
+                    _position += 10;
+                }
+            }
+           //if left --> move left
+           //check whether is has hit the edge return true if it did
 
         }
         public bool Spawn()
         {
+            //check whether it is visible or not
+            {
+                //if (_uiMotherShip.Visibility)
+                {
 
+                }
+            }
             return true;
         }
         /// <summary>

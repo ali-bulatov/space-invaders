@@ -209,7 +209,7 @@ namespace AlienInvaders
             //TODO: IMPLEMENT SAVING FUNCTIONALITY.
             //Call the save method of the Game.
             //Navigate Back to MainPage.
-            _game.Save()''
+            //_game.Save()''
             this.Frame.GoBack();
         }
 
@@ -242,7 +242,7 @@ namespace AlienInvaders
                     break;
 
                 case (Windows.System.VirtualKey.Space):
-                    _game.Player.Bullet.DrawBullet();
+                    //_game.Player.Bullet.DrawBullet();
                     break;
                 
                 default:

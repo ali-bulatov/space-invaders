@@ -94,13 +94,13 @@ namespace AlienInvaders
             }
         }
 
-        public Bullet Bullet
-        {
-            get
-            {
-                return _bullet;
-            }
-        }
+       // public Bullet Bullet
+        //{
+         //   get
+           // {
+             //   return _bullet;
+           // }
+      //  }
 
         public void Move()
         {
