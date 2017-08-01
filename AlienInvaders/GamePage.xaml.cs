@@ -72,7 +72,8 @@ namespace AlienInvaders
             _arcadeMachine = new ArcadeMachine();
 
             //TODO: REMOVE. THIS IS FOR TESTING PURPOSES.
-            _game = new Game(GameDifficulty.Beginner, Color.Green, 1, _imgPlayer);
+            List<Image> imageList = new List<Image> { _imgAlien, _imgAlien1, _imgAlien2, _imgAlien3, _imgAlien4, _imgAlien5, _imgAlien6, _imgAlien7, _imgAlien8, _imgAlien9, _imgAlien10, _imgAlien11, _imgAlien12, _imgAlien13, _imgAlien14, _imgAlien15, _imgAlien16, _imgAlien17, _imgAlien18, _imgAlien19, _imgAlien20, _imgAlien21, _imgAlien22, _imgAlien23, _imgAlien24, _imgAlien25, _imgAlien26, _imgAlien27, _imgAlien28, _imgAlien29, _imgAlien30, _imgAlien31, _imgAlien32, _imgAlien33, _imgAlien34, _imgAlien35, _imgAlien36, _imgAlien37, _imgAlien38, _imgAlien39, _imgAlien40, _imgAlien41, _imgAlien42, _imgAlien43, _imgAlien44, _imgAlien45, _imgAlien46, _imgAlien47, _imgAlien48, _imgAlien49, _imgAlien50, _imgAlien51, _imgAlien52, _imgAlien53, _imgAlien54 };
+            _game = new Game(GameDifficulty.Beginner, Color.Green, 1, _imgPlayer, imageList);
             _game.Play();
             _alienMoveTimer.Start();
             _clockTimer.Start();
@@ -91,26 +92,46 @@ namespace AlienInvaders
             {
                 _txtTime.Text = $"Time: {minutes}:{seconds}";
             }
+
+            if (_shipMoveTimer.IsEnabled == false)
+            {
+                int spawnNum = _game.Randomizer.Next(1, 25);
+                if (spawnNum == 25)
+                {
+                    _shipMoveTimer.Start();
+                }
+            }
+
         }
 
         private void OnEnemyBulletMoveTimerTick(object sender, object e)
         {
-            throw new NotImplementedException();
+            
         }
 
         private void OnShipMoveTimerTick(object sender, object e)
         {
-
+            //Move the mothership
+            _imgMotherShip.Visibility = Visibility.Visible;
+            _game.MotherShip.Fly();
+            //Check to see if the mothership hit the wall.
+            //Set the visibility of the mothership to false.
+            //Reset the position of the mothership.
+            _game.MotherShip.ResetLocation();
+            //Stop the timer.
+            _shipMoveTimer.Stop();
         }
 
         private void OnBulletMoveTimerTick(object sender, object e)
         {
-            throw new NotImplementedException();
+
         }
 
         private void OnAlienMoveTimerTick(object sender, object e)
         {
-            //TODO: IMPLEMENT.
+            _game.ShiftAliens();
+            //Count the number of aliens in the list.
+            _alienMoveTimer.Interval = TimeSpan.FromMilliseconds(_game.IncreaseSpeed(_game.AlienCount));
         }
 
         private void OnPlayerMoveTimerTick(object sender, object e)
@@ -118,6 +139,7 @@ namespace AlienInvaders
             _game.Player.Move();
         }
 
+        
         private void OnMoveClicked(object sender, RoutedEventArgs e)
         {
             if (sender == _btnLeft)
@@ -146,14 +168,15 @@ namespace AlienInvaders
                 }
             }
         }
-
+        
         private void OnFireClicked(object sender, RoutedEventArgs e)
         {
 
         }
-
+        
         private void OnPauseClicked(object sender, RoutedEventArgs e)
         {
+            //TODO: FIX THIS.
             if (_btnPause.Content == "Pause")
             {
                 _btnPause.Content = "Resume";
@@ -161,6 +184,7 @@ namespace AlienInvaders
                 _clockTimer.Stop();
                 _shipMoveTimer.Stop();
                 _btnSave.Visibility = Visibility.Visible;
+                _game.Pause();
             }
             else
             {
@@ -169,6 +193,7 @@ namespace AlienInvaders
                 _clockTimer.Start();
                 _shipMoveTimer.Start();
                 _btnSave.Visibility = Visibility.Collapsed;
+                _game.Pause();
             }
             
         }
@@ -178,6 +203,7 @@ namespace AlienInvaders
             //TODO: IMPLEMENT SAVING FUNCTIONALITY.
             //Call the save method of the Game.
             //Navigate Back to MainPage.
+            _game.Save();
             this.Frame.GoBack();
         }
 
@@ -210,7 +236,7 @@ namespace AlienInvaders
                     break;
 
                 case (Windows.System.VirtualKey.Space):
-                    _game.Player.Bullet.DrawBullet();
+                    //_game.Player.Bullet.DrawBullet();
                     break;
                 
                 default:

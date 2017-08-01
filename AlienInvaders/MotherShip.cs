@@ -3,14 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace AlienInvaders
 {
     /// <summary>
     /// 
     /// </summary>
-    class MotherShip
+    public class MotherShip
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        private Random _randomizer;
+        /// <summary>
+        /// The position on the x-xis where the UI for the Mother Ship is positioned.
+        /// </summary>
+        private double _startPosition;
+        /// <summary>
+        ///  The UI element used to represent the Mother Ship to the user, on the form.
+        /// </summary>
+        private Image _uiMotherShip;
         /// <summary>
         /// Position of the ship
         /// </summary>
@@ -28,10 +41,11 @@ namespace AlienInvaders
         /// </summary>
         /// <param name="position"></param>
         /// <param name="speed"></param>
-        internal MotherShip(double position,double speed)
+        public MotherShip(double position,double speed, Random randomizer)
         {
             this._position = position;
             this._speed = speed;
+            this._randomizer = randomizer;
         }
         /// <summary>
         /// Move the ship
@@ -40,12 +54,21 @@ namespace AlienInvaders
         {
 
         }
+        public bool Spawn()
+        {
+
+            return true;
+        }
         /// <summary>
         /// Reset location of the ship
         /// </summary>
         public void ResetLocation()
         {
+            //Reset the location to zero...
+            _position = 0;
 
+            //... and position the Picture Box UI to starting position
+           // Canvas.SetLeft(_uiMotherShip,_startPosition);
         }
     }
 }
