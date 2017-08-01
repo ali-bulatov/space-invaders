@@ -18,8 +18,9 @@ namespace AlienInvaders
         private float xPos, yPos, width, height;
         private bool isAlive;
         private float Velocity;
+        private Image bullet;
 
-        public Bullet( float _xPos, float _yPos )
+        public Bullet( float _xPos, float _yPos, Image bullet )
         {
             xPosition = xPos = _xPos;
             yPosition = yPos = _yPos;
@@ -54,9 +55,33 @@ namespace AlienInvaders
             }
         }
 
-        public void Draw()
+        public bool Draw(float xPosition, float yPosition)
         {
-            
+            if(IsAlive == false)
+            {
+                bullet.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                Canvas.SetLeft(bullet, xPosition);
+                Canvas.SetTop(bullet, yPosition);
+                xPos = xPosition;
+                yPos = yPosition;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public byte Collide()
+        {
+
+            //if (a.Left > b.Left - a.Width And a.Left < b.Left + b.Width) Then
+            //{
+            //    If a.Top > b.Top - a.Height And a.Top < b.Top + a.Height Then
+            //    {
+            //        //Do something.
+            //    }
+            //}
         }
 
     }
