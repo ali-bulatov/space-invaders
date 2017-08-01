@@ -29,7 +29,7 @@ namespace AlienInvaders
 
         private void OnSubmitClicked(object sender, RoutedEventArgs e)
         {
-            string PlayerName = txtPlayerName.Text;
+            //string PlayerName = txtPlayerName.Text;
 
             //TODO: Implementing the score, time, and level from game page to HighScore page
         }

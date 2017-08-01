@@ -94,14 +94,6 @@ namespace AlienInvaders
             }
         }
 
-        public Bullet Bullet
-        {
-            get
-            {
-                return _bullet;
-            }
-        }
-
         public void Move()
         {
             if (_canMove)
@@ -152,8 +144,13 @@ namespace AlienInvaders
 
         public void OnShoot()
         {
-            //Cause the bullet to be visible.
-
+            //THIS CAUSES THE BULLET TO BE VISIBLE ON THE SCREEN.
+            //bool fired = _bullet.DrawBullet();
+            //if (!fired)
+            //{
+                //Set the left of the bullet.
+                //Set the right of the bullet.
+            //}
         }
 
         public void OnDeath()

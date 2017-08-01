@@ -131,7 +131,7 @@ namespace AlienInvaders
         {
             _game.ShiftAliens();
             //Count the number of aliens in the list.
-            _alienMoveTimer.Interval = TimeSpan.FromMilliseconds(_game.IncreaseSpeed(_game.AlienCount));
+           // _alienMoveTimer.Interval = TimeSpan.FromMilliseconds(_game.IncreaseSpeed(_game.AlienCount));
         }
 
         private void OnPlayerMoveTimerTick(object sender, object e)
@@ -193,7 +193,7 @@ namespace AlienInvaders
                 _clockTimer.Start();
                 _shipMoveTimer.Start();
                 _btnSave.Visibility = Visibility.Collapsed;
-                _game.Pause();
+                _ game.Pause();
             }
             
         }
@@ -236,7 +236,8 @@ namespace AlienInvaders
                     break;
 
                 case (Windows.System.VirtualKey.Space):
-                    //_game.Player.Bullet.DrawBullet();
+                    _game.Player.OnShoot();
+
                     break;
                 
                 default:

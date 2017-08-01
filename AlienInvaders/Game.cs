@@ -148,7 +148,7 @@ namespace AlienInvaders
             //TODO: TALK TO PARTNER ABOUT CHANGING ALIEN POSITION.
             for (int alienImageIndex = 0; alienImageIndex < _alienImageList.Count; alienImageIndex++)
             {
-                _alienList.Add(new Alien(0.25, _alienImageList[alienImageIndex]));
+                _alienList.Add(new Alien(100, _alienImageList[alienImageIndex]));
             }
             //Give three random aliens a bullet from the list to start.
 
@@ -157,7 +157,7 @@ namespace AlienInvaders
                 _bulletList.Add(new EnemyBullet());
                 int randomIndex = _randomizer.Next(44, 54);
                 //TODO: Make the _enemyBullet available.
-                _alienList[randomIndex]._enemyBullet = _bulletList[alienCount];
+                //_alienList[randomIndex]._enemyBullet = _bulletList[alienCount];
             }
             
         }
@@ -196,11 +196,20 @@ namespace AlienInvaders
             {
                 if (alien != null)
                 {
-                    speed = alien.Speed;
+                    //speed = alien.Speed;
                 }
 
             }
-            return; 
+            switch(alienCount)
+            {
+                //case 45:
+                    //speed -= 50;
+                    //break;
+
+                //case 
+            }
+            //return speed;
+            return 0.0;
         }
 
         public void DespawnAliens(int alienNum)
@@ -208,10 +217,10 @@ namespace AlienInvaders
             //Pop the alien object out of the list.
             Alien selectedAlien = _alienList[alienNum];
             //Move the alien offscreen.
-            Canvas.SetLeft(selectedAlien._uiAlien, 0);
-            Canvas.SetTop(selectedAlien._uiAlien, 0);
+            //Canvas.SetLeft(selectedAlien._uiAlien, 0);
+            //Canvas.SetTop(selectedAlien._uiAlien, 0);
             //Set the alien visibility to false.
-            selectedAlien._uiAlien.Visibility = Visibility.Collapsed;
+            //selectedAlien._uiAlien.Visibility = Visibility.Collapsed;
             //TODO: IMPLEMENT.
             //Add a null refernce to the list.
             _alienList[alienNum] = null;
