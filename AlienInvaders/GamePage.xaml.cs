@@ -124,7 +124,12 @@ namespace AlienInvaders
 
         private void OnBulletMoveTimerTick(object sender, object e)
         {
-
+            //bool isHit_game.Player.Bullet.Update();
+            //if (isHit)
+            //{
+                //Stop the bullet.
+            //}
+            //byte target = _game.Player.Bullet.Collide();
         }
 
         private void OnAlienMoveTimerTick(object sender, object e)

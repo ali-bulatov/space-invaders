@@ -142,15 +142,19 @@ namespace AlienInvaders
             // Do not move the player at all.
         }
 
-        public void OnShoot()
+        public bool OnShoot()
         {
             //THIS CAUSES THE BULLET TO BE VISIBLE ON THE SCREEN.
-            //bool fired = _bullet.DrawBullet();
-            //if (!fired)
-            //{
-                //Set the left of the bullet.
-                //Set the right of the bullet.
-            //}
+            double yPosition = Canvas.GetTop(_uiPlayer);
+            bool fired = _bullet.Draw(_position, _uiPlayer);
+            if (!fired)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void OnDeath()
