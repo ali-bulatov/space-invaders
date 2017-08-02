@@ -127,9 +127,23 @@ namespace AlienInvaders
             //bool isHit_game.Player.Bullet.Update();
             //if (isHit)
             //{
-                //Stop the bullet.
+            //Stop the bullet.
             //}
             //byte target = _game.Player.Bullet.Collide();
+            //if (target == 0 || target <= 54)
+            //{
+            //addedscore = _game.DespawnAliens((int)target);
+            //newScore = _game.UpdateScore(addedscore);
+            //Set the new score on display.
+            //}
+            //else if (target == 55)
+            //{
+            //Do something with the mothership.
+            //}
+            //else
+            //{
+            //Do nothing and continue.
+            //}
         }
 
         private void OnAlienMoveTimerTick(object sender, object e)
