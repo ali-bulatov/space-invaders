@@ -15,12 +15,12 @@ namespace AlienInvaders
     public class Bullet
     {
         private Rectangle rect;
-        private float xPos, yPos, width, height;
+        private double xPos, yPos;
         private bool isAlive;
         private float Velocity;
         private Image bullet;
 
-        public Bullet( float _xPos, float _yPos, Image bullet )
+        public Bullet( double _xPos, double _yPos, Image bullet )
         {
             xPosition = xPos = _xPos;
             yPosition = yPos = _yPos;
@@ -34,13 +34,13 @@ namespace AlienInvaders
             set { isAlive = value; }
         }
 
-        public float xPosition
+        public double xPosition
         {
             get { return xPos; }
             set { xPos = value; }
         }
 
-        public float yPosition
+        public double yPosition
         {
             get { return yPos; }
             set { yPos = value; }
@@ -48,11 +48,11 @@ namespace AlienInvaders
 
         public void Update(float elapsedTime)
         {
-            yPosition -= Velocity * elapsedTime;
-            if (yPosition < 0 - height)
-            {
-                IsAlive = false;
-            }
+            //yPosition -= Velocity * elapsedTime;
+            //if (yPosition < 0 - height)
+            //{
+            //    IsAlive = false;
+            //}
         }
 
         public bool Draw(float xPosition, float yPosition)
@@ -72,16 +72,35 @@ namespace AlienInvaders
             }
         }
 
-        public byte Collide()
+        public byte Collide(List<Image> alienImageList, Image motherShipImage)
         {
+            byte index = 0;
 
-            //if (a.Left > b.Left - a.Width And a.Left < b.Left + b.Width) Then
-            //{
-            //    If a.Top > b.Top - a.Height And a.Top < b.Top + a.Height Then
-            //    {
-            //        //Do something.
-            //    }
-            //}
+            foreach(Image alien in alienImageList)
+            {
+                if(alien.Visibility == Windows.UI.Xaml.Visibility.Visible)
+                {
+                    if (xPosition > Canvas.GetLeft(alien) - bullet.Width && xPosition < Canvas.GetLeft(alien) + bullet.Width)
+                    {
+                        if (yPosition > Canvas.GetTop(alien) - bullet.Height && yPosition < Canvas.GetTop(alien) + bullet.Height)
+                        {
+                            return index;
+                        }
+                    }
+                }
+                index++;              
+            }
+            if (motherShipImage.Visibility == Windows.UI.Xaml.Visibility.Visible)
+            {
+                if (xPosition > Canvas.GetLeft(motherShipImage) - bullet.Width && xPosition < Canvas.GetLeft(alien) + bullet.Width)
+                {
+                    if (yPosition > Canvas.GetTop(motherShipImage) - bullet.Height && yPosition < Canvas.GetTop(alien) + bullet.Height)
+                    {
+                        return 55;
+                    }
+                }
+            }
+            return 255;
         }
 
     }
