@@ -20,12 +20,13 @@ namespace AlienInvaders
         private float Velocity;
         private Image bullet;
 
-        public Bullet( double _xPos, double _yPos, Image bullet )
+        public Bullet( double _xPos, double _yPos, Image _bullet )
         {
             xPosition = xPos = _xPos;
             yPosition = yPos = _yPos;
             isAlive = false;
             Velocity = 300.0f;
+            bullet = _bullet;
         }
 
         public bool IsAlive
@@ -46,13 +47,16 @@ namespace AlienInvaders
             set { yPos = value; }
         }
 
-        public void Update(float elapsedTime)
+        public bool Update(float elapsedTime)
         {
-            //yPosition -= Velocity * elapsedTime;
-            //if (yPosition < 0 - height)
-            //{
-            //    IsAlive = false;
-            //}
+            yPos -= Velocity * elapsedTime;
+            Canvas.SetTop(bullet, yPos);
+            if (yPosition < 0 - bullet.Height)
+            {
+                IsAlive = false;
+                return true;
+            }
+            return false;
         }
 
         public bool Draw(float xPosition, float yPosition)
@@ -64,6 +68,20 @@ namespace AlienInvaders
                 Canvas.SetTop(bullet, yPosition);
                 xPos = xPosition;
                 yPos = yPosition;
+                return true;
+            }
+            return false;
+        }
+
+        public bool Draw(float elapsedTime)
+        {
+            if (IsAlive == false)
+            {
+                bullet.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                Canvas.SetLeft(bullet, xPosition);
+                xPos = xPosition;
+                yPos = yPosition;
+                isAlive = true;
                 return true;
             }
             else
@@ -92,9 +110,9 @@ namespace AlienInvaders
             }
             if (motherShipImage.Visibility == Windows.UI.Xaml.Visibility.Visible)
             {
-                if (xPosition > Canvas.GetLeft(motherShipImage) - bullet.Width && xPosition < Canvas.GetLeft(alien) + bullet.Width)
+                if (xPosition > Canvas.GetLeft(motherShipImage) - bullet.Width && xPosition < Canvas.GetLeft(motherShipImage) + bullet.Width)
                 {
-                    if (yPosition > Canvas.GetTop(motherShipImage) - bullet.Height && yPosition < Canvas.GetTop(alien) + bullet.Height)
+                    if (yPosition > Canvas.GetTop(motherShipImage) - bullet.Height && yPosition < Canvas.GetTop(motherShipImage) + bullet.Height)
                     {
                         return 55;
                     }
