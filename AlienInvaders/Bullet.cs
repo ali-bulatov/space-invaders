@@ -59,7 +59,7 @@ namespace AlienInvaders
             return false;
         }
 
-        public bool Draw(float xPosition, float yPosition)
+        public bool Draw(double xPosition, double yPosition)
         {
             if(IsAlive == false)
             {

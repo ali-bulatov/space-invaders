@@ -262,10 +262,10 @@ namespace AlienInvaders
             //Pop the alien object out of the list.
             Alien selectedAlien = _alienList[alienNum];
             //Move the alien offscreen.
-            Canvas.SetLeft(selectedAlien.UiAlien, 0);
-            Canvas.SetTop(selectedAlien.UiAlien, 0);
+            //Canvas.SetLeft(selectedAlien.UiAlien, 0);
+            //Canvas.SetTop(selectedAlien.UiAlien, 0);
             //Set the alien visibility to false.
-            selectedAlien.UiAlien.Visibility = Visibility.Collapsed;
+            //selectedAlien.UiAlien.Visibility = Visibility.Collapsed;
             //Add a null refernce to the list.
             _alienList[alienNum] = null;
             //Check to see if there are any more aliens.
@@ -284,7 +284,8 @@ namespace AlienInvaders
                 ResetRound();
             }
 
-            return selectedAlien.Points;
+            //return selectedAlien.Points;
+            return 0;
 
         }
 
@@ -366,7 +367,7 @@ namespace AlienInvaders
             {
                 if (alien != null)
                 {
-                    saveItems.Add(alien.XPosition.ToString() + " " + alien.YPosition.ToString() + " " + alien.Speed.ToString() + " " + alien.Points.ToString() + " " + alien.Direction.ToString());
+                    //saveItems.Add(alien.XPosition.ToString() + " " + alien.YPosition.ToString() + " " + alien.Speed.ToString() + " " + alien.Points.ToString() + " " + alien.Direction.ToString());
                 }
                 else
                 {
