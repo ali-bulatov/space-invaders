@@ -45,10 +45,5 @@ namespace AlienInvaders
         {
 
         }
-
-        public void CreateGame()
-        {
-
-        }
     }
 }
