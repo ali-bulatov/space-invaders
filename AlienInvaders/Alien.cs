@@ -37,25 +37,41 @@ namespace AlienInvaders
         /// </summary>
         /// <param name="position"></param>
         /// <param name="speed"></param>
-        internal Alien(double speed, Image uiAlien)
+        internal Alien(double speed, Image uiAlien, byte points)
         {
             this._speed = speed;
+            _points = points;
             _uiAlien = uiAlien;
             _xPosition = Canvas.GetLeft(uiAlien);
             _yPosition = Canvas.GetTop(uiAlien);
             _direction = Direction.Right;
-
         }
-
-        public Direction Direction
+        /// <summary>
+        /// xPosition property
+        /// </summary>
+        public double XPosition
         {
             get
             {
-                return _direction;
+                return _xPosition;
             }
             set
             {
-                _direction = value;
+                _xPosition = value;
+            }
+        }
+        /// <summary>
+        /// yPosition property
+        /// </summary>
+        public double YPosition
+        {
+            get
+            {
+                return _yPosition;
+            }
+            set
+            {
+                _yPosition = value;
             }
         }
         /// <summary>
@@ -72,6 +88,45 @@ namespace AlienInvaders
                 _speed = value;
             }
         }
+        /// <summary>
+        /// alien image property
+        /// </summary>
+        public Image UiAlien
+        {
+            get
+            {
+                return _uiAlien;
+            }
+        }
+        /// <summary>
+        /// alien points property
+        /// </summary>
+        public byte Points
+        {
+            get
+            {
+                return _points;
+            }
+            set
+            {
+                _points = value;
+            }
+        }
+        /// <summary>
+        /// direction property
+        /// </summary>
+        public Direction Direction
+        {
+            get
+            {
+                return _direction;
+            }
+            set
+            {
+                _direction = value;
+            }
+        }
+
         /// <summary>
         /// Alien shooting
         /// </summary>

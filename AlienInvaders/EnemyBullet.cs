@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AlienInvaders
 {
-    class EnemyBullet : Bullet
+   class EnemyBullet: Bullet
     {
 
     }

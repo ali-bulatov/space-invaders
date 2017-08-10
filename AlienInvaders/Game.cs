@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.UI.Popups;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace AlienInvaders
@@ -34,7 +30,7 @@ namespace AlienInvaders
 
         private Player _player;
 
-        private List<EnemyBullet> _bulletList;
+       // private List<EnemyBullet> _bulletList;
 
         private List<Alien> _alienList;
 
@@ -47,7 +43,7 @@ namespace AlienInvaders
         private Color _colorOption;
 
         private byte _imageOption;
-
+        private List<Bullet> _bulletList;
         private List<Image> _alienImageList;
 
         /// <summary>
@@ -56,7 +52,7 @@ namespace AlienInvaders
         /// <param name="difficulty">Represents the difficulty of the game.</param>
         /// <param name="colorOption">Represents the color of the player selected as an option.</param>
         /// <param name="imageOption">Represents the image option of the player.</param>
-        public Game(GameDifficulty difficulty, Color colorOption, byte imageOption, Image playerImage, List<Image> alienImageList, Image bulletImage)
+        public Game(GameDifficulty difficulty, Color colorOption, byte imageOption, Image playerImage, List<Image> alienImageList)
         {
             //Load the basic assets of the game before playing or resuming.
             _gameScore = 0;
@@ -66,8 +62,8 @@ namespace AlienInvaders
             _colorOption = colorOption;
             _imageOption = imageOption;
             //Set the player color 
-            _player = new Player(3, _colorOption, _imageOption, playerImage, bulletImage);
-            _bulletList = new List<EnemyBullet>();
+            _player = new Player(3, _colorOption, _imageOption, playerImage);
+            //_bulletList = new List<EnemyBullet>();
             _alienList = new List<Alien>();
             //TODO: FIX WIDTH TO CANVAS.ACTUALWIDTH.
             _motherShip = new MotherShip(720, 0.25,_randomizer);
@@ -130,16 +126,8 @@ namespace AlienInvaders
                 return _motherShip;
             }
         }
-
-        public int AlienCount
-        {
-            get
-            {
-                return _alienList.Count;
-            }
-        }
         
-        public async void Play()
+        public void Play()
         {
             //Check to see if there is an existing game going on.
             //If so:
@@ -150,60 +138,20 @@ namespace AlienInvaders
             //Set the image of the player to the loaded settings.
             //Add the aliens to the list and position them for all aliens.
             //TODO: TALK TO PARTNER ABOUT CHANGING ALIEN POSITION.
-            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
-            StorageFile savedGame = await storageFolder.GetFileAsync("game.txt");
-            IList<String> fileLines = await FileIO.ReadLinesAsync(savedGame);
-            if (fileLines[0] == "1")
+            for (int alienImageIndex = 0; alienImageIndex < _alienImageList.Count; alienImageIndex++)
             {
-                for (int fileIndex = 1; fileIndex <= _alienImageList.Count; fileIndex++)
-                {
-                    if (fileLines[fileIndex] != "0 0 0 0 Right")
-                    {
-                        //TODO: FIX THIS IMMEDIATELY
-                        _alienList.Add(new Alien(100, _alienImageList[fileIndex - 1]));
-                        /*
-                        _alienList[fileIndex - 1].XPosition = double.Parse(fileLines[fileIndex][0].ToString());
-                        Canvas.SetLeft(_alienImageList[fileIndex - 1], _alienList[fileIndex - 1].XPosition);
-                        _alienList[fileIndex - 1].YPosition = double.Parse(fileLines[fileIndex][2].ToString());
-                        Canvas.SetTop(_alienImageList[fileIndex - 1], _alienList[fileIndex - 1].YPosition);
-                        _alienList[fileIndex - 1].Speed = double.Parse(fileLines[fileIndex][4].ToString());
-                        _alienList[fileIndex - 1].Points = byte.Parse(fileLines[fileIndex][6].ToString());
-                        //TODO: FIGURE OUT CODE TO SET ENUMERATION NUMBER.
-                        //_alienList[fileIndex - 1].Direction = fileLines[fileIndex][8].ToString();
-                        */
-
-                    }
-                    else
-                    {
-                        _alienList.Add(new Alien(100, _alienImageList[fileIndex - 1]));
-                        DespawnAliens(fileIndex - 1);
-                    }
-                    
-                }
-                _player.Lives = byte.Parse(fileLines[56]);
-                _gameScore = int.Parse(fileLines[57]);
-                _time = int.Parse(fileLines[58]);
-                _player.Position = double.Parse(fileLines[59]);
-                Canvas.SetLeft(_player.UiPlayer, double.Parse(fileLines[59]));
-                //_difficulty = GameDifficulty.(fileLines[60]);                   
+                _alienList.Add(new Alien(0.25, _alienImageList[alienImageIndex]));
             }
-            else
+            //Give three random aliens a bullet from the list to start.
+
+            for (int alienCount = 0; alienCount < 3; alienCount++)
             {
-                for (int alienImageIndex = 0; alienImageIndex < _alienImageList.Count; alienImageIndex++)
-                {
-                    _alienList.Add(new Alien(100, _alienImageList[alienImageIndex]));
-                }
-                //Give three random aliens a bullet from the list to start.
-
-                for (int alienCount = 0; alienCount < 3; alienCount++)
-                {
-                    _bulletList.Add(new EnemyBullet());
-                    int randomIndex = _randomizer.Next(44, 54);
-                    //TODO: Make the _enemyBullet available.
-                    //_alienList[randomIndex]._enemyBullet = _bulletList[alienCount];
-                }
+           //     _bulletList.Add(new EnemyBullet());
+                int randRow = _randomizer.Next(0, 4);
+                int randCol = _randomizer.Next(0, 11);
+                //TODO: Make the _enemyBullet available.
+                //_alienList[randRow][randCol]._enemyBullet = _bulletList[alienCount];
             }
-
             
         }
 
@@ -234,30 +182,12 @@ namespace AlienInvaders
             _player.Reset();
         }
 
-        public double IncreaseSpeed(int alienCount)
+        public void IncreaseSpeed()
         {
-            double speed;
-            foreach (Alien alien in _alienList)
-            {
-                if (alien != null)
-                {
-                    //speed = alien.Speed;
-                }
 
-            }
-            switch(alienCount)
-            {
-                //case 45:
-                    //speed -= 50;
-                    //break;
-
-                //case 
-            }
-            //return speed;
-            return 0.0;
         }
 
-        public int DespawnAliens(int alienNum)
+        public void DespawnAliens(int alienNum)
         {
             //Pop the alien object out of the list.
             Alien selectedAlien = _alienList[alienNum];
@@ -268,21 +198,18 @@ namespace AlienInvaders
             //selectedAlien.UiAlien.Visibility = Visibility.Collapsed;
             //Add a null refernce to the list.
             _alienList[alienNum] = null;
-            //Check to see if there are any more aliens.
-            bool isClear = true;
+            //Destroy the Alien Object.
                 foreach (Alien alien in _alienList)
                 {
-                    if (alien == null)
+                    if (alien != null)
                     {
-                        isClear = false;
+                        return;
                     }
 
                 }
-
-            if (isClear)
-            {
-                ResetRound();
-            }
+            
+            ResetRound();
+        }
 
             //return selectedAlien.Points;
             return 0;
@@ -291,15 +218,7 @@ namespace AlienInvaders
 
         public void ShiftAliens()
         {
-            Alien aliveAlien = null;
-            foreach (Alien alien in _alienList)
-            {
-                if (alien != null)
-                {
-                    aliveAlien = alien;
-                }
-            }
-            if (aliveAlien.Direction == Direction.Left)
+            if (_alienList[0].Direction == Direction.Left)
             {
                 foreach (Alien alien in _alienList)
                 {
@@ -355,11 +274,9 @@ namespace AlienInvaders
             }
         }
 
-        public async void Save()
+        public void Save()
         {
-            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
-            //Check to see if the file is available or not. You want to call the .ReplaceExisting to overwrite the current text file.
-            StorageFile saveFile = await storageFolder.CreateFileAsync("game.txt", CreationCollisionOption.ReplaceExisting);
+            //Save the list of objects into the file.
 
             List<String> saveItems = new List<String>();
             saveItems.Add("1");
