@@ -37,14 +37,14 @@ namespace AlienInvaders
         /// </summary>
         /// <param name="position"></param>
         /// <param name="speed"></param>
-        internal Alien(double speed, Image uiAlien)
+        internal Alien(double speed, Image uiAlien, byte points)
         {
             this._speed = speed;
+            _points = points;
             _uiAlien = uiAlien;
             _xPosition = Canvas.GetLeft(uiAlien);
             _yPosition = Canvas.GetTop(uiAlien);
             _direction = Direction.Right;
-
         }
         /// <summary>
         /// xPosition property
