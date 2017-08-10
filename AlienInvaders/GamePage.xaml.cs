@@ -37,6 +37,8 @@ namespace AlienInvaders
 
         private ArcadeMachine _arcadeMachine;
 
+        private List<Image> _imageList;
+
         //TODO: REMOVE TEST VARIABLE:
         private Game _game;
 
@@ -54,7 +56,7 @@ namespace AlienInvaders
 
             _bulletMoveTimer = new DispatcherTimer();
             _bulletMoveTimer.Tick += OnBulletMoveTimerTick;
-            _bulletMoveTimer.Interval = TimeSpan.FromMilliseconds(100);
+            _bulletMoveTimer.Interval = TimeSpan.FromMilliseconds(0.1);
 
             _shipMoveTimer = new DispatcherTimer();
             _shipMoveTimer.Tick += OnShipMoveTimerTick;
@@ -72,8 +74,8 @@ namespace AlienInvaders
             _arcadeMachine = new ArcadeMachine();
 
             //TODO: REMOVE. THIS IS FOR TESTING PURPOSES.
-            List<Image> imageList = new List<Image> { _imgAlien, _imgAlien1, _imgAlien2, _imgAlien3, _imgAlien4, _imgAlien5, _imgAlien6, _imgAlien7, _imgAlien8, _imgAlien9, _imgAlien10, _imgAlien11, _imgAlien12, _imgAlien13, _imgAlien14, _imgAlien15, _imgAlien16, _imgAlien17, _imgAlien18, _imgAlien19, _imgAlien20, _imgAlien21, _imgAlien22, _imgAlien23, _imgAlien24, _imgAlien25, _imgAlien26, _imgAlien27, _imgAlien28, _imgAlien29, _imgAlien30, _imgAlien31, _imgAlien32, _imgAlien33, _imgAlien34, _imgAlien35, _imgAlien36, _imgAlien37, _imgAlien38, _imgAlien39, _imgAlien40, _imgAlien41, _imgAlien42, _imgAlien43, _imgAlien44, _imgAlien45, _imgAlien46, _imgAlien47, _imgAlien48, _imgAlien49, _imgAlien50, _imgAlien51, _imgAlien52, _imgAlien53, _imgAlien54 };
-            _game = new Game(GameDifficulty.Beginner, Color.Green, 1, _imgPlayer, imageList);
+            _imageList = new List<Image> {_imgAlien, _imgAlien1, _imgAlien2, _imgAlien3, _imgAlien4, _imgAlien5, _imgAlien6, _imgAlien7, _imgAlien8, _imgAlien9, _imgAlien10, _imgAlien11, _imgAlien12, _imgAlien13, _imgAlien14, _imgAlien15, _imgAlien16, _imgAlien17, _imgAlien18, _imgAlien19, _imgAlien20, _imgAlien21, _imgAlien22, _imgAlien23, _imgAlien24, _imgAlien25, _imgAlien26, _imgAlien27, _imgAlien28, _imgAlien29, _imgAlien30, _imgAlien31, _imgAlien32, _imgAlien33, _imgAlien34, _imgAlien35, _imgAlien36, _imgAlien37, _imgAlien38, _imgAlien39, _imgAlien40, _imgAlien41, _imgAlien42, _imgAlien43, _imgAlien44, _imgAlien45, _imgAlien46, _imgAlien47, _imgAlien48, _imgAlien49, _imgAlien50, _imgAlien51, _imgAlien52, _imgAlien53, _imgAlien54 };
+            _game = new Game(GameDifficulty.Beginner, Color.Green, 1, _imgPlayer, _imageList, _imgBullet);
             _game.Play();
             _alienMoveTimer.Start();
             _clockTimer.Start();
@@ -124,26 +126,30 @@ namespace AlienInvaders
 
         private void OnBulletMoveTimerTick(object sender, object e)
         {
-            //bool isHit_game.Player.Bullet.Update();
-            //if (isHit)
-            //{
-            //Stop the bullet.
-            //}
-            //byte target = _game.Player.Bullet.Collide();
-            //if (target == 0 || target <= 54)
-            //{
-            //addedscore = _game.DespawnAliens((int)target);
-            //newScore = _game.UpdateScore(addedscore);
-            //Set the new score on display.
-            //}
-            //else if (target == 55)
-            //{
-            //Do something with the mothership.
-            //}
-            //else
-            //{
-            //Do nothing and continue.
-            //}
+            bool isHit = _game.Player.Bullet.Update(0.03f);
+            if (isHit)
+            {
+                
+            }
+            byte target = _game.Player.Bullet.Collide(_imageList, _imgMotherShip);
+            if (target == 0 || target <= 54)
+            {
+                int addedscore = _game.DespawnAliens((int)target);
+                //newScore = _game.UpdateScore(addedscore);
+                //Set the new score on display.
+                //reset the bullet position
+                //TODO: REMOVE THIS AND REPLACE WITH RESET POSITION.
+                _game.Player.Bullet.IsAlive = false;
+            }
+            else if (target == 55)
+            {
+                //Do something with the mothership.
+                //Reset the bullet position.
+            }
+            else
+            {
+                //Do nothing and continue.
+            }
         }
 
         private void OnAlienMoveTimerTick(object sender, object e)
@@ -212,7 +218,7 @@ namespace AlienInvaders
                 _clockTimer.Start();
                 _shipMoveTimer.Start();
                 _btnSave.Visibility = Visibility.Collapsed;
-                _ game.Pause();
+                _game.Pause();
             }
             
         }
@@ -225,7 +231,7 @@ namespace AlienInvaders
             _game.Save();
             this.Frame.GoBack();
         }
-
+        //TODO: CHANGE THIS TO 
         private void OnKeyDown(object sender, KeyRoutedEventArgs e)
         {
             switch(e.Key)
@@ -254,9 +260,12 @@ namespace AlienInvaders
                     }
                     break;
 
-                case (Windows.System.VirtualKey.Space):
-                    _game.Player.OnShoot();
-
+                case (Windows.System.VirtualKey.Up):
+                    bool hasNotStart = _game.Player.OnShoot();
+                    if (hasNotStart)
+                    {
+                        _bulletMoveTimer.Start();
+                    }
                     break;
                 
                 default:

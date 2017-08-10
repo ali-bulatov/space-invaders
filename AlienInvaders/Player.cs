@@ -44,14 +44,14 @@ namespace AlienInvaders
 
         private bool _canMove;
 
-        public Player(Byte lives, Color color, byte type, Image uiPlayer)
+        public Player(Byte lives, Color color, byte type, Image uiPlayer, Image bulletImage)
         {
             //Set the position of the player.
             _alive = true;
             _lives = lives;
             //TODO: Change Speed.
             _speed = 0.25;
-            _bullet = new Bullet();
+            _bullet = new Bullet(0, 0, bulletImage);
             _color = color;
             _type = type;
             _direction = Direction.Left;
@@ -60,6 +60,30 @@ namespace AlienInvaders
             _canMove = true;
             SetImage(color, type);
             
+        }
+
+        public byte Lives
+        {
+            get
+            {
+                return _lives;
+            }
+            set
+            {
+                _lives = value;
+            }
+        }
+
+        public double Position
+        {
+            get
+            {
+                return _position;
+            }
+            set
+            {
+                _position = value;
+            }
         }
 
         public Direction Direction
@@ -91,6 +115,18 @@ namespace AlienInvaders
             get
             {
                 return _bullet;
+            }
+        }
+
+        public Image UiPlayer
+        {
+            get
+            {
+                return _uiPlayer;
+            }
+            set
+            {
+                _uiPlayer = value;
             }
         }
 
@@ -146,8 +182,10 @@ namespace AlienInvaders
         {
             //THIS CAUSES THE BULLET TO BE VISIBLE ON THE SCREEN.
             double yPosition = Canvas.GetTop(_uiPlayer);
-            bool fired = _bullet.Draw(_position, _uiPlayer);
-            if (!fired)
+            double bulletPosition = Canvas.GetLeft(_uiPlayer);
+            bulletPosition += (_uiPlayer.Width / 2);
+            bool notFired = _bullet.Draw(bulletPosition, yPosition);
+            if (notFired)
             {
                 return true;
             }
