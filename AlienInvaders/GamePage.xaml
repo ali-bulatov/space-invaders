@@ -86,6 +86,10 @@
             <Image x:Name="_imgShield2" Height="50" Canvas.Left="410" Canvas.Top="528" Width="70" Source="Assets/Shield.png" Stretch="Fill" RenderTransformOrigin="0.48,0.46"/>
             <Image x:Name="_imgShield3" Height="50" Canvas.Left="575" Canvas.Top="528" Width="70" Source="Assets/Shield.png" Stretch="Fill" RenderTransformOrigin="0.48,0.46"/>
             <Image x:Name="_imgMotherShip" Height="50" Canvas.Left="650" Width="75" Source="Assets/Mothership.png" Stretch="Fill" Visibility="Collapsed"/>
+            <Image x:Name="_imgBullet" Grid.Column="1" HorizontalAlignment="Left" Height="38" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="Assets/Bullet.png" Canvas.Left="10" Canvas.Top="604" Visibility="Collapsed"/>
+            <Image x:Name="_imgEnemyBullet" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="182,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="Assets/EnemyBullet.png" Visibility="Collapsed"/>
+            <Image x:Name="_imgEnemyBullet1" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="347,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="Assets/EnemyBullet.png" Visibility="Collapsed"/>
+            <Image x:Name="_imgEnemyBullet2" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="530,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="Assets/EnemyBullet.png" Visibility="Collapsed"/>
         </Canvas>
         <TextBlock x:Name="_txtLevel" Grid.Row="2" TextWrapping="Wrap" Text="Level: 1" Foreground="White" FontSize="48" FontFamily="Comic Sans MS"/>
         <TextBlock x:Name="_txtScore" Grid.Column="2" TextWrapping="Wrap" Text="Score: 0" Foreground="White" FontSize="36" FontFamily="Comic Sans MS"/>
@@ -154,10 +158,6 @@
             </Button>
 
         </Border>
-        <Image x:Name="_imgBullet" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="15,505,0,0" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="Assets/Bullet.png" Visibility="Collapsed"/>
-        <Image x:Name="_imgEnemyBullet" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="182,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="Assets/EnemyBullet.png" Visibility="Collapsed"/>
-        <Image x:Name="_imgEnemyBullet1" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="347,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="Assets/EnemyBullet.png" Visibility="Collapsed"/>
-        <Image x:Name="_imgEnemyBullet2" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="530,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="Assets/EnemyBullet.png" Visibility="Collapsed"/>
         <Button x:Name="_btnSave" Content="Save" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Stretch" Width="160" Margin="320,0,0,0" FontSize="36" Foreground="White" Visibility="Collapsed" Click="OnSaveClicked">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
