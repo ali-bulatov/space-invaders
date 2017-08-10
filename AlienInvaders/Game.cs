@@ -192,10 +192,11 @@ namespace AlienInvaders
             //Pop the alien object out of the list.
             Alien selectedAlien = _alienList[alienNum];
             //Move the alien offscreen.
-            //Canvas.SetLeft(selectedAlien.UiAlien, 0);
-            //Canvas.SetTop(selectedAlien.UiAlien, 0);
+            //Canvas.SetLeft(selectedAlien._imgAlien, 0);
+            //Canvas.SetTop(selectedAlien._imgAlien, 0);
             //Set the alien visibility to false.
-            //selectedAlien.UiAlien.Visibility = Visibility.Collapsed;
+            //selectedAlien._imgAlien.Visibility = Visibility.Collapsed;
+            //TODO: IMPLEMENT.
             //Add a null refernce to the list.
             _alienList[alienNum] = null;
             //Destroy the Alien Object.
