@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace AlienInvaders
 {
     public enum Color
     {
-        Red = 1,
+        Red = 0,
         Yellow,
         Green,
         Blue
@@ -212,11 +213,12 @@ namespace AlienInvaders
         {
             _color = color;
             _type = type;
-            List<List<Image>> imageCombo = new List<List<Image>>();
-            //TODO: Add the images into the list, each row representing a color.
-            //set the image of the player to the image in the list.
-            //_uiPlayer = List<List<Image>>[(int)color][type];
-
+            String[,] imageCombo = new String[4, 5];
+            imageCombo[0, 0] = "ms-appx:///Assets/SpR1.png";
+            imageCombo[0, 1] = "ms-appx:///Assets/SpY1.png";
+            imageCombo[0, 2] = "ms-appx:///Assets/SpG1.png";
+            imageCombo[0, 3] = "ms-appx:///Assets/SpB1.png";
+            _uiPlayer.Source = new BitmapImage(new Uri(imageCombo[(int)_color, _type]));
         }
 
         public void Reset()
