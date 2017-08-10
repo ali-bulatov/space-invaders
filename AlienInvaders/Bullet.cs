@@ -19,10 +19,10 @@ namespace AlienInvaders
         private bool isAlive;
         private float Velocity;
 
-        public Bullet( float _xPos, float _yPos )
+        public Bullet( )
         {
-            xPosition = xPos = _xPos;
-            yPosition = yPos = _yPos;
+          //  xPosition = xPos = _xPos;
+            //yPosition = yPos = _yPos;
             isAlive = false;
             Velocity = 300.0f;
         }

@@ -30,7 +30,7 @@ namespace AlienInvaders
 
         private Player _player;
 
-        private List<EnemyBullet> _bulletList;
+       // private List<EnemyBullet> _bulletList;
 
         private List<Alien> _alienList;
 
@@ -43,7 +43,7 @@ namespace AlienInvaders
         private Color _colorOption;
 
         private byte _imageOption;
-
+        private List<Bullet> _bulletList;
         private List<Image> _alienImageList;
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace AlienInvaders
             _imageOption = imageOption;
             //Set the player color 
             _player = new Player(3, _colorOption, _imageOption, playerImage);
-            _bulletList = new List<EnemyBullet>();
+            //_bulletList = new List<EnemyBullet>();
             _alienList = new List<Alien>();
             //TODO: FIX WIDTH TO CANVAS.ACTUALWIDTH.
             _motherShip = new MotherShip(720, 0.25,_randomizer);
@@ -146,7 +146,7 @@ namespace AlienInvaders
 
             for (int alienCount = 0; alienCount < 3; alienCount++)
             {
-                _bulletList.Add(new EnemyBullet());
+           //     _bulletList.Add(new EnemyBullet());
                 int randRow = _randomizer.Next(0, 4);
                 int randCol = _randomizer.Next(0, 11);
                 //TODO: Make the _enemyBullet available.

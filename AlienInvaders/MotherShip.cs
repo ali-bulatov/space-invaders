@@ -51,23 +51,45 @@ namespace AlienInvaders
         /// <summary>
         /// Move the ship
         /// </summary>
-        public void Fly()
+        public bool Fly()
         {
-           //check the direction of the ship
-           if (_direction == Direction.Left)
+            //if left --> move left
+            //check whether is has hit the edge return true if it did
+            //check the direction of the ship
+            if (_direction == Direction.Left)
             {
                 if(_position >= 720)
                 {
-                    _position += 10;
+                    Canvas.SetLeft(_uiMotherShip, _position);
+                    return true;
+                }
+                else
+                {
+                    _position += 20;
+                    Canvas.SetLeft(_uiMotherShip, _position);
+                    return false;
                 }
             }
-           //if left --> move left
-           //check whether is has hit the edge return true if it did
-
+            else
+            {
+                if(_position <= 0)
+                {
+                    _position -= 20;
+                    Canvas.SetLeft(_uiMotherShip, _position);
+                    return true;
+                }
+                else
+                {
+                    _position -= 20;
+                    Canvas.SetLeft(_uiMotherShip, _position);
+                    return false;
+                }
+            }
         }
         public bool Spawn()
         {
             //check whether it is visible or not
+            //if (_uiMotherShip.Visibility = Windows.UI.Xaml.Visibility.Visible)
             {
                 //if (_uiMotherShip.Visibility)
                 {
