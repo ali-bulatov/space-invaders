@@ -25,14 +25,23 @@ namespace AlienInvaders
     {
         public MainPage()
         {
+            
             this.InitializeComponent();
         }
 
         private void OnStartButtonClicked(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(GamePage));
+            //Determine the difficulty level chosen
+            ComboBoxItem levelItem = _cmbLevel.SelectedItem as ComboBoxItem;
+            int difLevel = int.Parse(levelItem.Content.ToString());
+            //Determine the color chosen
+            ComboBoxItem colorItem = _cmbLevel.SelectedItem as ComboBoxItem;
+            int tankColor = int.Parse(colorItem.Content.ToString());
+            //create an array
+            int[] passingChars = new int[] { difLevel,tankColor };
+            // pass color,difficulty and navigate to the game page
+            this.Frame.Navigate(typeof(GamePage),passingChars);
         }    
-        
         private void OnExitButtonClicked(object sender, RoutedEventArgs e)
         {
             CoreApplication.Exit();

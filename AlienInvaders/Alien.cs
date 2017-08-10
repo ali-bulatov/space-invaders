@@ -59,6 +59,20 @@ namespace AlienInvaders
             }
         }
         /// <summary>
+        /// Speed property
+        /// </summary>
+        public double Speed
+        {
+            get
+            {
+                return _speed;
+            }
+            set
+            {
+                _speed = value;
+            }
+        }
+        /// <summary>
         /// Alien shooting
         /// </summary>
         public void Shoot()
@@ -83,7 +97,6 @@ namespace AlienInvaders
 
                 if (_xPosition >= 720)
                 {
-                    _xPosition += 5;
                     Canvas.SetLeft(_uiAlien, _xPosition);
                     return true;
                 }
