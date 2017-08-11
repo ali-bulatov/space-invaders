@@ -92,7 +92,8 @@ namespace AlienInvaders
             _passedGameValues[1] -= 1;
             _imageList = new List<Image> { _imgAlien, _imgAlien1, _imgAlien2, _imgAlien3, _imgAlien4, _imgAlien5, _imgAlien6, _imgAlien7, _imgAlien8, _imgAlien9, _imgAlien10, _imgAlien11, _imgAlien12, _imgAlien13, _imgAlien14, _imgAlien15, _imgAlien16, _imgAlien17, _imgAlien18, _imgAlien19, _imgAlien20, _imgAlien21, _imgAlien22, _imgAlien23, _imgAlien24, _imgAlien25, _imgAlien26, _imgAlien27, _imgAlien28, _imgAlien29, _imgAlien30, _imgAlien31, _imgAlien32, _imgAlien33, _imgAlien34, _imgAlien35, _imgAlien36, _imgAlien37, _imgAlien38, _imgAlien39, _imgAlien40, _imgAlien41, _imgAlien42, _imgAlien43, _imgAlien44, _imgAlien45, _imgAlien46, _imgAlien47, _imgAlien48, _imgAlien49, _imgAlien50, _imgAlien51, _imgAlien52, _imgAlien53, _imgAlien54 };
             List<Image> shieldList = new List<Image> { _imgShield, _imgShield1, _imgShield2, _imgShield3 };
-            _game = new Game((GameDifficulty)_passedGameValues[0], (Color)_passedGameValues[1], 1 , _imgPlayer, _imgBullet, _imageList, shieldList);
+            List<Image> bulletList = new List<Image> { _imgEnemyBullet, _imgEnemyBullet1, _imgEnemyBullet2 };
+            _game = new Game((GameDifficulty)_passedGameValues[0], (Color)_passedGameValues[1], 1 , _imgPlayer, _imgBullet, _imageList, shieldList, bulletList, _imgMotherShip);
             _game.Play();
             _alienMoveTimer.Start();
             _clockTimer.Start();
@@ -152,9 +153,9 @@ namespace AlienInvaders
             if (target == 0 || target <= 54)
             {
                 int addedscore = _game.DespawnAliens((int)target);
-                //newScore = _game.UpdateScore(addedscore);
+                int newScore = _game.UpdateScore(addedscore);
                 //Set the new score on display.
-                //reset the bullet position
+                _txtScore.Text = "Score: " + newScore.ToString();
                 //TODO: REMOVE THIS AND REPLACE WITH RESET POSITION.
                 _game.Player.Bullet.ResetPosition();
                 _bulletMoveTimer.Stop();
@@ -174,9 +175,15 @@ namespace AlienInvaders
 
         private void OnAlienMoveTimerTick(object sender, object e)
         {
-            _game.ShiftAliens();
-            //Count the number of aliens in the list.
-           // _alienMoveTimer.Interval = TimeSpan.FromMilliseconds(_game.IncreaseSpeed(_game.AlienCount));
+            if (_game.AlienCount > 0)
+            {
+                _game.ShiftAliens();
+                //_alienMoveTimer.Interval = TimeSpan.FromMilliseconds(_game.IncreaseSpeed(_game.AlienCount));
+            }
+            else
+            {
+                _game.ResetRound();
+            }
         }
 
         private void OnPlayerMoveTimerTick(object sender, object e)

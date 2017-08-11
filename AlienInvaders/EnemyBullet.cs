@@ -47,7 +47,7 @@ namespace AlienInvaders
                 }
             }
             index++;
-            
+
             foreach(Image playerShield in playerShieldList)
             {
                 if (playerShield.Visibility == Windows.UI.Xaml.Visibility.Visible)
@@ -60,8 +60,8 @@ namespace AlienInvaders
                         }
                     }
                 }
-            }                
+            }
             return 255;
         }
-   }
+    }
 }
