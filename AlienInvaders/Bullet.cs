@@ -15,8 +15,8 @@ namespace AlienInvaders
     public class Bullet
     {
         private Rectangle rect;
-        private double xPos, yPos;
-        private bool isAlive;
+        protected double xPos, yPos;
+        protected bool isAlive;
         private float Velocity;
         private Image bullet;
         public Bullet( double _xPos, double _yPos, Image _bullet )
@@ -58,7 +58,7 @@ namespace AlienInvaders
             return false;
         }
 
-        public bool Draw(float xPosition, float yPosition)
+        public bool Draw(double xPosition, double yPosition)
         {
             if(IsAlive == false)
             {
@@ -89,7 +89,7 @@ namespace AlienInvaders
             }
         }
 
-        public byte Collide(List<Image> alienImageList, Image motherShipImage)
+        public virtual byte Collide(List<Image> alienImageList, Image motherShipImage)
         {
             byte index = 0;
 
@@ -101,10 +101,10 @@ namespace AlienInvaders
                     {
                         if (yPosition > Canvas.GetTop(alien) - bullet.Height && yPosition < Canvas.GetTop(alien) + bullet.Height)
                         {
-                            return index;
-                        }
+                        return index;
                     }
                 }
+            }
                 index++;              
             }
             if (motherShipImage.Visibility == Windows.UI.Xaml.Visibility.Visible)
