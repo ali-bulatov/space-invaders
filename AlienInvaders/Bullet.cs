@@ -102,10 +102,10 @@ namespace AlienInvaders
                     {
                         if (yPosition > Canvas.GetTop(alien) - bullet.Height && yPosition < Canvas.GetTop(alien) + bullet.Height)
                         {
-                            return index;
-                        }
+                        return index;
                     }
                 }
+            }
                 index++;              
             }
             if (motherShipImage.Visibility == Windows.UI.Xaml.Visibility.Visible)
