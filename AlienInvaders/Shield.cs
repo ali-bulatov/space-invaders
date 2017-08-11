@@ -11,6 +11,9 @@ namespace AlienInvaders
     /// </summary>
     class Shield
     {
+        /// <summary>
+        /// Hom many bullets needed to dissolve the shield
+        /// </summary>
         private int _strength;
         /// <summary>
         /// internal constructor

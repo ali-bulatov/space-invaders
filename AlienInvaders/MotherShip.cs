@@ -91,10 +91,18 @@ namespace AlienInvaders
             //check whether it is visible or not
             if (_uiMotherShip.Visibility == Windows.UI.Xaml.Visibility.Visible)
             {
-                return true;
+                return false;
             }
             else
             {
+                int randomNumber = _randomizer.Next(1,25);
+                if (randomNumber == 25)
+                {
+                    _uiMotherShip.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                    int randomPostiion = _randomizer.Next(0, 1);
+                    ResetPosition(randomPostiion);
+                    return true;
+                }
                 return false;
             }
         }
@@ -105,9 +113,23 @@ namespace AlienInvaders
         {
             //Reset the location to zero...
             _position = 0;
-
-            //... and position the Picture Box UI to starting position
-           // Canvas.SetLeft(_uiMotherShip,_startPosition);
+        }
+        public void ResetPosition(int randomPosition)
+        {
+            if (randomPosition == 0)
+            {
+                _direction = Direction.Left;
+                _position = 720;
+                _startPosition = 720;
+                Canvas.SetLeft(_uiMotherShip, _startPosition);
+            }
+            else
+            {
+                _direction = Direction.Right;
+                _position = -720;
+                _startPosition = -720;
+                Canvas.SetLeft(_uiMotherShip, _startPosition);
+            }
         }
     }
 }
