@@ -89,14 +89,14 @@ namespace AlienInvaders
         public bool Spawn()
         {
             //check whether it is visible or not
-            //if (_uiMotherShip.Visibility = Windows.UI.Xaml.Visibility.Visible)
+            if (_uiMotherShip.Visibility == Windows.UI.Xaml.Visibility.Visible)
             {
-                //if (_uiMotherShip.Visibility)
-                {
-
-                }
+                return true;
             }
-            return true;
+            else
+            {
+                return false;
+            }
         }
         /// <summary>
         /// Reset location of the ship
