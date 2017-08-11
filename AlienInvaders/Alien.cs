@@ -28,7 +28,10 @@ namespace AlienInvaders
         /// Points
         /// </summary>
         private byte _points;
-
+        /// <summary>
+        /// represents enemy bullet
+        /// </summary>
+        private Bullet _enemyBullet;
         private Image _uiAlien;
 
         private Direction _direction;
@@ -37,7 +40,7 @@ namespace AlienInvaders
         /// </summary>
         /// <param name="position"></param>
         /// <param name="speed"></param>
-        internal Alien(double speed, Image uiAlien, byte points)
+        internal Alien(double speed, Image uiAlien, byte points,)
         {
             this._speed = speed;
             _points = points;
@@ -72,6 +75,17 @@ namespace AlienInvaders
             set
             {
                 _yPosition = value;
+            }
+        }
+        public Bullet enemyBullet
+        {
+            get
+            {
+                return _enemyBullet;
+            }
+            set
+            {
+                _enemyBullet = value;
             }
         }
         /// <summary>
