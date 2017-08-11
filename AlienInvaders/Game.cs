@@ -48,13 +48,15 @@ namespace AlienInvaders
 
         private List<Image> _alienImageList;
 
+        private List<Image> _bulletImageList;
+
         /// <summary>
         /// Represents the constructor of the game that is being played.
         /// </summary>
         /// <param name="difficulty">Represents the difficulty of the game.</param>
         /// <param name="colorOption">Represents the color of the player selected as an option.</param>
         /// <param name="imageOption">Represents the image option of the player.</param>
-        public Game(GameDifficulty difficulty, Color colorOption, byte imageOption, Image playerImage, Image bulletImage, List<Image> alienImageList, List<Image> shieldList)
+        public Game(GameDifficulty difficulty, Color colorOption, byte imageOption, Image playerImage, Image bulletImage, List<Image> alienImageList, List<Image> shieldList, List<Image> bulletImageList)
         {
             //Load the basic assets of the game before playing or resuming.
             _gameScore = 0;
@@ -160,7 +162,7 @@ namespace AlienInvaders
                             _alienList[fileIndex - 1].YPosition = double.Parse(fileLines[fileIndex][2].ToString());
                             Canvas.SetTop(_alienImageList[fileIndex - 1], _alienList[fileIndex - 1].YPosition);
                             _alienList[fileIndex - 1].Speed = double.Parse(fileLines[fileIndex][4].ToString());
-                            _alienList[fileIndex - 1].Points = int.Parse(fileLines[fileIndex][6].ToString());
+                            _alienList[fileIndex - 1].Points = byte.Parse(fileLines[fileIndex][6].ToString());
                             //TODO: FIGURE OUT CODE TO SET ENUMERATION NUMBER.
                             //_alienList[fileIndex - 1].Direction = fileLines[fileIndex][8].ToString();
 
@@ -193,10 +195,10 @@ namespace AlienInvaders
 
                     for (int alienCount = 0; alienCount < 3; alienCount++)
                     {
-                        _bulletList.Add(new EnemyBullet(0, 0, ));
+                        _bulletList.Add(new EnemyBullet(0, 0, _bulletImageList[alienCount]));
                         //TODO: Make the _enemyBullet available.
                         Alien selectedAlien = GiveBullet();
-                        selectedAlien.bullet = _bulletList[alienCount];
+                        selectedAlien.Bullet = _bulletList[alienCount];
 
                     }
                 }
