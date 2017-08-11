@@ -42,11 +42,12 @@ namespace AlienInvaders
         /// </summary>
         /// <param name="position"></param>
         /// <param name="speed"></param>
-        public MotherShip(double position,double speed, Random randomizer)
+        public MotherShip(double position,double speed, Random randomizer,Image uiMotherShip)
         {
             this._position = position;
             this._speed = speed;
             this._randomizer = randomizer;
+            _uiMotherShip = uiMotherShip;
         }
         /// <summary>
         /// Move the ship
@@ -89,14 +90,22 @@ namespace AlienInvaders
         public bool Spawn()
         {
             //check whether it is visible or not
-            //if (_uiMotherShip.Visibility = Windows.UI.Xaml.Visibility.Visible)
+            if (_uiMotherShip.Visibility == Windows.UI.Xaml.Visibility.Visible)
             {
-                //if (_uiMotherShip.Visibility)
-                {
-
-                }
+                return false;
             }
-            return true;
+            else
+            {
+                int randomNumber = _randomizer.Next(1,25);
+                if (randomNumber == 25)
+                {
+                    _uiMotherShip.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                    int randomPostiion = _randomizer.Next(0, 1);
+                    ResetPosition(randomPostiion);
+                    return true;
+                }
+                return false;
+            }
         }
         /// <summary>
         /// Reset location of the ship
@@ -105,9 +114,23 @@ namespace AlienInvaders
         {
             //Reset the location to zero...
             _position = 0;
-
-            //... and position the Picture Box UI to starting position
-           // Canvas.SetLeft(_uiMotherShip,_startPosition);
+        }
+        public void ResetPosition(int randomPosition)
+        {
+            if (randomPosition == 0)
+            {
+                _direction = Direction.Left;
+                _position = 720;
+                _startPosition = 720;
+                Canvas.SetLeft(_uiMotherShip, _startPosition);
+            }
+            else
+            {
+                _direction = Direction.Right;
+                _position = -720;
+                _startPosition = -720;
+                Canvas.SetLeft(_uiMotherShip, _startPosition);
+            }
         }
     }
 }

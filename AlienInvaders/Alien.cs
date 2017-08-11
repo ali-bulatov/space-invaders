@@ -10,7 +10,7 @@ namespace AlienInvaders
     /// <summary>
     /// Class rerpresenting the alien object
     /// </summary>
-    class Alien
+    public class Alien
     {
         /// <summary>
         /// x-axis position of the alien
@@ -27,8 +27,11 @@ namespace AlienInvaders
         /// <summary>
         /// Points
         /// </summary>
-        private byte _points;
-
+        private int _points;
+        /// <summary>
+        /// represents enemy bullet
+        /// </summary>
+        private EnemyBullet _enemyBullet;
         private Image _uiAlien;
 
         private Direction _direction;
@@ -37,7 +40,7 @@ namespace AlienInvaders
         /// </summary>
         /// <param name="position"></param>
         /// <param name="speed"></param>
-        internal Alien(double speed, Image uiAlien, byte points)
+        public Alien(double speed, Image uiAlien, int points)
         {
             this._speed = speed;
             _points = points;
@@ -45,6 +48,7 @@ namespace AlienInvaders
             _xPosition = Canvas.GetLeft(uiAlien);
             _yPosition = Canvas.GetTop(uiAlien);
             _direction = Direction.Right;
+            _enemyBullet = null;
         }
         /// <summary>
         /// xPosition property
@@ -74,6 +78,17 @@ namespace AlienInvaders
                 _yPosition = value;
             }
         }
+        public EnemyBullet EnemyBullet
+        {
+            get
+            {
+                return _enemyBullet;
+            }
+            set
+            {
+                _enemyBullet = value;
+            }
+        }
         /// <summary>
         /// Speed property
         /// </summary>
@@ -101,7 +116,7 @@ namespace AlienInvaders
         /// <summary>
         /// alien points property
         /// </summary>
-        public byte Points
+        public int Points
         {
             get
             {

@@ -19,7 +19,6 @@ namespace AlienInvaders
         protected bool isAlive;
         private float Velocity;
         private Image bullet;
-
         public Bullet( double _xPos, double _yPos, Image _bullet )
         {
             xPosition = xPos = _xPos;
