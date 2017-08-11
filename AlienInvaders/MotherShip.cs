@@ -42,11 +42,12 @@ namespace AlienInvaders
         /// </summary>
         /// <param name="position"></param>
         /// <param name="speed"></param>
-        public MotherShip(double position,double speed, Random randomizer)
+        public MotherShip(double position,double speed, Random randomizer,Image uiMotherShip)
         {
             this._position = position;
             this._speed = speed;
             this._randomizer = randomizer;
+            _uiMotherShip = uiMotherShip;
         }
         /// <summary>
         /// Move the ship
