@@ -15,8 +15,8 @@ namespace AlienInvaders
     public class Bullet
     {
         private Rectangle rect;
-        private double xPos, yPos;
-        private bool isAlive;
+        protected double xPos, yPos;
+        protected bool isAlive;
         private float Velocity;
         private Image bullet;
 
@@ -90,7 +90,7 @@ namespace AlienInvaders
             }
         }
 
-        public byte Collide(List<Image> alienImageList, Image motherShipImage)
+        public virtual byte Collide(List<Image> alienImageList, Image motherShipImage)
         {
             byte index = 0;
 
