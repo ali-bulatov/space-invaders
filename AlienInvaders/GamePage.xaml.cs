@@ -62,7 +62,7 @@ namespace AlienInvaders
 
             _shipMoveTimer = new DispatcherTimer();
             _shipMoveTimer.Tick += OnShipMoveTimerTick;
-            _shipMoveTimer.Interval = TimeSpan.FromMilliseconds(100);
+            _shipMoveTimer.Interval = TimeSpan.FromMilliseconds(0.25);
 
             _enemyBulletMoveTimer = new DispatcherTimer();
             _enemyBulletMoveTimer.Tick += OnEnemyBulletMoveTimerTick;
@@ -77,12 +77,15 @@ namespace AlienInvaders
             _passedGameValues = new int[2];
         }
 
+        private void EndGame()
+        {
+
+        }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.Parameter is int[])
             {
                 _passedGameValues = (int[])e.Parameter;
-                //TODO: REMOVE. THIS IS FOR TESTING PURPOSES.
             }
             else
             {
@@ -114,8 +117,8 @@ namespace AlienInvaders
 
             if (_shipMoveTimer.IsEnabled == false)
             {
-                int spawnNum = _game.Randomizer.Next(1, 25);
-                if (spawnNum == 25)
+                bool canSpawn =_game.MotherShip.Spawn();
+                if (canSpawn)
                 {
                     _shipMoveTimer.Start();
                 }
@@ -131,14 +134,16 @@ namespace AlienInvaders
         private void OnShipMoveTimerTick(object sender, object e)
         {
             //Move the mothership
-            _imgMotherShip.Visibility = Visibility.Visible;
-            _game.MotherShip.Fly();
+            bool hasLanded = _game.MotherShip.Fly();
             //Check to see if the mothership hit the wall.
             //Set the visibility of the mothership to false.
             //Reset the position of the mothership.
-            _game.MotherShip.ResetLocation();
+            if (hasLanded)
+            {
+                _imgMotherShip.Visibility = Visibility.Collapsed;
+                _shipMoveTimer.Stop();
+            }
             //Stop the timer.
-            _shipMoveTimer.Stop();
         }
 
         private void OnBulletMoveTimerTick(object sender, object e)
@@ -156,7 +161,6 @@ namespace AlienInvaders
                 int newScore = _game.UpdateScore(addedscore);
                 //Set the new score on display.
                 _txtScore.Text = "Score: " + newScore.ToString();
-                //TODO: REMOVE THIS AND REPLACE WITH RESET POSITION.
                 _game.Player.Bullet.ResetPosition();
                 _bulletMoveTimer.Stop();
             }
@@ -164,6 +168,8 @@ namespace AlienInvaders
             {
                 //Do something with the mothership.
                 //Reset the bullet position.
+                _imgMotherShip.Visibility = Visibility.Collapsed;
+                _shipMoveTimer.Stop();
                 _game.Player.Bullet.ResetPosition();
                 _bulletMoveTimer.Stop();
             }
@@ -190,46 +196,10 @@ namespace AlienInvaders
         {
             _game.Player.Move();
         }
-
-        
-        private void OnMoveClicked(object sender, RoutedEventArgs e)
-        {
-            if (sender == _btnLeft)
-            {
-                //TODO: USE DOTNOTATION WITH ARCADE MACHINE.
-                if (_game.Player.Direction == Direction.Right)
-                {
-                    _game.Player.Direction = Direction.Left;
-                    _playerMoveTimer.Start();
-                }
-                else
-                {
-                    _playerMoveTimer.Start();
-                }
-            }
-            else
-            {
-                if (_game.Player.Direction == Direction.Left)
-                {
-                    _game.Player.Direction = Direction.Right;
-                    _playerMoveTimer.Start();
-                }
-                else
-                {
-                    _playerMoveTimer.Start();
-                }
-            }
-        }
-        
-        private void OnFireClicked(object sender, RoutedEventArgs e)
-        {
-
-        }
         
         private void OnPauseClicked(object sender, RoutedEventArgs e)
         {
-            //TODO: FIX THIS.
-            if (_btnPause.Content == "Pause")
+            if (_btnPause.Content.ToString() == "Pause")
             {
                 _btnPause.Content = "Resume";
                 _alienMoveTimer.Stop();
@@ -252,13 +222,11 @@ namespace AlienInvaders
 
         private void OnSaveClicked(object sender, RoutedEventArgs e)
         {
-            //TODO: IMPLEMENT SAVING FUNCTIONALITY.
             //Call the save method of the Game.
             //Navigate Back to MainPage.
             _game.Save();
             this.Frame.GoBack();
         }
-        //TODO: CHANGE THIS TO 
         private void OnKeyDown(object sender, KeyRoutedEventArgs e)
         {
             switch(e.Key)

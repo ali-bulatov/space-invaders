@@ -180,7 +180,7 @@ namespace AlienInvaders
                 {
                     for (int fileIndex = 1; fileIndex <= _alienImageList.Count; fileIndex++)
                     {
-                        if (fileLines[fileIndex] != "0 0 0 0 Right")
+                        if (fileLines[fileIndex] != "Null")
                         {
                             _alienList.Add(new Alien(100, _alienImageList[fileIndex - 1], 100));
                             string[] alienInfo = fileLines[fileIndex].Split(' ');
@@ -190,7 +190,6 @@ namespace AlienInvaders
                             Canvas.SetTop(_alienImageList[fileIndex - 1], _alienList[fileIndex - 1].YPosition);
                             _alienList[fileIndex - 1].Speed = double.Parse(alienInfo[2]);
                             _alienList[fileIndex - 1].Points = int.Parse(alienInfo[3]);
-                            //TODO: FIGURE OUT CODE TO SET ENUMERATION NUMBER.
                             _alienList[fileIndex - 1].Direction = (Direction)int.Parse(alienInfo[4]);
 
 
@@ -215,6 +214,22 @@ namespace AlienInvaders
                         if (_difficulty == GameDifficulty.Beginner)
                         {
                             _alienList.Add(new Alien(1, _alienImageList[alienImageIndex], 500));
+                        }
+                        else if (_difficulty == GameDifficulty.Easy)
+                        {
+                            _alienList.Add(new Alien(0.75, _alienImageList[alienImageIndex], 250));
+                        }
+                        else if (_difficulty == GameDifficulty.Normal)
+                        {
+                            _alienList.Add(new Alien(0.5, _alienImageList[alienImageIndex], 250));
+                        }
+                        else if (_difficulty == GameDifficulty.Hard)
+                        {
+                            _alienList.Add(new Alien(0.25, _alienImageList[alienImageIndex], 100));
+                        }
+                        else
+                        {
+                            _alienList.Add(new Alien(0.10, _alienImageList[alienImageIndex], 100));
                         }
                     }
                     //Give three random aliens a bullet from the list to start.
@@ -252,7 +267,6 @@ namespace AlienInvaders
             }
             //Give three random aliens a bullet from the list to start.
             //GiveBullet();
-            double test = Canvas.GetLeft(_alienImageList[1]);
             _player.Reset();
         }
 
@@ -270,7 +284,6 @@ namespace AlienInvaders
             Canvas.SetTop(selectedAlien.UiAlien, 0);
             //Set the alien visibility to false.
             selectedAlien.UiAlien.Visibility = Visibility.Collapsed;
-            //TODO: IMPLEMENT.
             //Add a null refernce to the list.
             _alienList[alienNum] = null;
             //Destroy the Alien Object.
@@ -365,7 +378,7 @@ namespace AlienInvaders
                 else
                 {
                     //This alien does not exist. Set it to default.
-                    saveItems.Add("0 0 0 0 Right");
+                    saveItems.Add("Null");
                 }
             }
             saveItems.Add(_player.Lives.ToString());
