@@ -47,8 +47,9 @@
             <Button x:Name="_btnCredits" Content="Credits" HorizontalAlignment="Center" Margin="0" Grid.Row="1" VerticalAlignment="Center" Height="50" Width="200" FontSize="20" Click="OnCreditsButtonClicked" Grid.Column="2"/>
             <ComboBox x:Name="_cmbTankColor" HorizontalAlignment="Center" Margin="0,0,0,3" VerticalAlignment="Center" Width="200" HorizontalContentAlignment="Center" Height="50" FontSize="20" PlaceholderText="Color" SelectedIndex="0">
                 <ComboBoxItem Content="Red" Foreground="Red"/>
+                <ComboBoxItem Content="Yellow" Foreground="Yellow"/>
                 <ComboBoxItem Content="Green" Foreground="Green"/>
-                <ComboBoxItem Content="Blue" Foreground="#FF00E8FF"/>
+                <ComboBoxItem Content="Blue" Foreground="Blue"/>
             </ComboBox>
             <Button x:Name="_btnStart" Content="Start" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Height="50" Width="200" FontSize="20" Click="OnStartButtonClicked" Grid.Column="1"/>
             <Button x:Name="_btnHowTo" Content="How to play" HorizontalAlignment="Center" Margin="0" Grid.Row="1" VerticalAlignment="Center" Height="50" Width="200" FontSize="20" Click="OnHowToButtonClicked" Grid.Column="1"/>
