@@ -3,18 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace AlienInvaders
 {
     /// <summary>
     /// 
     /// </summary>
-    class Shield
+    public class Shield
     {
         /// <summary>
         /// Hom many bullets needed to dissolve the shield
         /// </summary>
         private int _strength;
+        /// <summary>
+        /// UI representation of the shield
+        /// </summary>
+        private Image _uiShield;
         /// <summary>
         /// internal constructor
         /// </summary>
@@ -28,7 +33,8 @@ namespace AlienInvaders
         /// </summary>
         public void Dissolve()
         {
-
+            // Change the width of the shield
+            _uiShield.Width -= 10;
         }
         /// <summary>
         /// Ressolve the shield
