@@ -59,8 +59,26 @@ namespace AlienInvaders
                     tankColor = 0;
                     break;
             }
+            ComboBoxItem tankItem = _cmbBoxTankType.SelectedItem as ComboBoxItem;
+            string tankString = tankItem.Content.ToString();
+            int tankType;
+            switch (tankString)
+            {
+                case "Tank 1":
+                    tankType = 0;
+                    break;
+                case "Tank 2":
+                    tankType = 1;
+                    break;
+                case "Tank 3":
+                    tankType = 2;
+                    break;
+                default:
+                    tankType = 0;
+                    break;
+            }
             //create an array
-            int[] passingChars = new int[] { difLevel,tankColor };
+            int[] passingChars = new int[] { difLevel,tankColor,tankType};
             // pass color,difficulty and navigate to the game page
             this.Frame.Navigate(typeof(GamePage), passingChars);
         }    
