@@ -14,7 +14,7 @@ namespace AlienInvaders
 
         }
         private Image enemyBullet;
-
+       
         public bool DrawBullet()
         {
             if (IsAlive == false)
@@ -47,7 +47,7 @@ namespace AlienInvaders
                 }
             }
             index++;
-            
+
             foreach(Image playerShield in playerShieldList)
             {
                 if (playerShield.Visibility == Windows.UI.Xaml.Visibility.Visible)
@@ -60,8 +60,8 @@ namespace AlienInvaders
                         }
                     }
                 }
-            }                
+            }
             return 255;
         }
-   }
+    }
 }

@@ -34,8 +34,31 @@ namespace AlienInvaders
             ComboBoxItem levelItem = _cmbLevel.SelectedItem as ComboBoxItem;
             int difLevel = int.Parse(levelItem.Content.ToString());
             //Determine the color chosen
-            ComboBoxItem colorItem = _cmbLevel.SelectedItem as ComboBoxItem;
-            int tankColor = int.Parse(colorItem.Content.ToString());
+            ComboBoxItem colorItem = _cmbTankColor.SelectedItem as ComboBoxItem;
+            string colorString = colorItem.Content.ToString();
+            int tankColor;
+            switch (colorString)
+            {
+                case "Red":
+                    tankColor = 0;
+                    break;
+
+                case "Yellow":
+                    tankColor = 1;
+                    break;
+
+                case "Green":
+                    tankColor = 2;
+                    break;
+
+                case "Blue":
+                    tankColor = 3;
+                    break;
+
+                default:
+                    tankColor = 0;
+                    break;
+            }
             //create an array
             int[] passingChars = new int[] { difLevel,tankColor };
             // pass color,difficulty and navigate to the game page

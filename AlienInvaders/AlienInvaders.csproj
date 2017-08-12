@@ -129,9 +129,17 @@
     <Content Include="Assets\Mothership.png" />
     <Content Include="Assets\Shield.png" />
     <Content Include="Assets\SpB1.png" />
+    <Content Include="Assets\SpB2.png" />
+    <Content Include="Assets\SpB3.png" />
     <Content Include="Assets\SpG1.png" />
+    <Content Include="Assets\SpG2.png" />
+    <Content Include="Assets\SpG3.png" />
     <Content Include="Assets\SpR1.png" />
+    <Content Include="Assets\SpR2.png" />
+    <Content Include="Assets\SpR3.png" />
     <Content Include="Assets\SpY1.png" />
+    <Content Include="Assets\SpY2.png" />
+    <Content Include="Assets\SpY3.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

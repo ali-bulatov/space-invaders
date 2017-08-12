@@ -61,6 +61,7 @@ namespace AlienInvaders
             {
                 if(_position >= 720)
                 {
+                    _position += 4;
                     Canvas.SetLeft(_uiMotherShip, _position);
                     return true;
                 }

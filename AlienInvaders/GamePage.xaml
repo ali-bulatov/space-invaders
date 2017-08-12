@@ -90,6 +90,7 @@
             <Image x:Name="_imgEnemyBullet" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="182,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="Assets/EnemyBullet.png" Visibility="Collapsed"/>
             <Image x:Name="_imgEnemyBullet1" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="347,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="Assets/EnemyBullet.png" Visibility="Collapsed"/>
             <Image x:Name="_imgEnemyBullet2" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="530,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="Assets/EnemyBullet.png" Visibility="Collapsed"/>
+            <TextBlock x:Name="_txtGameOver" Canvas.Left="245" TextWrapping="Wrap" Text="Game Over" Canvas.Top="365" Height="53" Width="188" Foreground="Red" FontFamily="Comic Sans MS" FontSize="36" Visibility="Collapsed"/>
         </Canvas>
         <TextBlock x:Name="_txtLevel" Grid.Row="2" TextWrapping="Wrap" Text="Level: 1" Foreground="White" FontSize="48" FontFamily="Comic Sans MS"/>
         <TextBlock x:Name="_txtScore" Grid.Column="2" TextWrapping="Wrap" Text="Score: 0" Foreground="White" FontSize="36" FontFamily="Comic Sans MS"/>
@@ -116,48 +117,9 @@
             </Button>
 
         </Border>
-        <Border Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Stretch" Width="80">
-            <Button x:Name="_btnLeft" Content="&lt;-" Height="72" Width="80" FontSize="36" Foreground="Black" Click="OnMoveClicked">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="Black" Offset="0"/>
-                        <GradientStop Color="White" Offset="0.51"/>
-                        <GradientStop Color="#FFF5AB0C" Offset="0.251"/>
-                        <GradientStop Color="Black" Offset="1"/>
-                        <GradientStop Color="#FFF5AB0C" Offset="0.782"/>
-                    </LinearGradientBrush>
-                </Button.Background>
-            </Button>
-
-        </Border>
-        <Border Grid.Column="1" HorizontalAlignment="Left" Margin="80,0,0,0" Grid.Row="2" VerticalAlignment="Stretch" Width="80" Height="72">
-            <Button x:Name="_btnRight" Content="-&gt;" FontSize="36" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="OnMoveClicked" KeyDown="OnKeyDown">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="Black" Offset="0"/>
-                        <GradientStop Color="White" Offset="0.51"/>
-                        <GradientStop Color="Black" Offset="1"/>
-                        <GradientStop Color="#FFF5AB0C" Offset="0.263"/>
-                        <GradientStop Color="#FFF5AB0C" Offset="0.778"/>
-                    </LinearGradientBrush>
-                </Button.Background>
-            </Button>
-
-        </Border>
-        <Border Grid.Column="1" HorizontalAlignment="Left" Margin="160,0,0,0" Grid.Row="2" VerticalAlignment="Stretch" Width="160" >
-            <Button x:Name="_btnFire" Content="Fire" FontSize="36" Foreground="White" Width="160" VerticalAlignment="Stretch" Click="OnFireClicked">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="Black" Offset="0"/>
-                        <GradientStop Color="#FFFFB7B7" Offset="0.514"/>
-                        <GradientStop Color="Black" Offset="1"/>
-                        <GradientStop Color="Red" Offset="0.247"/>
-                        <GradientStop Color="Red" Offset="0.794"/>
-                    </LinearGradientBrush>
-                </Button.Background>
-            </Button>
-
-        </Border>
+        <Border Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Stretch" Width="80"/>
+        <Border Grid.Column="1" HorizontalAlignment="Left" Margin="80,0,0,0" Grid.Row="2" VerticalAlignment="Stretch" Width="80" Height="72"/>
+        <Border Grid.Column="1" HorizontalAlignment="Left" Margin="160,0,0,0" Grid.Row="2" VerticalAlignment="Stretch" Width="160" />
         <Button x:Name="_btnSave" Content="Save" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Stretch" Width="160" Margin="320,0,0,0" FontSize="36" Foreground="White" Visibility="Collapsed" Click="OnSaveClicked">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

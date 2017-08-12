@@ -213,11 +213,19 @@ namespace AlienInvaders
         {
             _color = color;
             _type = type;
-            String[,] imageCombo = new String[5, 4];
+            String[,] imageCombo = new String[3, 4];
             imageCombo[0, 0] = "ms-appx:///Assets/SpR1.png";
             imageCombo[0, 1] = "ms-appx:///Assets/SpY1.png";
             imageCombo[0, 2] = "ms-appx:///Assets/SpG1.png";
             imageCombo[0, 3] = "ms-appx:///Assets/SpB1.png";
+            imageCombo[1, 0] = "ms-appx:///Assets/SpR2.png";
+            imageCombo[1, 1] = "ms-appx:///Assets/SpY2.png";
+            imageCombo[1, 2] = "ms-appx:///Assets/SpG2.png";
+            imageCombo[1, 3] = "ms-appx:///Assets/SpB2.png";
+            imageCombo[2, 0] = "ms-appx:///Assets/SpR3.png";
+            imageCombo[2, 1] = "ms-appx:///Assets/SpY3.png";
+            imageCombo[2, 2] = "ms-appx:///Assets/SpG3.png";
+            imageCombo[2, 3] = "ms-appx:///Assets/SpB3.png";
             _uiPlayer.Source = new BitmapImage(new Uri(imageCombo[_type - 1, (int)_color]));
         }
 
