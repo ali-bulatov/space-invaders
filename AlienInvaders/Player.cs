@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace AlienInvaders
 {
     public enum Color
     {
-        Red = 1,
+        Red = 0,
         Yellow,
         Green,
         Blue
@@ -44,14 +45,14 @@ namespace AlienInvaders
 
         private bool _canMove;
 
-        public Player(Byte lives, Color color, byte type, Image uiPlayer)
+        public Player(Byte lives, Color color, byte type, Image uiPlayer, Image bulletImage)
         {
             //Set the position of the player.
             _alive = true;
             _lives = lives;
             //TODO: Change Speed.
             _speed = 0.25;
-            _bullet = new Bullet();
+            _bullet = new Bullet(0, 0, bulletImage);
             _color = color;
             _type = type;
             _direction = Direction.Left;
@@ -60,6 +61,30 @@ namespace AlienInvaders
             _canMove = true;
             SetImage(color, type);
             
+        }
+
+        public byte Lives
+        {
+            get
+            {
+                return _lives;
+            }
+            set
+            {
+                _lives = value;
+            }
+        }
+
+        public double Position
+        {
+            get
+            {
+                return _position;
+            }
+            set
+            {
+                _position = value;
+            }
         }
 
         public Direction Direction
@@ -94,11 +119,15 @@ namespace AlienInvaders
             }
         }
 
-        public Bullet Bullet
+        public Image UiPlayer
         {
             get
             {
-                return _bullet;
+                return _uiPlayer;
+            }
+            set
+            {
+                _uiPlayer = value;
             }
         }
 
@@ -150,10 +179,21 @@ namespace AlienInvaders
             // Do not move the player at all.
         }
 
-        public void OnShoot()
+        public bool OnShoot()
         {
-            //Cause the bullet to be visible.
-
+            //THIS CAUSES THE BULLET TO BE VISIBLE ON THE SCREEN.
+            double yPosition = Canvas.GetTop(_uiPlayer);
+            double bulletPosition = Canvas.GetLeft(_uiPlayer);
+            bulletPosition += (_uiPlayer.Width / 2);
+            bool notFired = _bullet.Draw(bulletPosition, yPosition);
+            if (notFired)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void OnDeath()
@@ -173,11 +213,20 @@ namespace AlienInvaders
         {
             _color = color;
             _type = type;
-            List<List<Image>> imageCombo = new List<List<Image>>();
-            //TODO: Add the images into the list, each row representing a color.
-            //set the image of the player to the image in the list.
-            //_uiPlayer = List<List<Image>>[(int)color][type];
-
+            String[,] imageCombo = new String[3, 4];
+            imageCombo[0, 0] = "ms-appx:///Assets/SpR1.png";
+            imageCombo[0, 1] = "ms-appx:///Assets/SpY1.png";
+            imageCombo[0, 2] = "ms-appx:///Assets/SpG1.png";
+            imageCombo[0, 3] = "ms-appx:///Assets/SpB1.png";
+            imageCombo[1, 0] = "ms-appx:///Assets/SpR2.png";
+            imageCombo[1, 1] = "ms-appx:///Assets/SpY2.png";
+            imageCombo[1, 2] = "ms-appx:///Assets/SpG2.png";
+            imageCombo[1, 3] = "ms-appx:///Assets/SpB2.png";
+            imageCombo[2, 0] = "ms-appx:///Assets/SpR3.png";
+            imageCombo[2, 1] = "ms-appx:///Assets/SpY3.png";
+            imageCombo[2, 2] = "ms-appx:///Assets/SpG3.png";
+            imageCombo[2, 3] = "ms-appx:///Assets/SpB3.png";
+            _uiPlayer.Source = new BitmapImage(new Uri(imageCombo[_type - 1, (int)_color]));
         }
 
         public void Reset()

@@ -12,6 +12,7 @@ namespace AlienInvaders
     /// </summary>
     public class MotherShip
     {
+        private Direction _direction;
         /// <summary>
         /// 
         /// </summary>
@@ -41,34 +42,91 @@ namespace AlienInvaders
         /// </summary>
         /// <param name="position"></param>
         /// <param name="speed"></param>
-        public MotherShip(double position,double speed, Random randomizer)
+        public MotherShip(double position,double speed, Random randomizer,Image uiMotherShip)
         {
             this._position = position;
             this._speed = speed;
             this._randomizer = randomizer;
+            _uiMotherShip = uiMotherShip;
         }
         /// <summary>
         /// Move the ship
         /// </summary>
-        public void Fly()
+        public bool Fly()
         {
-
+            //if left --> move left
+            //check whether is has hit the edge return true if it did
+            //check the direction of the ship
+            if (_direction == Direction.Left)
+            {
+                if(_position >= 720)
+                {
+                    _position += 4;
+                    Canvas.SetLeft(_uiMotherShip, _position);
+                    return true;
+                }
+                else
+                {
+                    _position += 4;
+                    Canvas.SetLeft(_uiMotherShip, _position);
+                    return false;
+                }
+            }
+            else
+            {
+                if(_position <= 0)
+                {
+                    _position -= 4;
+                    Canvas.SetLeft(_uiMotherShip, _position);
+                    return true;
+                }
+                else
+                {
+                    _position -= 4;
+                    Canvas.SetLeft(_uiMotherShip, _position);
+                    return false;
+                }
+            }
         }
         public bool Spawn()
         {
-
-            return true;
+            //check whether it is visible or not
+            if (_uiMotherShip.Visibility == Windows.UI.Xaml.Visibility.Visible)
+            {
+                return false;
+            }
+            else
+            {
+                int randomNumber = _randomizer.Next(1,26);
+                if (randomNumber == 25)
+                {
+                    _uiMotherShip.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                    int randomPostiion = _randomizer.Next(0, 2);
+                    ResetPosition(randomPostiion);
+                    return true;
+                }
+                return false;
+            }
         }
         /// <summary>
         /// Reset location of the ship
         /// </summary>
-        public void ResetLocation()
+        public void ResetPosition(int randomPosition)
         {
-            //Reset the location to zero...
-            _position = 0;
-
-            //... and position the Picture Box UI to starting position
-           // Canvas.SetLeft(_uiMotherShip,_startPosition);
+            if (randomPosition == 0)
+            {
+                _direction = Direction.Left;
+                _position = 0;
+                _startPosition = 0;
+                Canvas.SetLeft(_uiMotherShip, _startPosition);
+            }
+            else
+            {
+                _direction = Direction.Right;
+                _position = 720;
+                _startPosition = 720;
+                Canvas.SetLeft(_uiMotherShip, _startPosition);
+            }
         }
     }
 }

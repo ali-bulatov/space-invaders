@@ -89,7 +89,7 @@ namespace AlienInvaders
                         }
                     }
                 }
-                index++;              
+                index++;
             }
             if (motherShipImage.Visibility == Windows.UI.Xaml.Visibility.Visible)
             {

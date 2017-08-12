@@ -9,7 +9,6 @@ namespace AlienInvaders
 {
     public class ArcadeMachine
     {
-        private int _credits;
 
         private List<List<string>> _scoreList;
 
@@ -18,7 +17,6 @@ namespace AlienInvaders
 
         public ArcadeMachine()
         {
-            _credits = 0;
             _scoreList = new List<List<string>>();
             _game = null;
         }
@@ -42,11 +40,6 @@ namespace AlienInvaders
         }
 
         public void ClearGame()
-        {
-
-        }
-
-        public void AddCredits()
         {
 
         }

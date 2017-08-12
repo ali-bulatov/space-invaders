@@ -9,14 +9,12 @@ namespace AlienInvaders
 {
     public class EnemyBullet : Bullet
     {
-
-        private Image enemyBullet;
-
-        public EnemyBullet(double _xPos, double _yPos, Image _bullet) : base(_xPos, _yPos, _bullet)
+        public EnemyBullet(double xPos, double yPos, Image image) : base (xPos, yPos, image)
         {
 
         }
-
+        private Image enemyBullet;
+       
         public bool DrawBullet()
         {
             if (IsAlive == false)
@@ -49,7 +47,7 @@ namespace AlienInvaders
                 }
             }
             index++;
-            
+
             foreach(Image playerShield in playerShieldList)
             {
                 if (playerShield.Visibility == Windows.UI.Xaml.Visibility.Visible)
@@ -62,10 +60,8 @@ namespace AlienInvaders
                         }
                     }
                 }
-            }                
+            }
             return 255;
         }
-
-
     }
 }
