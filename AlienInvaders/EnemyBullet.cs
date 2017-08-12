@@ -14,7 +14,7 @@ namespace AlienInvaders
 
         }
         private Image enemyBullet;
-       
+      
         public bool DrawBullet()
         {
             if (IsAlive == false)

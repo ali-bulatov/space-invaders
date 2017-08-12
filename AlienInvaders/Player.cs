@@ -226,7 +226,7 @@ namespace AlienInvaders
             imageCombo[2, 1] = "ms-appx:///Assets/SpY3.png";
             imageCombo[2, 2] = "ms-appx:///Assets/SpG3.png";
             imageCombo[2, 3] = "ms-appx:///Assets/SpB3.png";
-            _uiPlayer.Source = new BitmapImage(new Uri(imageCombo[_type - 1, (int)_color]));
+            _uiPlayer.Source = new BitmapImage(new Uri(imageCombo[_type, (int)_color]));
         }
 
         public void Reset()
