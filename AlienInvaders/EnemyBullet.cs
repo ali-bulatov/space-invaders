@@ -38,12 +38,9 @@ namespace AlienInvaders
 
             if (playerImage.Visibility == Windows.UI.Xaml.Visibility.Visible)
             {
-                if (_xPos > Canvas.GetLeft(playerImage) - enemyBullet.Width && _xPos < Canvas.GetLeft(playerImage) + enemyBullet.Width)
+                if (_xPos < (Canvas.GetLeft(playerImage) + playerImage.Width) && (_xPos + playerImage.Width) > Canvas.GetLeft(playerImage) && _yPos < (Canvas.GetTop(playerImage) + playerImage.Height) && (_yPos + playerImage.Height) > Canvas.GetTop(playerImage))
                 {
-                    if (_yPos > Canvas.GetTop(playerImage) - enemyBullet.Height && _yPos < Canvas.GetTop(playerImage) + enemyBullet.Height)
-                    {
-                        return 4;
-                    }
+                    return 4;
                 }
             }
             index++;
@@ -52,12 +49,9 @@ namespace AlienInvaders
             {
                 if (playerShield.Visibility == Windows.UI.Xaml.Visibility.Visible)
                 {
-                    if (_xPos > Canvas.GetLeft(playerShield) - enemyBullet.Width && _xPos < Canvas.GetLeft(playerShield) + enemyBullet.Width)
+                    if (_xPos < (Canvas.GetLeft(playerShield) + playerShield.Width) && (_xPos + playerShield.Width) > Canvas.GetLeft(playerShield) && _yPos < (Canvas.GetTop(playerShield) + playerShield.Height) && (_yPos + playerShield.Height) > Canvas.GetTop(playerShield))
                     {
-                        if (_yPos > Canvas.GetTop(playerShield) - enemyBullet.Height && _yPos < Canvas.GetTop(playerShield) + enemyBullet.Height)
-                        {
-                            return index;
-                        }
+                        return index;
                     }
                 }
             }
