@@ -15,14 +15,14 @@ namespace AlienInvaders
         }
         private Image enemyBullet;
        
-        public bool DrawBullet()
+        public bool DrawBullet(double xPosition, double yPosition)
         {
             if (IsAlive == false)
             {
                 enemyBullet.Visibility = Windows.UI.Xaml.Visibility.Visible;
                 Canvas.SetLeft(enemyBullet, xPosition);
-                xPos = xPosition;
-                yPos = yPosition;
+                _xPos = xPosition;
+                _yPos = yPosition;
                 isAlive = true;
                 return true;
             }
@@ -38,9 +38,9 @@ namespace AlienInvaders
 
             if (playerImage.Visibility == Windows.UI.Xaml.Visibility.Visible)
             {
-                if (xPosition > Canvas.GetLeft(playerImage) - enemyBullet.Width && xPosition < Canvas.GetLeft(playerImage) + enemyBullet.Width)
+                if (_xPos > Canvas.GetLeft(playerImage) - enemyBullet.Width && _xPos < Canvas.GetLeft(playerImage) + enemyBullet.Width)
                 {
-                    if (yPosition > Canvas.GetTop(playerImage) - enemyBullet.Height && yPosition < Canvas.GetTop(playerImage) + enemyBullet.Height)
+                    if (_yPos > Canvas.GetTop(playerImage) - enemyBullet.Height && _yPos < Canvas.GetTop(playerImage) + enemyBullet.Height)
                     {
                         return 4;
                     }
@@ -52,9 +52,9 @@ namespace AlienInvaders
             {
                 if (playerShield.Visibility == Windows.UI.Xaml.Visibility.Visible)
                 {
-                    if (xPosition > Canvas.GetLeft(playerShield) - enemyBullet.Width && xPosition < Canvas.GetLeft(playerShield) + enemyBullet.Width)
+                    if (_xPos > Canvas.GetLeft(playerShield) - enemyBullet.Width && _xPos < Canvas.GetLeft(playerShield) + enemyBullet.Width)
                     {
-                        if (yPosition > Canvas.GetTop(playerShield) - enemyBullet.Height && yPosition < Canvas.GetTop(playerShield) + enemyBullet.Height)
+                        if (_yPos > Canvas.GetTop(playerShield) - enemyBullet.Height && _yPos < Canvas.GetTop(playerShield) + enemyBullet.Height)
                         {
                             return index;
                         }
