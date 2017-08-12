@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace AlienInvaders
 {
-    class EnemyBullet : Bullet
+    public class EnemyBullet : Bullet
     {
         public EnemyBullet(double xPos, double yPos, Image image) : base (xPos, yPos, image)
         {
