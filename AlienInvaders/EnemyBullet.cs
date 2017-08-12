@@ -12,6 +12,11 @@ namespace AlienInvaders
 
         private Image enemyBullet;
 
+        public EnemyBullet(double _xPos, double _yPos, Image _bullet) : base(_xPos, _yPos, _bullet)
+        {
+
+        }
+
         public bool DrawBullet()
         {
             if (IsAlive == false)

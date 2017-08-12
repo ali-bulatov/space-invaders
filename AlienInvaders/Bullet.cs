@@ -59,7 +59,7 @@ namespace AlienInvaders
             return false;
         }
 
-        public bool Draw(float xPosition, float yPosition)
+        public virtual bool Draw(float xPosition, float yPosition)
         {
             if(IsAlive == false)
             {
@@ -71,23 +71,6 @@ namespace AlienInvaders
                 return true;
             }
             return false;
-        }
-
-        public bool Draw(float elapsedTime)
-        {
-            if (IsAlive == false)
-            {
-                bullet.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                Canvas.SetLeft(bullet, xPosition);
-                xPos = xPosition;
-                yPos = yPosition;
-                isAlive = true;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
 
         public virtual byte Collide(List<Image> alienImageList, Image motherShipImage)
@@ -119,6 +102,13 @@ namespace AlienInvaders
                 }
             }
             return 255;
+        }
+
+        public void ResetPosition()
+        {
+            _xPos = 0;
+            _yPos = 0;
+            Canvas.SetLeft(bullet, _xPos);
         }
 
     }
