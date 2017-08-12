@@ -15,15 +15,15 @@ namespace AlienInvaders
     public class Bullet
     {
         private Rectangle rect;
-        protected double xPos, yPos;
+        protected double _xPos, _yPos;
         protected bool isAlive;
         private float Velocity;
         private Image bullet;
 
-        public Bullet( double _xPos, double _yPos, Image _bullet )
+        public Bullet( double xPos, double yPos, Image _bullet )
         {
-            xPosition = xPos = _xPos;
-            yPosition = yPos = _yPos;
+            _xPos = xPos;
+            _yPos = yPos;
             isAlive = false;
             Velocity = 300.0f;
             bullet = _bullet;
@@ -35,23 +35,23 @@ namespace AlienInvaders
             set { isAlive = value; }
         }
 
-        public double xPosition
+        public double XPos
         {
-            get { return xPos; }
-            set { xPos = value; }
+            get { return _xPos; }
+            set { _xPos = value; }
         }
 
-        public double yPosition
+        public double YPos
         {
-            get { return yPos; }
-            set { yPos = value; }
+            get { return _yPos; }
+            set { _yPos = value; }
         }
 
         public bool Update(float elapsedTime)
         {
-            yPos -= Velocity * elapsedTime;
-            Canvas.SetTop(bullet, yPos);
-            if (yPosition < 0 - bullet.Height)
+            _yPos -= Velocity * elapsedTime;
+            Canvas.SetTop(bullet, _yPos);
+            if (_yPos < 0 - bullet.Height)
             {
                 IsAlive = false;
                 return true;
@@ -59,18 +59,22 @@ namespace AlienInvaders
             return false;
         }
 
-        public virtual bool Draw(float xPosition, float yPosition)
+        public virtual bool Draw(double xPosition, double yPosition)
         {
             if(IsAlive == false)
             {
-                bullet.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                bullet.Visibility = Windows.UI.Xaml.Visibility.Visible;
                 Canvas.SetLeft(bullet, xPosition);
-                Canvas.SetTop(bullet, yPosition);
-                xPos = xPosition;
-                yPos = yPosition;
+                _xPos = xPosition;
+                _yPos = yPosition;
+                isAlive = true;
                 return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
+            
         }
 
         public virtual byte Collide(List<Image> alienImageList, Image motherShipImage)
@@ -81,24 +85,18 @@ namespace AlienInvaders
             {
                 if(alien.Visibility == Windows.UI.Xaml.Visibility.Visible)
                 {
-                    if (xPosition > Canvas.GetLeft(alien) - bullet.Width && xPosition < Canvas.GetLeft(alien) + bullet.Width)
+                    if (_xPos < (Canvas.GetLeft(alien) + alien.Width) && (_xPos + bullet.Width) > Canvas.GetLeft(alien) && _yPos < (Canvas.GetTop(alien) + alien.Height) && (_yPos + bullet.Height) > Canvas.GetTop(alien))
                     {
-                        if (yPosition > Canvas.GetTop(alien) - bullet.Height && yPosition < Canvas.GetTop(alien) + bullet.Height)
-                        {
-                            return index;
-                        }
+                        return index;
                     }
                 }
                 index++;
             }
             if (motherShipImage.Visibility == Windows.UI.Xaml.Visibility.Visible)
             {
-                if (xPosition > Canvas.GetLeft(motherShipImage) - bullet.Width && xPosition < Canvas.GetLeft(motherShipImage) + bullet.Width)
+                if (_xPos < (Canvas.GetLeft(motherShipImage) + motherShipImage.Width) && (_xPos + bullet.Width) > Canvas.GetLeft(motherShipImage) && _yPos < (Canvas.GetTop(motherShipImage) + motherShipImage.Height) && (_yPos + bullet.Height) > Canvas.GetTop(motherShipImage))
                 {
-                    if (yPosition > Canvas.GetTop(motherShipImage) - bullet.Height && yPosition < Canvas.GetTop(motherShipImage) + bullet.Height)
-                    {
-                        return 55;
-                    }
+                    return 55;
                 }
             }
             return 255;
