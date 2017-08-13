@@ -9,18 +9,31 @@ namespace AlienInvadersBuisnessLogic
 {
     public class EnemyBullet : Bullet
     {
-        public EnemyBullet(double xPos, double yPos, Image image) : base (xPos, yPos, image)
+
+        public EnemyBullet(double xPos, double yPos, Image image) : base(xPos, yPos, image)
         {
 
         }
-        private Image enemyBullet;
-       
-        public bool DrawBullet(double xPosition, double yPosition)
+
+        public override bool Update(float elapsedTime)
+        {
+            _yPos += Velocity * elapsedTime;
+            Canvas.SetTop(bullet, _yPos);
+            if (_yPos > 720 - bullet.Height)
+            {
+                IsAlive = false;
+                return true;
+            }
+            return false;
+        }
+
+        public override bool Draw(double xPosition, double yPosition)
         {
             if (IsAlive == false)
             {
-                enemyBullet.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                Canvas.SetLeft(enemyBullet, xPosition);
+                bullet.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                Canvas.SetLeft(bullet, xPosition);
+                Canvas.SetTop(bullet, yPosition);
                 _xPos = xPosition;
                 _yPos = yPosition;
                 isAlive = true;
@@ -43,7 +56,6 @@ namespace AlienInvadersBuisnessLogic
                     return 4;
                 }
             }
-            index++;
 
             foreach(Image playerShield in playerShieldList)
             {

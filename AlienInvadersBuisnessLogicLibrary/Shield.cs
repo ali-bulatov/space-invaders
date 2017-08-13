@@ -9,7 +9,7 @@ namespace AlienInvadersBuisnessLogic
     /// <summary>
     /// 
     /// </summary>
-    class Shield
+    public class Shield
     {
         /// <summary>
         /// Hom many bullets needed to dissolve the shield

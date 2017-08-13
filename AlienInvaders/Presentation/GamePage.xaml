@@ -87,19 +87,14 @@
             <Image x:Name="_imgShield3" Height="50" Canvas.Left="575" Canvas.Top="528" Width="70" Source="ms-appx:///Assets/Shield.png" Stretch="Fill" RenderTransformOrigin="0.48,0.46"/>
             <Image x:Name="_imgMotherShip" Height="50" Canvas.Left="650" Width="75" Source="ms-appx:///Assets/Mothership.png" Stretch="Fill" Visibility="Collapsed"/>
             <Image x:Name="_imgBullet" Grid.Column="1" HorizontalAlignment="Left" Height="38" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="ms-appx:///Assets/Bullet.png" Canvas.Left="10" Canvas.Top="604" Visibility="Collapsed"/>
-            <Image x:Name="_imgEnemyBullet" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="182,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="ms-appx:///Assets/EnemyBullet.png" Visibility="Collapsed"/>
-            <Image x:Name="_imgEnemyBullet1" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="347,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="ms-appx:///Assets/EnemyBullet.png" Visibility="Collapsed"/>
-            <Image x:Name="_imgEnemyBullet2" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="530,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="ms-appx:///Assets/EnemyBullet.png" Visibility="Collapsed"/>
+            <Image x:Name="_imgEnemyBullet" Grid.Column="1" HorizontalAlignment="Left" Height="38" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="ms-appx:///Assets/EnemyBullet.png" Visibility="Collapsed"/>
+            <Image x:Name="_imgEnemyBullet1" Grid.Column="1" HorizontalAlignment="Left" Height="38" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="ms-appx:///Assets/EnemyBullet.png" Visibility="Collapsed"/>
+            <Image x:Name="_imgEnemyBullet2" Grid.Column="1" HorizontalAlignment="Left" Height="38" Grid.Row="1" VerticalAlignment="Top" Width="13" Stretch="Fill" Source="ms-appx:///Assets/EnemyBullet.png" Visibility="Collapsed"/>
             <TextBlock x:Name="_txtGameOver" Canvas.Left="245" TextWrapping="Wrap" Text="Game Over" Canvas.Top="365" Height="53" Width="188" Foreground="Red" FontFamily="Comic Sans MS" FontSize="36" Visibility="Collapsed"/>
         </Canvas>
         <TextBlock x:Name="_txtLevel" Grid.Row="2" TextWrapping="Wrap" Text="Level: 1" Foreground="White" FontSize="48" FontFamily="Comic Sans MS"/>
         <TextBlock x:Name="_txtScore" Grid.Column="2" TextWrapping="Wrap" Text="Score: 0" Foreground="White" FontSize="36" FontFamily="Comic Sans MS"/>
         <TextBlock x:Name="_txtTime" TextWrapping="Wrap" Text="Time: 0:00" Foreground="White" FontSize="36" FontFamily="Comic Sans MS"/>
-        <Image x:Name="_imgLife5" Grid.Column="2" HorizontalAlignment="Left" Height="54" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="54" Source="Assets/SpG1.png" Stretch="Fill"/>
-        <Image x:Name="_imgLife4" Grid.Column="2" HorizontalAlignment="Left" Height="54" Margin="64,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="54" Source="Assets/SpG1.png" Stretch="Fill"/>
-        <Image x:Name="_imgLife3" Grid.Column="2" HorizontalAlignment="Left" Height="54" Margin="118,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="54" Source="Assets/SpG1.png" Stretch="Fill" RenderTransformOrigin="2.667,0.63"/>
-        <Image x:Name="_imgLife2" Grid.Column="2" HorizontalAlignment="Left" Height="54" Margin="172,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="54" Source="Assets/SpG1.png" Stretch="Fill"/>
-        <Image x:Name="_imgLife1" Grid.Column="2" HorizontalAlignment="Left" Height="54" Margin="226,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="54" Source="Assets/SpG1.png" Stretch="Fill"/>
         <Border Grid.Column="1" HorizontalAlignment="Right" Margin="0" Grid.Row="2" CornerRadius="20" >
             <Button x:Name="_btnPause" Content="Pause" Foreground="White" FontSize="36" Width="240" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="0" Click="OnPauseClicked">
                 <Button.Background>
@@ -131,6 +126,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
+        <TextBlock x:Name="_txtLives" Grid.Row="2" TextWrapping="Wrap" Text="Lives: 3" Foreground="White" FontSize="48" FontFamily="Comic Sans MS" Grid.Column="2"/>
 
     </Grid>
 </Page>
