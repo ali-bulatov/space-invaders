@@ -8,7 +8,13 @@
     mc:Ignorable="d">
 
 
-    <Grid x:Name="_mainGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RenderTransformOrigin="0.478,0.464">
+    <Grid x:Name="_mainGrid" RenderTransformOrigin="0.478,0.464">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.0,0">
+                <GradientStop Color="#FF4B50C1" Offset="0"/>
+                <GradientStop Color="#FFBDF9F7" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <FlyoutBase.AttachedFlyout>
             <Flyout x:Name="_flyHowTo">
                 <Flyout.FlyoutPresenterStyle>
@@ -30,6 +36,7 @@
             <RowDefinition Height="105*"/>
             <RowDefinition Height="78*"/>
         </Grid.RowDefinitions>
+
         <TextBlock HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="Alien Invaders" VerticalAlignment="Center" Height="88" Width="520" FontSize="72" FontStyle="Italic" FontWeight="Bold" FontFamily="Comic Sans MS"/>
         <Grid HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100"/>
         <Grid x:Name="_menuGrid" HorizontalAlignment="Center" Height="195" Margin="0" Grid.Row="2" VerticalAlignment="Center" Width="1270">
@@ -69,7 +76,5 @@
             <TextBlock HorizontalAlignment="Center" Margin="0" Grid.Row="2" TextWrapping="Wrap" Text="Please choose a tank color and type." VerticalAlignment="Center" FontSize="20"/>
         </Grid>
         <TextBlock HorizontalAlignment="Left" Margin="1938,174,-667,-198" Grid.Row="3" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-
-
     </Grid>
 </Page>
