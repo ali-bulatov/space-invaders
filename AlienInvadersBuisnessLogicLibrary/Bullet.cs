@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Shapes;
 
 
 
-namespace AlienInvaders
+namespace AlienInvadersBuisnessLogic
 {
     public class Bullet
     {
@@ -70,7 +70,11 @@ namespace AlienInvaders
                 isAlive = true;
                 return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
+            
         }
 
         public virtual byte Collide(List<Image> alienImageList, Image motherShipImage)
@@ -81,24 +85,18 @@ namespace AlienInvaders
             {
                 if(alien.Visibility == Windows.UI.Xaml.Visibility.Visible)
                 {
-                    if (_xPos > Canvas.GetLeft(alien) - bullet.Width && _xPos < Canvas.GetLeft(alien) + bullet.Width)
+                    if (_xPos < (Canvas.GetLeft(alien) + alien.Width) && (_xPos + bullet.Width) > Canvas.GetLeft(alien) && _yPos < (Canvas.GetTop(alien) + alien.Height) && (_yPos + bullet.Height) > Canvas.GetTop(alien))
                     {
-                        if (_yPos > Canvas.GetTop(alien) - bullet.Height && _yPos < Canvas.GetTop(alien) + bullet.Height)
-                        {
-                            return index;
-                        }
+                        return index;
                     }
                 }
                 index++;
             }
             if (motherShipImage.Visibility == Windows.UI.Xaml.Visibility.Visible)
             {
-                if (_xPos > Canvas.GetLeft(motherShipImage) - bullet.Width && _xPos < Canvas.GetLeft(motherShipImage) + bullet.Width)
+                if (_xPos < (Canvas.GetLeft(motherShipImage) + motherShipImage.Width) && (_xPos + bullet.Width) > Canvas.GetLeft(motherShipImage) && _yPos < (Canvas.GetTop(motherShipImage) + motherShipImage.Height) && (_yPos + bullet.Height) > Canvas.GetTop(motherShipImage))
                 {
-                    if (_yPos > Canvas.GetTop(motherShipImage) - bullet.Height && _yPos < Canvas.GetTop(motherShipImage) + bullet.Height)
-                    {
-                        return 55;
-                    }
+                    return 55;
                 }
             }
             return 255;
@@ -109,6 +107,9 @@ namespace AlienInvaders
             _xPos = 0;
             _yPos = 0;
             Canvas.SetLeft(bullet, _xPos);
+            Canvas.SetTop(bullet, _yPos);
+            isAlive = false;
+            bullet.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
     }

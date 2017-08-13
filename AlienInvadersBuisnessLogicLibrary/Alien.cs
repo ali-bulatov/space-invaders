@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
-namespace AlienInvaders
+namespace AlienInvadersBuisnessLogic
 {
     /// <summary>
     /// Class rerpresenting the alien object
@@ -172,7 +172,7 @@ namespace AlienInvaders
                 }
                 else
                 {
-                    _xPosition += 5;
+                    _xPosition += (5 * _speed);
                     Canvas.SetLeft(_uiAlien, _xPosition);
                     return false;
                 }
@@ -181,13 +181,12 @@ namespace AlienInvaders
             {
                 if (_xPosition <= 0)
                 {
-                    _xPosition -= 5;
                     Canvas.SetLeft(_uiAlien, _xPosition);
                     return true;
                 }
                 else
                 {
-                    _xPosition -= 5;
+                    _xPosition -= (5 * _speed);
                     Canvas.SetLeft(_uiAlien, _xPosition);
                     return false;
                 }
