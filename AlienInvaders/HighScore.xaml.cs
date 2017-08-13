@@ -43,5 +43,10 @@ namespace AlienInvaders
         {
             //TODO: Exit application
         }
+
+        private void OnClickSubmit(object sender, RoutedEventArgs e)
+        {
+            RightSplitView.IsPaneOpen = !RightSplitView.IsPaneOpen;
+        }
     }
 }

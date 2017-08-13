@@ -26,7 +26,7 @@ namespace AlienInvaders
             var TopScores = File.ReadLines("scorelog.txt")
                 .Select(scoreline => int.Parse(scoreline))
                 .OrderByDescending(score => score)
-                .Take(10);
+                .Take(15);
         }
 
         public void SaveScores()
@@ -41,7 +41,7 @@ namespace AlienInvaders
 
         public void ClearGame()
         {
-
+            _game = null;
         }
 
         public void ShowHighScores()

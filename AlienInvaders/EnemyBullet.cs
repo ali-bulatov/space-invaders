@@ -9,12 +9,13 @@ namespace AlienInvaders
 {
     public class EnemyBullet : Bullet
     {
+        private Image enemyBullet;
+
         public EnemyBullet(double xPos, double yPos, Image image) : base (xPos, yPos, image)
         {
 
         }
-        private Image enemyBullet;
-       
+  
         public bool DrawBullet(double xPosition, double yPosition)
         {
             if (IsAlive == false)
@@ -57,5 +58,6 @@ namespace AlienInvaders
             }
             return 255;
         }
+
     }
 }
