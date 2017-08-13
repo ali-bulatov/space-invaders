@@ -22,9 +22,16 @@ namespace AlienInvaders
     /// </summary>
     public sealed partial class HighScore : Page
     {
+        private Game _game;
+
         public HighScore()
         {
             this.InitializeComponent();
+
+            if (_game != null)
+            {
+                RightSplitView.IsPaneOpen = !RightSplitView.IsPaneOpen;
+            }
         }
 
         private void OnSubmitClicked(object sender, RoutedEventArgs e)
