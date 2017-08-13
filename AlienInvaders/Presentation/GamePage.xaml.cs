@@ -184,11 +184,12 @@ namespace AlienInvaders
             if (_game.AlienCount > 0)
             {
                 _game.ShiftAliens();
-                //_alienMoveTimer.Interval = TimeSpan.FromMilliseconds(_game.IncreaseSpeed(_game.AlienCount));
+                _alienMoveTimer.Interval = TimeSpan.FromMilliseconds(_game.IncreaseSpeed());
             }
             else
             {
-                _game.ResetRound();
+                byte newRound = _game.ResetRound();
+                _txtLevel.Text = "Level: " + newRound.ToString();
             }
         }
 
