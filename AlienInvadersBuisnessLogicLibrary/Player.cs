@@ -7,7 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace AlienInvaders
+namespace AlienInvadersBuisnessLogic
 {
     public enum Color
     {

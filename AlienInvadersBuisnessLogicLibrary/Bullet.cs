@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Shapes;
 
 
 
-namespace AlienInvaders
+namespace AlienInvadersBuisnessLogic
 {
     public class Bullet
     {

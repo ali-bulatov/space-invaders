@@ -8,7 +8,7 @@ using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace AlienInvaders
+namespace AlienInvadersBuisnessLogic
 {
     /// <summary>
     /// Represents the difficulty of a game.
