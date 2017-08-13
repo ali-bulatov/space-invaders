@@ -22,30 +22,23 @@
                 </Grid>
             </SplitView.Pane>
             <Grid>
-                <Button x:Name="btnPlayAgain" Content="Play Again" HorizontalAlignment="Left" Margin="124,473,0,0" VerticalAlignment="Top"/>
-                <Button x:Name="btnExitApplication" Content="Exit" HorizontalAlignment="Left" Margin="124,523,0,0" VerticalAlignment="Top" Width="90"/>
+                <Button x:Name="btnPlayAgain" Content="Play Again" HorizontalAlignment="Left" Margin="124,473,0,0" VerticalAlignment="Top" Click="OnClickedPlayAgain"/>
+                <Button x:Name="btnExitApplication" Content="Exit" HorizontalAlignment="Left" Margin="124,523,0,0" VerticalAlignment="Top" Width="90" Click="OnExitClicked"/>
             </Grid>
         </SplitView>
 
         <TextBlock HorizontalAlignment="Center" Margin="452,9,433,623" TextWrapping="Wrap" Text="Game Over" VerticalAlignment="Center" Height="88" Width="395" FontSize="72" FontStyle="Italic" FontWeight="Bold" FontFamily="Comic Sans MS"/>
         <Border HorizontalAlignment="Left" Height="487" Margin="113,155,0,0" VerticalAlignment="Top" Width="757" BorderBrush="Black" BorderThickness="2" CornerRadius="2" >
-            <Canvas Background="WhiteSmoke">
+            <Canvas>
+                <Canvas.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFD4B8B8" Offset="1"/>
+                        <GradientStop Color="White"/>
+                        <GradientStop Color="#FEEDC2C2" Offset="0.737"/>
+                    </LinearGradientBrush>
+                </Canvas.Background>
                 <TextBlock Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="35" FontSize="20"/>
-                <TextBlock x:Name="txt1" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="67" FontSize="20"/>
-                <TextBlock x:Name="txt2" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="94" FontSize="20"/>
-                <TextBlock x:Name="txt3" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="121" FontSize="20"/>
-                <TextBlock x:Name="txt4" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="148" FontSize="20"/>
-                <TextBlock x:Name="txt5" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="175" FontSize="20"/>
-                <TextBlock x:Name="txt6" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="202" FontSize="20"/>
-                <TextBlock x:Name="txt7" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="229" FontSize="20"/>
-                <TextBlock x:Name="txt8" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="256" FontSize="20"/>
-                <TextBlock x:Name="txt9" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="283" FontSize="20"/>
-                <TextBlock x:Name="txt10" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="310" FontSize="20"/>
-                <TextBlock x:Name="txt11" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="337" FontSize="20"/>
-                <TextBlock x:Name="txt12" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="364" FontSize="20"/>
-                <TextBlock x:Name="txt13" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="391" FontSize="20"/>
-                <TextBlock x:Name="txt14" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="418" FontSize="20"/>
-                <TextBlock x:Name="txt15" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="445" FontSize="20"/>
+                <TextBlock x:Name="txt1" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="67" FontSize="20" Height="386"/>
             </Canvas>
 
         </Border>

@@ -13,7 +13,7 @@ namespace AlienInvaders
         private List<List<string>> _scoreList;
 
         private Game _game;
-        private bool newscore;
+        //private bool newscore;
 
         public ArcadeMachine()
         {
@@ -21,21 +21,23 @@ namespace AlienInvaders
             _game = null;
         }
 
-        public void LoadScores()
+        public string LoadScores()
         {
             var TopScores = File.ReadLines("scorelog.txt")
                 .Select(scoreline => int.Parse(scoreline))
                 .OrderByDescending(score => score)
                 .Take(15);
+
+            return TopScores.ToString();
         }
 
-        public void SaveScores()
+        public void SaveScores(int newScore, string playerName, byte level, int time)
         {
             string fileName = @"scorelog.txt";
             using (FileStream fs = new FileStream(fileName, FileMode.Append, FileAccess.Write))
             using (StreamWriter sw = new StreamWriter(fs))
             {
-                sw.WriteLine(newscore);
+                sw.WriteLine(playerName, newScore.ToString(), level.ToString(), time.ToString());
             }
         }
 

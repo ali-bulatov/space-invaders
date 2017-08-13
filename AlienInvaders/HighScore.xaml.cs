@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -24,36 +25,37 @@ namespace AlienInvaders
     {
         private Game _game;
 
+        private string playerName;
+
+        private ArcadeMachine savingFunc;
+
         public HighScore()
         {
             this.InitializeComponent();
-
+            txt1.Text = savingFunc.LoadScores();
             if (_game != null)
             {
                 RightSplitView.IsPaneOpen = !RightSplitView.IsPaneOpen;
             }
         }
 
-        private void OnSubmitClicked(object sender, RoutedEventArgs e)
-        {
-            //string PlayerName = txtPlayerName.Text;
-
-            //TODO: Implementing the score, time, and level from game page to HighScore page
-        }
-
-        private void OnPlayAgainClicked(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(MainPage));
-        }
-
         private void OnExitClicked(object sender, RoutedEventArgs e)
         {
-            //TODO: Exit application
+            CoreApplication.Exit();
         }
 
         private void OnClickSubmit(object sender, RoutedEventArgs e)
         {
+            playerName = txtEnterName.Text;
+
+            savingFunc.SaveScores(int.Parse(playerName), _game.GameScore.ToString(), _game.Round, _game.Time);
+            
             RightSplitView.IsPaneOpen = !RightSplitView.IsPaneOpen;
+        }
+
+        private void OnClickedPlayAgain(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(MainPage));
         }
     }
 }

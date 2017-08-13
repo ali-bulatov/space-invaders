@@ -11,10 +11,14 @@ namespace AlienInvaders
     {
         private Image enemyBullet;
 
+        private float timer = 5f;
+
         public EnemyBullet(double xPos, double yPos, Image image) : base (xPos, yPos, image)
         {
 
         }
+
+
   
         public bool DrawBullet(double xPosition, double yPosition)
         {
