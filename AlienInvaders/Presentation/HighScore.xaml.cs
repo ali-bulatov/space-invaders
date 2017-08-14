@@ -18,6 +18,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters;
 using System.Xml.Serialization;
 using System.Text;
+using AlienInvadersBuisnessLogic;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -33,13 +34,13 @@ namespace AlienInvaders
 
         private string playerName;
 
-        private ArcadeMachine savingFunc;
+        //private ArcadeMachine savingFunc;
 
         public HighScore()
         {
             this.InitializeComponent();
             //txt1.Text = savingFunc.LoadScores();
-            if (_game != null)
+            if (_game == null)
             {
                 RightSplitView.IsPaneOpen = !RightSplitView.IsPaneOpen;
             }

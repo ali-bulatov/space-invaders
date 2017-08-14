@@ -16,7 +16,7 @@ namespace AlienInvadersBuisnessLogic
         public double Time { get; set; }
         public byte Round { get; set; }
 
-        private List<List<string>> _scoreList;
+        //private List<List<string>> _scoreList;
 
         private Game _game;
         //private bool newscore;
@@ -38,37 +38,9 @@ namespace AlienInvadersBuisnessLogic
             return string.Format("{0}                    {1}                    {2}                    {4}", PlayerName, Score, Time, Round);
         }
 
-        public string LoadScores()
-        {
-            var TopScores = File.ReadLines("scorelog.txt")
-                .Select(scoreline => int.Parse(scoreline))
-                .OrderByDescending(score => score)
-                .Take(15);
-
-            return TopScores.ToString();
-        }
-
-        public void SaveScores(int newScore, string playerName, byte level, int time)
-        {
-            string fileName = @"scorelog.txt";
-            using (FileStream fs = new FileStream(fileName, FileMode.Append, FileAccess.Write))
-            using (StreamWriter sw = new StreamWriter(fs))
-            {
-                sw.WriteLine(playerName, newScore.ToString(), level.ToString(), time.ToString());
-            }
-        }
-
         public void ClearGame()
         {
             _game = null;
-        }
-
-        public void ShowHighScores()
-        {
-            var TopScores = File.ReadLines("scorelog.txt")
-                .Select(scoreline => int.Parse(scoreline))
-                .OrderByDescending(score => score)
-                .Take(1);
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
