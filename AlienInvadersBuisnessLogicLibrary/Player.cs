@@ -58,6 +58,11 @@ namespace AlienInvadersBuisnessLogic
             
         }
 
+        public Player()
+        {
+
+        }
+
         public byte Lives
         {
             get

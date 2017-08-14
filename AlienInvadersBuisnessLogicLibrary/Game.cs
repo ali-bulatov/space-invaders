@@ -117,6 +117,11 @@ namespace AlienInvadersBuisnessLogic
             }
         }
 
+        public Game()
+        {
+
+        }
+
         public int GameScore
         {
             get

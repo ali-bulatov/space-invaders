@@ -19,6 +19,7 @@ using System.Runtime.Serialization.Formatters;
 using System.Xml.Serialization;
 using System.Text;
 using AlienInvadersBuisnessLogic;
+using System.Diagnostics;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -32,6 +33,8 @@ namespace AlienInvaders
     {
         private Game _game;
 
+        private ArcadeMachine _arcadeMachine;
+
         private string playerName;
 
         //private ArcadeMachine savingFunc;
@@ -44,6 +47,21 @@ namespace AlienInvaders
             {
                 RightSplitView.IsPaneOpen = !RightSplitView.IsPaneOpen;
             }
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter is ArcadeMachine)
+            {
+                _arcadeMachine = (ArcadeMachine)e.Parameter;
+            }
+            else
+            {
+                Debug.Assert(false, "Incorrect Navigation.");
+            }
+            base.OnNavigatedTo(e);
+
+            _game = _arcadeMachine.Game;
         }
 
         private void OnExitClicked(object sender, RoutedEventArgs e)

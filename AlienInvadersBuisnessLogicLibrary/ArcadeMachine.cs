@@ -16,10 +16,19 @@ namespace AlienInvadersBuisnessLogic
         public double Time { get; set; }
         public byte Round { get; set; }
 
-        //private List<List<string>> _scoreList;
-
         private Game _game;
-        //private bool newscore;
+
+        public Game Game
+        {
+            get
+            {
+                return _game;
+            }
+            set
+            {
+                _game = value;
+            }
+        }
 
         public ArcadeMachine(string playername = "None", double score = 0, double time = 0, byte round = 0)
         {
@@ -28,9 +37,12 @@ namespace AlienInvadersBuisnessLogic
             Time = time;
             Round = round;
 
-
-            //_scoreList = new List<List<string>>();
             _game = null;
+        }
+
+        public ArcadeMachine()
+        {
+
         }
 
         public override string ToString()
@@ -57,7 +69,6 @@ namespace AlienInvadersBuisnessLogic
             Score = (double)info.GetValue("Score", typeof(double));
             Time = (double)info.GetValue("Time", typeof(double));
             Round = (byte)info.GetValue("Weight", typeof(byte));
-
         }
     }
 }
