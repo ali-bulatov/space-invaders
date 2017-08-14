@@ -1,11 +1,12 @@
-﻿using System;
+﻿using AlienInvadersBuisnessLogic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
-namespace AlienInvadersBuisnessLogic
+namespace AlienInvaders
 {
     /// <summary>
     /// Class rerpresenting the alien object
@@ -176,7 +177,7 @@ namespace AlienInvadersBuisnessLogic
                 }
                 else
                 {
-                    _xPosition += (5 * _speed);
+                    _xPosition += 5;
                     Canvas.SetLeft(_uiAlien, _xPosition);
                     return false;
                 }
@@ -185,12 +186,13 @@ namespace AlienInvadersBuisnessLogic
             {
                 if (_xPosition <= 0)
                 {
+                    _xPosition -= 5;
                     Canvas.SetLeft(_uiAlien, _xPosition);
                     return true;
                 }
                 else
                 {
-                    _xPosition -= (5 * _speed);
+                    _xPosition -= 5;
                     Canvas.SetLeft(_uiAlien, _xPosition);
                     return false;
                 }

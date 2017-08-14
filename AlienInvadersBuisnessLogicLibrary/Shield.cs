@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace AlienInvadersBuisnessLogic
 {
@@ -16,6 +17,10 @@ namespace AlienInvadersBuisnessLogic
         /// </summary>
         private int _strength;
         /// <summary>
+        /// UI representation of the shield
+        /// </summary>
+        private Image _uiShield;
+        /// <summary>
         /// internal constructor
         /// </summary>
         /// <param name="strength"></param>
@@ -28,7 +33,8 @@ namespace AlienInvadersBuisnessLogic
         /// </summary>
         public void Dissolve()
         {
-
+            // Change the width of the shield
+            _uiShield.Width -= 10;
         }
         /// <summary>
         /// Ressolve the shield

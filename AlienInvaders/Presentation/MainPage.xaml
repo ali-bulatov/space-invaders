@@ -8,7 +8,13 @@
     mc:Ignorable="d">
 
 
-    <Grid x:Name="_mainGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RenderTransformOrigin="0.478,0.464">
+    <Grid x:Name="_mainGrid" RenderTransformOrigin="0.478,0.464">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.0,0">
+                <GradientStop Color="#FF4B50C1" Offset="0"/>
+                <GradientStop Color="#FFBDF9F7" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <FlyoutBase.AttachedFlyout>
             <Flyout x:Name="_flyHowTo">
                 <Flyout.FlyoutPresenterStyle>
@@ -30,6 +36,7 @@
             <RowDefinition Height="105*"/>
             <RowDefinition Height="78*"/>
         </Grid.RowDefinitions>
+
         <TextBlock HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="Alien Invaders" VerticalAlignment="Center" Height="88" Width="520" FontSize="72" FontStyle="Italic" FontWeight="Bold" FontFamily="Comic Sans MS"/>
         <Grid HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100"/>
         <Grid x:Name="_menuGrid" HorizontalAlignment="Center" Height="195" Margin="0" Grid.Row="2" VerticalAlignment="Center" Width="1270">
@@ -43,7 +50,12 @@
                 <RowDefinition Height="36*"/>
                 <RowDefinition Height="28*"/>
             </Grid.RowDefinitions>
-            <Button x:Name="_btnScores" Content="Scores" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Height="50" Width="200" FontSize="20" Click="OnScoreButtonClicked" Grid.Row="1"/>
+            <Button x:Name="_btnScores" Content="Scores" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Height="50" Width="200" FontSize="20" Click="OnScoreButtonClicked" Grid.Row="2" Grid.Column="3"/>
+            <ComboBox x:Name="_cmbBoxTankType" HorizontalAlignment="Center" Margin="0" Grid.Row="1" VerticalAlignment="Center" Width="200" SelectedIndex="0" Height="50" HorizontalContentAlignment="Center" FontSize="20">
+                <ComboBoxItem Content="Tank 1"/>
+                <ComboBoxItem Content="Tank 2"/>
+                <ComboBoxItem Content="Tank 3"/>
+            </ComboBox>
             <Button x:Name="_btnCredits" Content="Credits" HorizontalAlignment="Center" Margin="0" Grid.Row="1" VerticalAlignment="Center" Height="50" Width="200" FontSize="20" Click="OnCreditsButtonClicked" Grid.Column="2"/>
             <ComboBox x:Name="_cmbTankColor" HorizontalAlignment="Center" Margin="0,0,0,3" VerticalAlignment="Center" Width="200" HorizontalContentAlignment="Center" Height="50" FontSize="20" PlaceholderText="Color" SelectedIndex="0">
                 <ComboBoxItem Content="Red" Foreground="Red"/>
@@ -59,13 +71,10 @@
                 <ComboBoxItem Content="2"/>
                 <ComboBoxItem Content="3"/>
                 <ComboBoxItem Content="4"/>
+                <ComboBoxItem Content="5" FontSize="20"/>
             </ComboBox>
+            <TextBlock HorizontalAlignment="Center" Margin="0" Grid.Row="2" TextWrapping="Wrap" Text="Please choose a tank color and type." VerticalAlignment="Center" FontSize="20"/>
         </Grid>
-        <ComboBox x:Name="_cmbBoxTankType" HorizontalAlignment="Left" Margin="120,33,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120">
-            <ComboBoxItem Content="Tank 1"/>
-            <ComboBoxItem Content="Tank 2"/>
-            <ComboBoxItem Content="Tank 3"/>
-        </ComboBox>
-
+        <TextBlock HorizontalAlignment="Left" Margin="1938,174,-667,-198" Grid.Row="3" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
     </Grid>
 </Page>
