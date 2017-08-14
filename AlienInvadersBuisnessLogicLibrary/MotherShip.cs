@@ -1,11 +1,12 @@
-﻿using System;
+﻿using AlienInvadersBuisnessLogic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
-namespace AlienInvadersBuisnessLogic
+namespace AlienInvaders
 {
     /// <summary>
     /// 
@@ -42,7 +43,7 @@ namespace AlienInvadersBuisnessLogic
         /// </summary>
         /// <param name="position"></param>
         /// <param name="speed"></param>
-        public MotherShip(double position,double speed, Random randomizer,Image uiMotherShip)
+        public MotherShip(double position, double speed, Random randomizer, Image uiMotherShip)
         {
             this._position = position;
             this._speed = speed;
@@ -68,7 +69,7 @@ namespace AlienInvadersBuisnessLogic
             //check the direction of the ship
             if (_direction == Direction.Left)
             {
-                if(_position >= 720)
+                if (_position >= 720)
                 {
                     _position += 4;
                     Canvas.SetLeft(_uiMotherShip, _position);
@@ -83,7 +84,7 @@ namespace AlienInvadersBuisnessLogic
             }
             else
             {
-                if(_position <= 0)
+                if (_position <= 0)
                 {
                     _position -= 4;
                     Canvas.SetLeft(_uiMotherShip, _position);
@@ -106,7 +107,7 @@ namespace AlienInvadersBuisnessLogic
             }
             else
             {
-                int randomNumber = _randomizer.Next(1,26);
+                int randomNumber = _randomizer.Next(1, 26);
                 if (randomNumber == 25)
                 {
                     _uiMotherShip.Visibility = Windows.UI.Xaml.Visibility.Visible;
