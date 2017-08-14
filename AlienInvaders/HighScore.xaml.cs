@@ -14,6 +14,12 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+using System.IO;
+using System.Runtime.Serialization.Formatters;
+using System.Xml.Serialization;
+using System.Text;
+
+
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace AlienInvaders
@@ -32,7 +38,7 @@ namespace AlienInvaders
         public HighScore()
         {
             this.InitializeComponent();
-            txt1.Text = savingFunc.LoadScores();
+            //txt1.Text = savingFunc.LoadScores();
             if (_game != null)
             {
                 RightSplitView.IsPaneOpen = !RightSplitView.IsPaneOpen;
@@ -48,8 +54,25 @@ namespace AlienInvaders
         {
             playerName = txtEnterName.Text;
 
-            savingFunc.SaveScores(int.Parse(playerName), _game.GameScore.ToString(), _game.Round, _game.Time);
-            
+            byte[] byteArray = Encoding.UTF8.GetBytes(@"C:\Users\Jonathan\Documents\Scores.xml");
+            MemoryStream stream = new MemoryStream(byteArray);
+
+            ArcadeMachine player = new ArcadeMachine(playerName, _game.GameScore, _game.Time, _game.Round);
+
+            XmlSerializer serializer = new XmlSerializer(typeof(ArcadeMachine));
+
+            using (TextWriter tw = new StreamWriter(stream))
+            {
+                serializer.Serialize(tw, player);
+            }
+            player = null;
+
+            XmlSerializer deserializer = new XmlSerializer(typeof(ArcadeMachine));
+
+            TextReader reader = new StreamReader(stream);
+            object obj = deserializer.Deserialize(reader);
+            player = (ArcadeMachine)obj;
+ 
             RightSplitView.IsPaneOpen = !RightSplitView.IsPaneOpen;
         }
 
