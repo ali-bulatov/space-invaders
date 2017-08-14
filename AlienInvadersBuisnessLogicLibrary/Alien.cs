@@ -148,7 +148,11 @@ namespace AlienInvaders
         /// </summary>
         public void Shoot()
         {
-
+            double yPosition = _yPosition;
+            yPosition += _uiAlien.Height;
+            double bulletPosition = _xPosition;
+            bulletPosition += (_uiAlien.Width / 2);
+            _enemyBullet.Draw(bulletPosition, yPosition);
         }
         /// <summary>
         /// Move alien vertically

@@ -78,8 +78,6 @@ namespace AlienInvadersBuisnessLogic
 
         private List<Image> _alienImageList;
 
-        private List<Image> _bulletImageList;
-
         private double[] _alienStartXPositions;
 
         private double[] _alienStartYPositions;
@@ -101,15 +99,16 @@ namespace AlienInvadersBuisnessLogic
             _imageOption = imageOption;
             //Set the player color 
             _difficulty = difficulty;
-            _player = new Player(3, _colorOption, _imageOption, playerImage, bulletImage, 0.25);
+            _player = new Player(_colorOption, _imageOption, playerImage, bulletImage, 0.25);
             //_bulletList = new List<EnemyBullet>();
             _alienList = new List<Alien>();
-            //TODO: FIX WIDTH TO CANVAS.ACTUALWIDTH.
             _motherShip = new MotherShip(720, 0.25,_randomizer, motherShipImage);
             _shieldList = new List<Shield>();
             _alienImageList = alienImageList;
             _bulletList = new List<EnemyBullet>();
-            _bulletImageList = bulletImageList;
+            _bulletList.Add(new EnemyBullet(0, 0, bulletImageList[0]));
+            _bulletList.Add(new EnemyBullet(0, 0, bulletImageList[1]));
+            _bulletList.Add(new EnemyBullet(0, 0, bulletImageList[2]));
             _alienStartXPositions = new double[55];
             _alienStartYPositions = new double[55];
             for (int imageIndex = 0; imageIndex < 55; imageIndex++)
@@ -171,6 +170,18 @@ namespace AlienInvadersBuisnessLogic
             get
             {
                 return _motherShip;
+            }
+        }
+
+        public List<EnemyBullet> BulletList
+        {
+            get
+            {
+                return _bulletList;
+            }
+            set
+            {
+                _bulletList = value;
             }
         }
         
@@ -268,9 +279,6 @@ namespace AlienInvadersBuisnessLogic
                             _player.Speed = 0.25;
                         }
                     }
-                    //Give three random aliens a bullet from the list to start.
-                    //GiveBullet();
-                    
                 }
             }
         }
@@ -301,8 +309,6 @@ namespace AlienInvadersBuisnessLogic
                     _alienList[alienImageIndex].YPosition = Canvas.GetTop(_alienList[alienImageIndex].UiAlien);
                 }
             }
-            //Give three random aliens a bullet from the list to start.
-            //GiveBullet();
             _player.Reset();
             _round += 1;
             return _round;
@@ -345,9 +351,10 @@ namespace AlienInvadersBuisnessLogic
             Canvas.SetTop(selectedAlien.UiAlien, 0);
             //Set the alien visibility to false.
             selectedAlien.UiAlien.Visibility = Visibility.Collapsed;
+            selectedAlien.EnemyBullet = null;
             //Add a null refernce to the list.
             _alienList[alienNum] = null;
-            //Destroy the Alien Object.
+            //Return the points.
             return selectedAlien.Points;
         }
 
@@ -478,30 +485,59 @@ namespace AlienInvadersBuisnessLogic
 
         }
 
-        public void GiveBullet()
+        public void GiveBullet(int bulletIndex)
         {
             Alien[] selectedAliens = new Alien[11];
-            Alien bottomAlien = _alienList[0];
+            Alien bottomAlien;
             for (int rowIndex = 0; rowIndex < 11; rowIndex++)
             {
+                bottomAlien = _alienList[rowIndex];
                 for (int columnIndex = rowIndex; columnIndex < (rowIndex + 55); columnIndex += 11)
                 {
-                    if (_alienList[columnIndex].YPosition > bottomAlien.YPosition)
+                    if (_alienList[columnIndex] != null)
                     {
-                        selectedAliens[rowIndex] = _alienList[columnIndex];
+                        if (bottomAlien == null)
+                        {
+                            bottomAlien = _alienList[columnIndex];
+                            continue;
+                        }
+                        if (_alienList[columnIndex].YPosition > bottomAlien.YPosition && _alienList[columnIndex].YPosition != bottomAlien.YPosition)
+                        {
+                            bottomAlien = _alienList[columnIndex];
+                        }
                     }
                 }
+                selectedAliens[rowIndex] = bottomAlien;
             }
-            byte bulletCount = 0;
-            while (bulletCount < 3)
+            EnemyBullet selectedBullet = _bulletList[bulletIndex];
+            int index = _randomizer.Next(0, 11);
+            while (true)
             {
-                int index = _randomizer.Next(0, 10);
-                if (selectedAliens[index].EnemyBullet == null)
+                if (selectedAliens[index] != null)
                 {
-                    _bulletList.Add(new EnemyBullet(0, 0, _bulletImageList[bulletCount]));
-                    //TODO: Make the _enemyBullet available.
-                    selectedAliens[index].EnemyBullet = _bulletList[bulletCount];
-                    bulletCount++;
+                    if (selectedAliens[index].EnemyBullet == null)
+                    {
+                        selectedAliens[index].EnemyBullet = selectedBullet;
+                        selectedAliens[index].Shoot();
+                        break;
+                    }
+                }
+                index = _randomizer.Next(0, 11);
+            }
+            
+        }
+
+        public void TakeBullet (int index)
+        {
+            foreach (Alien alien in _alienList)
+            {
+                if (alien != null)
+                {
+                    if (alien.EnemyBullet == _bulletList[index])
+                    {
+                        alien.EnemyBullet = null;
+                        break;
+                    }
                 }
             }
         }

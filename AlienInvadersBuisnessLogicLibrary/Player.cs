@@ -27,8 +27,6 @@ namespace AlienInvadersBuisnessLogic
     {
         private double _position;
 
-        private bool _alive;
-
         private byte _lives;
 
         private double _speed;
@@ -45,12 +43,9 @@ namespace AlienInvadersBuisnessLogic
 
         private bool _canMove;
 
-        public Player(Byte lives, Color color, byte type, Image uiPlayer, Image bulletImage, double speed)
+        public Player(Color color, byte type, Image uiPlayer, Image bulletImage, double speed)
         {
-            //Set the position of the player.
-            _alive = true;
-            _lives = lives;
-            //TODO: Change Speed.
+            _lives = 3;
             _speed = speed;
             _bullet = new Bullet(0, 0, bulletImage);
             _color = color;
@@ -208,17 +203,18 @@ namespace AlienInvadersBuisnessLogic
             }
         }
 
-        public void OnDeath()
+        public bool OnDeath()
         {
-            _uiPlayer.Visibility = Visibility.Collapsed;
-            //TODO: ADD MORE FUNCTIONALITY.
-        }
-
-        public void Respawn()
-        {
-            _uiPlayer.Visibility = Visibility.Visible;
             _lives -= 1;
-            //TODO: ADD MORE FUNCTIONALITY.
+            if (_lives <= 0)
+            {
+                return false;
+            }
+            else
+            {
+                Reset();
+                return true;
+            }
         }
 
         public void SetImage(Color color, byte type)

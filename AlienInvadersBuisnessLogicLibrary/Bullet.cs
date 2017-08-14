@@ -14,11 +14,10 @@ namespace AlienInvadersBuisnessLogic
 {
     public class Bullet
     {
-        private Rectangle rect;
         protected double _xPos, _yPos;
         protected bool isAlive;
-        private float Velocity;
-        private Image bullet;
+        protected float Velocity;
+        protected Image bullet;
 
         public Bullet( double xPos, double yPos, Image _bullet )
         {
@@ -47,7 +46,7 @@ namespace AlienInvadersBuisnessLogic
             set { _yPos = value; }
         }
 
-        public bool Update(float elapsedTime)
+        public virtual bool Update(float elapsedTime)
         {
             _yPos -= Velocity * elapsedTime;
             Canvas.SetTop(bullet, _yPos);
