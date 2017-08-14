@@ -48,7 +48,6 @@ namespace AlienInvaders
 
         private int[] _passedGameValues;
 
-        //TODO: REMOVE TEST VARIABLE:
         private Game _game;
 
         public GamePage()
@@ -92,6 +91,7 @@ namespace AlienInvaders
             _enemyBulletSpawnTimer.Interval = TimeSpan.FromMilliseconds(1000);
 
             _arcadeMachine = new ArcadeMachine();
+            _game = null;
             _passedGameValues = new int[2];
         }
 
@@ -127,7 +127,20 @@ namespace AlienInvaders
                 if (canContinue)
                 {
                     _game.BulletList[index].ResetPosition();
-                    _enemyBulletOneMoveTimer.Stop();
+                    if (index == 0)
+                    {
+                        _enemyBulletMoveTimer.Stop();
+                    }
+                    else if (index == 1)
+                    {
+                        _enemyBulletOneMoveTimer.Stop();
+                    }
+                    else
+                    {
+                        _enemyBulletTwoMoveTimer.Stop();
+                    }
+                    _txtLives.Text = "Lives: " + _game.Player.Lives.ToString();
+                    _game.TakeBullet(index);
                 }
                 else
                 {
@@ -159,11 +172,15 @@ namespace AlienInvaders
             List<Image> shieldList = new List<Image> { _imgShield, _imgShield1, _imgShield2, _imgShield3 };
             List<Image> bulletList = new List<Image> { _imgEnemyBullet, _imgEnemyBullet1, _imgEnemyBullet2 };
             _game = new Game((GameDifficulty)_passedGameValues[0], (Color)_passedGameValues[1], (byte)_passedGameValues[2], _imgPlayer, _imgBullet, _imageList, shieldList, bulletList, _imgMotherShip);
+            _arcadeMachine.Game = _game;
             _game.Play();
             _alienMoveTimer.Start();
             _clockTimer.Start();
             _enemyBulletSpawnTimer.Start();
             _txtScore.Text = "Score: " + _game.GameScore.ToString();
+            _txtLevel.Text = "Level: " + _game.Round.ToString();
+            _txtLives.Text = "Lives: " + _game.Player.Lives.ToString();
+
         }
         private void OnClockTimerTick(object sender, object e)
         {
@@ -192,7 +209,7 @@ namespace AlienInvaders
 
         private void OnEnemyBulletSpawnTimerTick(object sender, object e)
         {
-            if (_game.AlienCount >= 3)
+            if (_game.ColumnCount >= 3)
             {
                 if (_game.BulletList[0].IsAlive == false)
                 {
@@ -217,7 +234,7 @@ namespace AlienInvaders
 
                 }
             }
-            else if (_game.AlienCount == 2)
+            else if (_game.ColumnCount == 2)
             {
                 if (_game.BulletList[0].IsAlive == false)
                 {
@@ -236,7 +253,7 @@ namespace AlienInvaders
 
                 }
             }
-            else if (_game.AlienCount == 1)
+            else if (_game.ColumnCount == 1)
             {
                 if (_game.BulletList[0].IsAlive == false)
                 {
@@ -347,6 +364,8 @@ namespace AlienInvaders
                 _shipMoveTimer.Stop();
                 _enemyBulletSpawnTimer.Stop();
                 _enemyBulletMoveTimer.Stop();
+                _enemyBulletOneMoveTimer.Stop();
+                _enemyBulletTwoMoveTimer.Stop();
                 _btnSave.Visibility = Visibility.Visible;
                 _game.Pause();
             }
@@ -358,6 +377,8 @@ namespace AlienInvaders
                 _shipMoveTimer.Start();
                 _enemyBulletSpawnTimer.Start();
                 _enemyBulletMoveTimer.Start();
+                _enemyBulletOneMoveTimer.Start();
+                _enemyBulletTwoMoveTimer.Start();
                 _btnSave.Visibility = Visibility.Collapsed;
                 _game.Pause();
             }

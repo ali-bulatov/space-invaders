@@ -200,6 +200,26 @@ namespace AlienInvadersBuisnessLogic
                 return count;
             }
         }
+        //TODO: FIX THIS.
+        public int ColumnCount
+        {
+            get
+            {
+                int columnCount = 0;
+                for (int columnIndex = 0; columnIndex < 11; columnIndex++)
+                {
+                    for (int rowIndex = columnIndex; rowIndex < (columnIndex + 55); rowIndex += 11)
+                    {
+                        if (_alienList[rowIndex] != null)
+                        {
+                            columnCount += 1;
+                            break;
+                        }
+                    }
+                }
+                return columnCount;
+            }
+        }
         public async void Play()
         {
             StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
@@ -281,11 +301,6 @@ namespace AlienInvadersBuisnessLogic
                     }
                 }
             }
-        }
-
-        public void End()
-        {
-            //
         }
 
         public int UpdateScore(int addedScore)

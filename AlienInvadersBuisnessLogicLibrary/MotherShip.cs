@@ -49,6 +49,15 @@ namespace AlienInvaders
             this._speed = speed;
             this._randomizer = randomizer;
             _uiMotherShip = uiMotherShip;
+            _bounsPoint = 500;
+        }
+
+        public int BonusPoint
+        {
+            get
+            {
+                return _bounsPoint;
+            }
         }
         /// <summary>
         /// Move the ship
