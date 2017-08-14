@@ -20,12 +20,14 @@ using System.Xml.Serialization;
 using System.Text;
 using AlienInvadersBuisnessLogic;
 using System.Diagnostics;
+using Windows.Storage;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace AlienInvaders
 {
+
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
@@ -34,6 +36,7 @@ namespace AlienInvaders
         private Game _game;
 
         private ArcadeMachine _arcadeMachine;
+        List<string> listHighScores = new List<string>();
 
         private string playerName;
 
@@ -42,7 +45,7 @@ namespace AlienInvaders
         public HighScore()
         {
             this.InitializeComponent();
-            //txt1.Text = savingFunc.LoadScores();
+            LoadFile();
             if (_game == null)
             {
                 RightSplitView.IsPaneOpen = !RightSplitView.IsPaneOpen;
@@ -71,28 +74,60 @@ namespace AlienInvaders
 
         private void OnClickSubmit(object sender, RoutedEventArgs e)
         {
-            playerName = txtEnterName.Text;
-
-            byte[] byteArray = Encoding.UTF8.GetBytes(@"C:\Users\Jonathan\Documents\Scores.xml");
-            MemoryStream stream = new MemoryStream(byteArray);
-
-            ArcadeMachine player = new ArcadeMachine(playerName, _game.GameScore, _game.Time, _game.Round);
-
-            XmlSerializer serializer = new XmlSerializer(typeof(ArcadeMachine));
-
-            using (TextWriter tw = new StreamWriter(stream))
-            {
-                serializer.Serialize(tw, player);
-            }
-            player = null;
-
-            XmlSerializer deserializer = new XmlSerializer(typeof(ArcadeMachine));
-
-            TextReader reader = new StreamReader(stream);
-            object obj = deserializer.Deserialize(reader);
-            player = (ArcadeMachine)obj;
- 
+            AddValues();
+            SaveToFile();
             RightSplitView.IsPaneOpen = !RightSplitView.IsPaneOpen;
+        }
+        private void AddValues()
+        {
+            
+                listHighScores.Add(txtEnterName.Text);
+                listHighScores.Add(_game.Round.ToString());
+                listHighScores.Add(_game.GameScore.ToString());
+                listHighScores.Add(_game.Time.ToString());
+                
+                txt1.Text += txtEnterName.Text + "                       " + _game.Round.ToString() + "                       " + _game.GameScore.ToString() + "                       " + _game.Time.ToString() + "\n";
+            
+        }
+        private async void SaveToFile()
+        {
+            StorageFolder folder = ApplicationData.Current.LocalFolder;
+            if (File.Exists(folder.Path + "/highScores.txt"))
+            {
+                StorageFile saveFile = await folder.GetFileAsync("highScores.txt");
+                await FileIO.AppendLinesAsync(saveFile, listHighScores);
+            }
+            else
+            {
+                StorageFile saveFile = await folder.CreateFileAsync("highScores.txt");
+                await FileIO.AppendLinesAsync(saveFile, listHighScores);
+            }
+        }
+
+        private async void LoadFile()
+        {
+            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+            StorageFile scores = null;
+            try
+            {
+                scores = await storageFolder.GetFileAsync("highScores.txt");
+            }
+            catch (FileNotFoundException)
+            {
+                scores = await storageFolder.CreateFileAsync("highScores.txt", CreationCollisionOption.ReplaceExisting);
+                await FileIO.WriteTextAsync(scores, "0");
+            }
+            finally
+            {
+                IList<String> fileLines = await FileIO.ReadLinesAsync(scores);
+                foreach(string line in fileLines)
+                {
+                    
+                    txt1.Text += line+ "                       ";
+                    
+                }
+
+            }
         }
 
         private void OnClickedPlayAgain(object sender, RoutedEventArgs e)
