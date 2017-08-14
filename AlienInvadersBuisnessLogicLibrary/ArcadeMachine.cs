@@ -21,6 +21,17 @@ namespace AlienInvadersBuisnessLogic
             _game = null;
         }
 
+        public Game Game
+        {
+            get
+            {
+                return _game;
+            }
+            set
+            {
+                _game = value;
+            }
+        }
         public void LoadScores()
         {
             var TopScores = File.ReadLines("scorelog.txt")
