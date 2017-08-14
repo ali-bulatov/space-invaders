@@ -61,7 +61,11 @@
                 <ComboBoxItem Content="4"/>
             </ComboBox>
         </Grid>
-        <ComboBox x:Name="_cmbBoxTankType" HorizontalAlignment="Left" Margin="120,33,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="_cmbBoxTankType" HorizontalAlignment="Left" Margin="120,33,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120">
+            <ComboBoxItem Content="Tank 1"/>
+            <ComboBoxItem Content="Tank 2"/>
+            <ComboBoxItem Content="Tank 3"/>
+        </ComboBox>
 
     </Grid>
 </Page>

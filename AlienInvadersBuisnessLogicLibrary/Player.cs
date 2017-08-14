@@ -7,7 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace AlienInvaders
+namespace AlienInvadersBuisnessLogic
 {
     public enum Color
     {
@@ -27,8 +27,6 @@ namespace AlienInvaders
     {
         private double _position;
 
-        private bool _alive;
-
         private byte _lives;
 
         private double _speed;
@@ -45,13 +43,10 @@ namespace AlienInvaders
 
         private bool _canMove;
 
-        public Player(Byte lives, Color color, byte type, Image uiPlayer, Image bulletImage)
+        public Player(Color color, byte type, Image uiPlayer, Image bulletImage, double speed)
         {
-            //Set the position of the player.
-            _alive = true;
-            _lives = lives;
-            //TODO: Change Speed.
-            _speed = 0.25;
+            _lives = 3;
+            _speed = speed;
             _bullet = new Bullet(0, 0, bulletImage);
             _color = color;
             _type = type;
@@ -131,6 +126,18 @@ namespace AlienInvaders
             }
         }
 
+        public double Speed
+        {
+            get
+            {
+                return _speed;
+            }
+            set
+            {
+                _speed = value;
+            }
+        }
+
         public void Move()
         {
             if (_canMove)
@@ -139,13 +146,13 @@ namespace AlienInvaders
                 if (_direction == Direction.Left)
                 {
                     //Check to see if the player will be able to have the space on the screen to move or not.
-                    if (_position - 2 > 0)
+                    if (_position - (8 * _speed) > 0)
                     {
                         //If so, move the player.
                         double location = Canvas.GetLeft(_uiPlayer);
-                        location -= 2;
+                        location -= (8 * _speed);
                         Canvas.SetLeft(_uiPlayer, location);
-                        _position -= 2;
+                        _position -= (8 * _speed);
                     }
                     else
                     {
@@ -156,13 +163,13 @@ namespace AlienInvaders
                 else
                 {
                     //Check to see if the player will be able to have the space on the screen to move or not.
-                    if (_position + 2 < 720)
+                    if (_position + (8 * _speed) < 720)
                     {
                         //If so, move the player.
                         double location = Canvas.GetLeft(_uiPlayer);
-                        location += 2;
+                        location += (8 * _speed);
                         Canvas.SetLeft(_uiPlayer, location);
-                        _position += 2;
+                        _position += (8 * _speed);
                     }
                     else
                     {
@@ -196,17 +203,18 @@ namespace AlienInvaders
             }
         }
 
-        public void OnDeath()
+        public bool OnDeath()
         {
-            _uiPlayer.Visibility = Visibility.Collapsed;
-            //TODO: ADD MORE FUNCTIONALITY.
-        }
-
-        public void Respawn()
-        {
-            _uiPlayer.Visibility = Visibility.Visible;
             _lives -= 1;
-            //TODO: ADD MORE FUNCTIONALITY.
+            if (_lives <= 0)
+            {
+                return false;
+            }
+            else
+            {
+                Reset();
+                return true;
+            }
         }
 
         public void SetImage(Color color, byte type)
@@ -226,7 +234,7 @@ namespace AlienInvaders
             imageCombo[2, 1] = "ms-appx:///Assets/SpY3.png";
             imageCombo[2, 2] = "ms-appx:///Assets/SpG3.png";
             imageCombo[2, 3] = "ms-appx:///Assets/SpB3.png";
-            _uiPlayer.Source = new BitmapImage(new Uri(imageCombo[_type - 1, (int)_color]));
+            _uiPlayer.Source = new BitmapImage(new Uri(imageCombo[_type, (int)_color]));
         }
 
         public void Reset()

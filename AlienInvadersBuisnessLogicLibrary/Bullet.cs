@@ -10,15 +10,14 @@ using Windows.UI.Xaml.Shapes;
 
 
 
-namespace AlienInvaders
+namespace AlienInvadersBuisnessLogic
 {
     public class Bullet
     {
-        private Rectangle rect;
         protected double _xPos, _yPos;
         protected bool isAlive;
-        private float Velocity;
-        private Image bullet;
+        protected float Velocity;
+        protected Image bullet;
 
         public Bullet( double xPos, double yPos, Image _bullet )
         {
@@ -47,7 +46,7 @@ namespace AlienInvaders
             set { _yPos = value; }
         }
 
-        public bool Update(float elapsedTime)
+        public virtual bool Update(float elapsedTime)
         {
             _yPos -= Velocity * elapsedTime;
             Canvas.SetTop(bullet, _yPos);
@@ -107,6 +106,9 @@ namespace AlienInvaders
             _xPos = 0;
             _yPos = 0;
             Canvas.SetLeft(bullet, _xPos);
+            Canvas.SetTop(bullet, _yPos);
+            isAlive = false;
+            bullet.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
     }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
-namespace AlienInvaders
+namespace AlienInvadersBuisnessLogic
 {
     /// <summary>
     /// 
@@ -93,7 +93,7 @@ namespace AlienInvaders
             //check whether it is visible or not
             if (_uiMotherShip.Visibility == Windows.UI.Xaml.Visibility.Visible)
             {
-                return false;
+                return true;
             }
             else
             {

@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlienInvaders
+namespace AlienInvadersBuisnessLogic
 {
     /// <summary>
     /// 
     /// </summary>
-    class Shield
+    public class Shield
     {
         /// <summary>
         /// Hom many bullets needed to dissolve the shield

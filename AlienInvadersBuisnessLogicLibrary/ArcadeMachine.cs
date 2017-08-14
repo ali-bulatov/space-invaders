@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
-namespace AlienInvaders
+namespace AlienInvadersBuisnessLogic
 {
     [Serializable()]
     public class ArcadeMachine : ISerializable

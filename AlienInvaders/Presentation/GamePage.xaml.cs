@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlienInvadersBuisnessLogic;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -33,7 +34,13 @@ namespace AlienInvaders
 
         private DispatcherTimer _enemyBulletMoveTimer;
 
+        private DispatcherTimer _enemyBulletOneMoveTimer;
+
+        private DispatcherTimer _enemyBulletTwoMoveTimer;
+
         private DispatcherTimer _clockTimer;
+
+        private DispatcherTimer _enemyBulletSpawnTimer;
 
         private ArcadeMachine _arcadeMachine;
 
@@ -66,20 +73,76 @@ namespace AlienInvaders
 
             _enemyBulletMoveTimer = new DispatcherTimer();
             _enemyBulletMoveTimer.Tick += OnEnemyBulletMoveTimerTick;
-            _enemyBulletMoveTimer.Interval = TimeSpan.FromMilliseconds(100);
+            _enemyBulletMoveTimer.Interval = TimeSpan.FromMilliseconds(1);
+
+            _enemyBulletOneMoveTimer = new DispatcherTimer();
+            _enemyBulletOneMoveTimer.Tick += OnEnemyBulletOneMoveTimerTick;
+            _enemyBulletOneMoveTimer.Interval = TimeSpan.FromMilliseconds(1);
+
+            _enemyBulletTwoMoveTimer = new DispatcherTimer();
+            _enemyBulletTwoMoveTimer.Tick += OnEnemyBulletTwoMoveTimerTick;
+            _enemyBulletTwoMoveTimer.Interval = TimeSpan.FromMilliseconds(1);
 
             _clockTimer = new DispatcherTimer();
             _clockTimer.Tick += OnClockTimerTick;
             _clockTimer.Interval = TimeSpan.FromMilliseconds(1000);
 
-            //TODO: CHANGE TO GET THE ARCADE MACHINE FROM PREVIOUS PAGE.
+            _enemyBulletSpawnTimer = new DispatcherTimer();
+            _enemyBulletSpawnTimer.Tick += OnEnemyBulletSpawnTimerTick;
+            _enemyBulletSpawnTimer.Interval = TimeSpan.FromMilliseconds(1000);
+
             _arcadeMachine = new ArcadeMachine();
             _passedGameValues = new int[2];
         }
 
+        private void MoveEnemyBullet(int index)
+        {
+            bool isHit = _game.BulletList[index].Update(0.03f);
+            if (isHit)
+            {
+                _game.BulletList[index].ResetPosition();
+                if (index == 0)
+                {
+                    _enemyBulletMoveTimer.Stop();                  
+                }
+                else if (index == 1)
+                {
+                    _enemyBulletOneMoveTimer.Stop();
+                }
+                else
+                {
+                    _enemyBulletTwoMoveTimer.Stop();
+                }
+                _game.TakeBullet(index);
+            }
+            byte target = _game.BulletList[index].Collide(new List<Image> { _imgShield, _imgShield1, _imgShield2, _imgShield3 }, _imgPlayer);
+            if (target == 0 || target <= 3)
+            {
+                //TODO: DO SOMETHING WITH THE SHIELD.
+                //_enemyBulletOneMoveTimer.Stop();
+            }
+            else if (target == 4)
+            {
+                bool canContinue = _game.Player.OnDeath();
+                if (canContinue)
+                {
+                    _game.BulletList[index].ResetPosition();
+                    _enemyBulletOneMoveTimer.Stop();
+                }
+                else
+                {
+                    EndGame();
+                }
+            }
+            else
+            {
+                //Do nothing and continue.
+            }
+        }
+
         private void EndGame()
         {
-
+            Frame.Navigate(typeof(HighScore), _arcadeMachine);
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -95,10 +158,12 @@ namespace AlienInvaders
             _imageList = new List<Image> { _imgAlien, _imgAlien1, _imgAlien2, _imgAlien3, _imgAlien4, _imgAlien5, _imgAlien6, _imgAlien7, _imgAlien8, _imgAlien9, _imgAlien10, _imgAlien11, _imgAlien12, _imgAlien13, _imgAlien14, _imgAlien15, _imgAlien16, _imgAlien17, _imgAlien18, _imgAlien19, _imgAlien20, _imgAlien21, _imgAlien22, _imgAlien23, _imgAlien24, _imgAlien25, _imgAlien26, _imgAlien27, _imgAlien28, _imgAlien29, _imgAlien30, _imgAlien31, _imgAlien32, _imgAlien33, _imgAlien34, _imgAlien35, _imgAlien36, _imgAlien37, _imgAlien38, _imgAlien39, _imgAlien40, _imgAlien41, _imgAlien42, _imgAlien43, _imgAlien44, _imgAlien45, _imgAlien46, _imgAlien47, _imgAlien48, _imgAlien49, _imgAlien50, _imgAlien51, _imgAlien52, _imgAlien53, _imgAlien54 };
             List<Image> shieldList = new List<Image> { _imgShield, _imgShield1, _imgShield2, _imgShield3 };
             List<Image> bulletList = new List<Image> { _imgEnemyBullet, _imgEnemyBullet1, _imgEnemyBullet2 };
-            _game = new Game((GameDifficulty)_passedGameValues[0], (Color)_passedGameValues[1], 1 , _imgPlayer, _imgBullet, _imageList, shieldList, bulletList, _imgMotherShip);
+            _game = new Game((GameDifficulty)_passedGameValues[0], (Color)_passedGameValues[1], (byte)_passedGameValues[2], _imgPlayer, _imgBullet, _imageList, shieldList, bulletList, _imgMotherShip);
             _game.Play();
             _alienMoveTimer.Start();
             _clockTimer.Start();
+            _enemyBulletSpawnTimer.Start();
+            _txtScore.Text = "Score: " + _game.GameScore.ToString();
         }
         private void OnClockTimerTick(object sender, object e)
         {
@@ -125,9 +190,84 @@ namespace AlienInvaders
 
         }
 
+        private void OnEnemyBulletSpawnTimerTick(object sender, object e)
+        {
+            if (_game.AlienCount >= 3)
+            {
+                if (_game.BulletList[0].IsAlive == false)
+                {
+                    _game.GiveBullet(0);
+                    _enemyBulletMoveTimer.Start();
+                    return;
+                }
+                else if (_game.BulletList[1].IsAlive == false)
+                {
+                    _game.GiveBullet(1);
+                    _enemyBulletOneMoveTimer.Start();
+                    return;
+                }
+                else if (_game.BulletList[2].IsAlive == false)
+                {
+                    _game.GiveBullet(2);
+                    _enemyBulletTwoMoveTimer.Start();
+                    return;
+                }
+                else
+                {
+
+                }
+            }
+            else if (_game.AlienCount == 2)
+            {
+                if (_game.BulletList[0].IsAlive == false)
+                {
+                    _game.GiveBullet(0);
+                    _enemyBulletMoveTimer.Start();
+                    return;
+                }
+                else if (_game.BulletList[1].IsAlive == false)
+                {
+                    _game.GiveBullet(1);
+                    _enemyBulletOneMoveTimer.Start();
+                    return;
+                }
+                else
+                {
+
+                }
+            }
+            else if (_game.AlienCount == 1)
+            {
+                if (_game.BulletList[0].IsAlive == false)
+                {
+                    _game.GiveBullet(0);
+                    _enemyBulletMoveTimer.Start();
+                    return;
+                }
+                else
+                {
+
+                }
+            }
+            else
+            {
+
+            }
+        }
+
         private void OnEnemyBulletMoveTimerTick(object sender, object e)
         {
-            
+            MoveEnemyBullet(0);
+        }
+
+        private void OnEnemyBulletOneMoveTimerTick(object sender, object e)
+        {
+            MoveEnemyBullet(1);
+        }
+
+        private void OnEnemyBulletTwoMoveTimerTick(object sender, object e)
+        {
+            MoveEnemyBullet(2);
         }
 
         private void OnShipMoveTimerTick(object sender, object e)
@@ -183,11 +323,12 @@ namespace AlienInvaders
             if (_game.AlienCount > 0)
             {
                 _game.ShiftAliens();
-                //_alienMoveTimer.Interval = TimeSpan.FromMilliseconds(_game.IncreaseSpeed(_game.AlienCount));
+                _alienMoveTimer.Interval = TimeSpan.FromMilliseconds(_game.IncreaseSpeed());
             }
             else
             {
-                _game.ResetRound();
+                byte newRound = _game.ResetRound();
+                _txtLevel.Text = "Level: " + newRound.ToString();
             }
         }
 
@@ -204,6 +345,8 @@ namespace AlienInvaders
                 _alienMoveTimer.Stop();
                 _clockTimer.Stop();
                 _shipMoveTimer.Stop();
+                _enemyBulletSpawnTimer.Stop();
+                _enemyBulletMoveTimer.Stop();
                 _btnSave.Visibility = Visibility.Visible;
                 _game.Pause();
             }
@@ -213,6 +356,8 @@ namespace AlienInvaders
                 _alienMoveTimer.Start();
                 _clockTimer.Start();
                 _shipMoveTimer.Start();
+                _enemyBulletSpawnTimer.Start();
+                _enemyBulletMoveTimer.Start();
                 _btnSave.Visibility = Visibility.Collapsed;
                 _game.Pause();
             }

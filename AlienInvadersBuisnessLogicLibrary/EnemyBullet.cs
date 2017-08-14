@@ -5,27 +5,35 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
-namespace AlienInvaders
+namespace AlienInvadersBuisnessLogic
 {
     public class EnemyBullet : Bullet
     {
-        private Image enemyBullet;
 
-        private float timer = 5f;
-
-        public EnemyBullet(double xPos, double yPos, Image image) : base (xPos, yPos, image)
+        public EnemyBullet(double xPos, double yPos, Image image) : base(xPos, yPos, image)
         {
 
         }
 
+        public override bool Update(float elapsedTime)
+        {
+            _yPos += Velocity * elapsedTime;
+            Canvas.SetTop(bullet, _yPos);
+            if (_yPos > 720 - bullet.Height)
+            {
+                IsAlive = false;
+                return true;
+            }
+            return false;
+        }
 
-  
-        public bool DrawBullet(double xPosition, double yPosition)
+        public override bool Draw(double xPosition, double yPosition)
         {
             if (IsAlive == false)
             {
-                enemyBullet.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                Canvas.SetLeft(enemyBullet, xPosition);
+                bullet.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                Canvas.SetLeft(bullet, xPosition);
+                Canvas.SetTop(bullet, yPosition);
                 _xPos = xPosition;
                 _yPos = yPosition;
                 isAlive = true;
@@ -48,7 +56,6 @@ namespace AlienInvaders
                     return 4;
                 }
             }
-            index++;
 
             foreach(Image playerShield in playerShieldList)
             {
@@ -62,6 +69,5 @@ namespace AlienInvaders
             }
             return 255;
         }
-
     }
 }
