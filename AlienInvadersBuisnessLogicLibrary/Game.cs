@@ -565,28 +565,38 @@ namespace AlienInvadersBuisnessLogic
         {
             //Set an alive alien as reference to check which alien is moving.
             Alien aliveAlien = null;
-            //Go through 
+            //Go through each alien for all 55 aliens.
             foreach (Alien alien in _alienList)
             {
+                //If the alien is alive.
                 if (alien != null)
                 {
+                    //Set the alive alien to that one.
                     aliveAlien = alien;
+                    //Stop the loop.
                     break;
                 }
             }
+            //Check to see if there is no alien alive.
             if (aliveAlien == null)
             {
+                //Return and do nothing.
                 return;
             }
+            //Check to see if the alive alien is facing left.
             if (aliveAlien.Direction == Direction.Left)
             {
+                //Go through each alien for all 55 aliens.
                 foreach (Alien alien in _alienList)
                 {
+                    //Check to see if the alien is alive.
                     if (alien != null)
                     {
+                        //Move the alien and check to see if it hits the end of hte screen.
                         bool isHittingEdge = alien.MoveHorizontal();
                         if (isHittingEdge)
                         {
+                            //Move the aliens down if so and stop the loop.
                             AdvanceAliens();
                             break;
                         }
@@ -594,68 +604,85 @@ namespace AlienInvadersBuisnessLogic
 
                 }
             }
+            //Check to see if the aliens are facing right.
             else
             {
+                //Go through each alien row index for all 5 alien rows.
                 for (int leftAlienIndex = 0; leftAlienIndex < 55; leftAlienIndex += 11)
                 {
+                    //Go through each alien cell for all aliens in a given row.
                     for (int alienIndex = (10 + leftAlienIndex); alienIndex >= leftAlienIndex; alienIndex--)
                     {
+                        //Check to see if the alien is alive.
                         if (_alienList[alienIndex] != null)
                         {
+                            //Check to see if the alien has hit the edge.
                             bool isHittingEdge = _alienList[alienIndex].MoveHorizontal();
                             if (isHittingEdge)
                             {
+                                //Move the aliens down.
                                 AdvanceAliens();
+                                //Stop the loop.
                                 break;
                             }
                         }
                     }
                 }
             }
-            
-            
-            //Go through all 55 aliens in the list of aliens.
-            //Store the return values in the IsHittingEdge list.
-            //Go through all Aliens again.
-            //Check to see if the the alien is the farthest left or right and is hitting the edge of the screen.
-            //Go through all aliens.
-            //Move the aliens vertically.
         }
 
+        /// <summary>
+        /// Represents a method that will prevent the player from shooting or moving.
+        /// </summary>
         public void Pause()
         { 
+            //Check to see if the player can move or not.
             if (_player.CanMove == true)
             {
+                //Stop them from moving or shooting.
                 _player.CanMove = false;
                 _player.CanShoot = false;
             }
+            //Check to see if they are not moving.
             else
             {
+                //Make them move and shoot again.
                 _player.CanMove = true;
                 _player.CanShoot = true;
             }
         }
 
+        /// <summary>
+        /// Represents a method that will save the game at a given point in time.
+        /// </summary>
         public async void Save()
         {
-            //Save the list of objects into the file.
+            //Open the local folder.
             StorageFolder folder = ApplicationData.Current.LocalFolder;
+            //Get the text file.
             StorageFile saveFile = await folder.GetFileAsync("game.txt");
+            //Create a list of strings that represent lines.
             List<String> saveItems = new List<String>();
+            //Add 1, indicating that the game is going on.
             saveItems.Add("1");
+            //Go through each alien for all aliens in the list.
             foreach (Alien alien in _alienList)
             {
+                //Check to see if hte alien is alive.
                 if (alien != null)
                 {
+                    //Save the direction of the alien and all of it's properties on one line.
                     int direction = (int)Enum.Parse(typeof(Direction), alien.Direction.ToString());
                     saveItems.Add(alien.XPosition.ToString() + " " + alien.YPosition.ToString() + " " + alien.Speed.ToString() + " " + alien.Points.ToString() + " " + direction.ToString());
                 }
+                //Check to see if the alien is dead.
                 else
                 {
                     //This alien does not exist. Set it to default.
                     saveItems.Add("Null");
                 }
             }
+            //Save the player lives, gamescore, time, round, player position, player speed, and dificulty level.
             saveItems.Add(_player.Lives.ToString());
             saveItems.Add(_gameScore.ToString());
             saveItems.Add(_time.ToString());
@@ -663,22 +690,29 @@ namespace AlienInvadersBuisnessLogic
             saveItems.Add(_player.Position.ToString());
             saveItems.Add(_player.Speed.ToString());
             saveItems.Add(_difficulty.ToString());
-            //TODO: ASK PARTNER TO COMPLETE SHIELD CLASS.
             //Write text into the file.
             await FileIO.WriteLinesAsync(saveFile, saveItems);
         }
 
+        /// <summary>
+        /// Represents a method that will move all aliens down.
+        /// </summary>
         public void AdvanceAliens()
         {
+            //Go through each alien for all 55 aliens.
             foreach (Alien alienCell in _alienList)
             {
+                //Check to see if the alien is alive.
                 if (alienCell != null)
                 {
+                    //Move the alien downwards.
                     alienCell.MoveVertical();
+                    //If the alien is facing left, turn it right.
                     if (alienCell.Direction == Direction.Left)
                     {
                         alienCell.Direction = Direction.Right;
                     }
+                    //If the alien is facing right, turn it left.
                     else
                     {
                         alienCell.Direction = Direction.Left;
@@ -686,62 +720,86 @@ namespace AlienInvadersBuisnessLogic
                 }
 
             }
-            
-            //Check to see if any aliens have hit the bottom of the screen.
-            //Kill the player.
-
         }
-
+        /// <summary>
+        /// Represents a method that will give a bullet to an alien that is at the bottom of a column.
+        /// </summary>
+        /// <param name="bulletIndex">Represents the bullet number.</param>
         public void GiveBullet(int bulletIndex)
         {
+            //Get the aliens that are the bottom most in their column.
             Alien[] selectedAliens = new Alien[11];
+            //Get the bottom most alien.
             Alien bottomAlien;
+            //Go through each alien column number for all 11 columns.
             for (int rowIndex = 0; rowIndex < 11; rowIndex++)
             {
+                //Set the temporary bottom alien to the first alien in the column.
                 bottomAlien = _alienList[rowIndex];
+                //Go through each alien in the column for all 5 aliens in the column.
                 for (int columnIndex = rowIndex; columnIndex < (rowIndex + 55); columnIndex += 11)
                 {
+                    //Check to see if the alien is alive.
                     if (_alienList[columnIndex] != null)
                     {
+                        //Check to see if the bottom alien has been destroyed or not.
                         if (bottomAlien == null)
                         {
+                            //Set the bottom alien to the current one in the loop.
                             bottomAlien = _alienList[columnIndex];
                             continue;
                         }
+                        //Check to see if the position of this alien is more down than the bottom alien.
                         if (_alienList[columnIndex].YPosition > bottomAlien.YPosition && _alienList[columnIndex].YPosition != bottomAlien.YPosition)
                         {
+                            //set the new bottom alien.
                             bottomAlien = _alienList[columnIndex];
                         }
                     }
                 }
+                //Add the bottom most alien in the column to the list.
                 selectedAliens[rowIndex] = bottomAlien;
             }
+            //Get the enemy bullet specified.
             EnemyBullet selectedBullet = _bulletList[bulletIndex];
+            //Get a random number from 0 to 11.
             int index = _randomizer.Next(0, 11);
+            //While the bullet has not been given.
             while (true)
             {
+                //Check if the selected alien is alive or not.
                 if (selectedAliens[index] != null)
                 {
+                    //Check to see if the alien already has the bullet.
                     if (selectedAliens[index].EnemyBullet == null)
                     {
+                        //Give the alien the bullet and shoot it.
                         selectedAliens[index].EnemyBullet = selectedBullet;
                         selectedAliens[index].Shoot();
                         break;
                     }
                 }
+                //Otherwise, select another random alien.
                 index = _randomizer.Next(0, 11);
             }
             
         }
-
+        /// <summary>
+        /// Represents a metod that will take the bullet away from the alien.
+        /// </summary>
+        /// <param name="index">Represents the index of the bullet being selected.</param>
         public void TakeBullet (int index)
         {
+            //Go through each alien for all aliens in the list.
             foreach (Alien alien in _alienList)
             {
+                //Check to see if the alien is alive.
                 if (alien != null)
                 {
+                    //Check if the alien has the bullet.
                     if (alien.EnemyBullet == _bulletList[index])
                     {
+                        //Set the enemy bullet to null for the alien.
                         alien.EnemyBullet = null;
                         break;
                     }
