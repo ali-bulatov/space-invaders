@@ -10,6 +10,9 @@ namespace AlienInvadersBuisnessLogic
 {
     public class ArcadeMachine
     {
+        /// <summary>
+        /// Main read and write properties for the ArcadeMachine
+        /// </summary>
         public string PlayerName { get; set; }
         public double Score { get; set; }
         public double Time { get; set; }
@@ -17,6 +20,9 @@ namespace AlienInvadersBuisnessLogic
 
         private Game _game;
 
+        /// <summary>
+        /// Gets the game to the arcade machine so that if necessary, can start a new game
+        /// </summary>
         public Game Game
         {
             get
@@ -29,6 +35,13 @@ namespace AlienInvadersBuisnessLogic
             }
         }
 
+        /// <summary>
+        /// Internal constructor that should retrieve playername, score, time, and round into ArcadeMachine class
+        /// </summary>
+        /// <param name="playername">This is a string</param>
+        /// <param name="score">This is a double</param>
+        /// <param name="time">This is a double</param>
+        /// <param name="round">This is a byte</param>
         public ArcadeMachine(string playername = "None", double score = 0, double time = 0, byte round = 0)
         {
             PlayerName = playername;
@@ -44,6 +57,9 @@ namespace AlienInvadersBuisnessLogic
 
         }
 
+        /// <summary>
+        /// Sets game to null to restart game.
+        /// </summary>
         public void ClearGame()
         {
             _game = null;
