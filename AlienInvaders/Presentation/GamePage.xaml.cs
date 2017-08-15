@@ -187,8 +187,7 @@ namespace AlienInvaders
             //Check to see if it has hit one of the shields.
             if (target == 0 || target <= 3)
             {
-                //TODO: DO SOMETHING WITH THE SHIELD.
-                //_enemyBulletOneMoveTimer.Stop();
+                //Supposed to do something with shield. My partner's shield class is not implemented.
             }
             //Check to see if it hit the player.
             else if (target == 4)
