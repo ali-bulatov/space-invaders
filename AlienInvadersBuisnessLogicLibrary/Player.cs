@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Media.Imaging;
 namespace AlienInvadersBuisnessLogic
 {
     /// <summary>
-    /// Represents an enumeration for the color of the player.
+    /// Represents an enumeration for the color of the player. By Nelson Shaw
     /// </summary>
     public enum Color
     {
@@ -22,7 +22,7 @@ namespace AlienInvadersBuisnessLogic
     }
 
     /// <summary>
-    /// Represents an enumeration for the direction of an object.
+    /// Represents an enumeration for the direction of an object. By Nelson Shaw
     /// </summary>
     public enum Direction
     {
@@ -32,7 +32,7 @@ namespace AlienInvadersBuisnessLogic
     }
 
     /// <summary>
-    /// Represents a player that can move across the screen.
+    /// Represents a player that can move across the screen. By Nelson Shaw
     /// </summary>
     public class Player
     {

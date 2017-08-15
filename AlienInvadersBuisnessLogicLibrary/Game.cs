@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Controls;
 namespace AlienInvadersBuisnessLogic
 {
     /// <summary>
-    /// Represents the difficulty of a game.
+    /// Represents the difficulty of a game. By Nelson Shaw.
     /// </summary>
     public enum GameDifficulty
     {
@@ -23,7 +23,7 @@ namespace AlienInvadersBuisnessLogic
         Intense
     }
     /// <summary>
-    /// Represents a current game that is being played on the GamePage
+    /// Represents a current game that is being played on the GamePage. By Nelson Shaw.
     /// </summary>
     public class Game
     {
