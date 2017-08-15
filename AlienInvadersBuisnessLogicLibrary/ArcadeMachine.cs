@@ -4,22 +4,18 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace AlienInvadersBuisnessLogic
 {
     public class ArcadeMachine
     {
-
-        private List<List<string>> _scoreList;
+        public string PlayerName { get; set; }
+        public double Score { get; set; }
+        public double Time { get; set; }
+        public byte Round { get; set; }
 
         private Game _game;
-        private bool newscore;
-
-        public ArcadeMachine()
-        {
-            _scoreList = new List<List<string>>();
-            _game = null;
-        }
 
         public Game Game
         {
@@ -32,35 +28,25 @@ namespace AlienInvadersBuisnessLogic
                 _game = value;
             }
         }
-        public void LoadScores()
+
+        public ArcadeMachine(string playername = "None", double score = 0, double time = 0, byte round = 0)
         {
-            var TopScores = File.ReadLines("scorelog.txt")
-                .Select(scoreline => int.Parse(scoreline))
-                .OrderByDescending(score => score)
-                .Take(10);
+            PlayerName = playername;
+            Score = score;
+            Time = time;
+            Round = round;
+
+            _game = null;
         }
 
-        public void SaveScores()
+        public ArcadeMachine()
         {
-            string fileName = @"scorelog.txt";
-            using (FileStream fs = new FileStream(fileName, FileMode.Append, FileAccess.Write))
-            using (StreamWriter sw = new StreamWriter(fs))
-            {
-                sw.WriteLine(newscore);
-            }
+
         }
 
         public void ClearGame()
         {
-
-        }
-
-        public void ShowHighScores()
-        {
-            var TopScores = File.ReadLines("scorelog.txt")
-                .Select(scoreline => int.Parse(scoreline))
-                .OrderByDescending(score => score)
-                .Take(1);
+            _game = null;
         }
     }
 }

@@ -8,42 +8,49 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock HorizontalAlignment="Center" Margin="452,9,433,623" TextWrapping="Wrap" Text="Game Over" VerticalAlignment="Center" Height="88" Width="395" FontSize="72" FontStyle="Italic" FontWeight="Bold" FontFamily="Comic Sans MS"/>
-        <Border HorizontalAlignment="Left" Height="487" Margin="113,155,0,0" VerticalAlignment="Top" Width="757" BorderBrush="Black" BorderThickness="2" CornerRadius="2" >
-            <Canvas Background="WhiteSmoke">
-                <TextBlock Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="35" FontSize="20"/>
-                <TextBlock x:Name="txt1" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="67" FontSize="20"/>
-                <TextBlock x:Name="txt2" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="94" FontSize="20"/>
-                <TextBlock x:Name="txt3" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="121" FontSize="20"/>
-                <TextBlock x:Name="txt4" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="148" FontSize="20"/>
-                <TextBlock x:Name="txt5" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="175" FontSize="20"/>
-                <TextBlock x:Name="txt6" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="202" FontSize="20"/>
-                <TextBlock x:Name="txt7" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="229" FontSize="20"/>
-                <TextBlock x:Name="txt8" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="256" FontSize="20"/>
-                <TextBlock x:Name="txt9" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="283" FontSize="20"/>
-                <TextBlock x:Name="txt10" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="310" FontSize="20"/>
-                <TextBlock x:Name="txt11" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="337" FontSize="20"/>
-                <TextBlock x:Name="txt12" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="364" FontSize="20"/>
-                <TextBlock x:Name="txt13" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="391" FontSize="20"/>
-                <TextBlock x:Name="txt14" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="418" FontSize="20"/>
-                <TextBlock x:Name="txt15" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="445" FontSize="20"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="53*"/>
+            <ColumnDefinition Width="388*"/>
+            <ColumnDefinition Width="199*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="13*"/>
+        </Grid.RowDefinitions>
+
+        <SplitView x:Name="RightSplitView" 
+                 DisplayMode="Overlay" 
+                 OpenPaneLength="350" 
+                 HorizontalAlignment="Right" Grid.RowSpan="2" Width="350" Grid.Column="2">
+            <SplitView.Pane>
+                <Grid>
+                    <TextBox x:Name="txtEnterName" HorizontalAlignment="Left" Margin="84,358,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="72,318,0,0" TextWrapping="Wrap" Text="Please enter your name:" VerticalAlignment="Top" FontSize="20"/>
+                    <Button x:Name="btnSubmit" Content="Submit" HorizontalAlignment="Left" Margin="141,406,0,0" VerticalAlignment="Top" Click="OnClickSubmit"/>
+
+                </Grid>
+            </SplitView.Pane>
+            <Grid>
+                <Button x:Name="btnPlayAgain" Content="Play Again" HorizontalAlignment="Left" Margin="124,473,0,0" VerticalAlignment="Top" Click="OnClickedPlayAgain"/>
+                <Button x:Name="btnExitApplication" Content="Exit" HorizontalAlignment="Left" Margin="124,523,0,0" VerticalAlignment="Top" Width="90" Click="OnExitClicked"/>
+            </Grid>
+        </SplitView>
+
+        <TextBlock HorizontalAlignment="Center" Margin="346,9,35.133,38" TextWrapping="Wrap" Text="Game Over" VerticalAlignment="Center" Height="88" Width="395" FontSize="72" FontStyle="Italic" FontWeight="Bold" FontFamily="Comic Sans MS" Grid.Column="1"/>
+        <Border HorizontalAlignment="Left" Height="487" Margin="7,20,0,0" VerticalAlignment="Top" Width="757" BorderBrush="Black" BorderThickness="2" CornerRadius="2" Grid.Row="1" Grid.Column="1" >
+            <Canvas x:Name="CanvasScore">
+                <Canvas.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFD4B8B8" Offset="1"/>
+                        <GradientStop Color="White"/>
+                        <GradientStop Color="#FEEDC2C2" Offset="0.737"/>
+                    </LinearGradientBrush>
+                </Canvas.Background>
+                <TextBlock x:Name="_score1" Canvas.Left="100" TextWrapping="Wrap" Text="Name:                    Level:                  Score:                  Time:" Canvas.Top="35" FontSize="20"/>
+                <TextBlock x:Name="txt1" Canvas.Left="100" TextWrapping="Wrap" Text="" Canvas.Top="67" FontSize="20" Height="386" Width="558"/>
             </Canvas>
 
         </Border>
-        <TextBlock HorizontalAlignment="Left" Margin="113,114,0,0" TextWrapping="Wrap" Text="Seach for Players: " VerticalAlignment="Top" FontSize="20"/>
-        <TextBox x:Name="txtSearchPlayer" HorizontalAlignment="Left" Margin="272,114,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="185"/>
-        <Button x:Name="btnEditPlayerName" Content="Edit Player Name" HorizontalAlignment="Left" Margin="139,655,0,0" VerticalAlignment="Top" Width="140"/>
-        <Button x:Name="btnSubmit" Content="Submit" HorizontalAlignment="Left" Margin="1154,545,0,0" VerticalAlignment="Top" Click="OnSubmitClicked"/>
-        <Button x:Name="btnPlayAgain" Content="Play Again" HorizontalAlignment="Left" Margin="1002,594,0,0" VerticalAlignment="Top" Click="OnPlayAgainClicked"/>
-        <Button x:Name="btnExit" Content="Exit" HorizontalAlignment="Left" Margin="1105,594,0,0" VerticalAlignment="Top" Click="OnExitClicked"/>
-        <TextBox x:Name="txtPlayerName" HorizontalAlignment="Left" Margin="946,545,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="185"/>
-        <TextBlock HorizontalAlignment="Left" Margin="991,493,0,0" TextWrapping="Wrap" Text="Enter your name:" VerticalAlignment="Top" Height="28" Width="204" FontSize="20"/>
-        <Border HorizontalAlignment="Left" Height="215" Margin="968,190,0,0" VerticalAlignment="Top" Width="215" BorderBrush="Black" BorderThickness="2" CornerRadius="2">
-            <Image/>
-
-        </Border>
-        <ComboBox HorizontalAlignment="Left" Margin="968,425,0,0" VerticalAlignment="Top" Width="215"/>
-        <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Left" Margin="470,114,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>
