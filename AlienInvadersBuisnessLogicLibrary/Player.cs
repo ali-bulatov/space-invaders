@@ -43,6 +43,8 @@ namespace AlienInvadersBuisnessLogic
 
         private bool _canMove;
 
+        private bool _canShoot;
+
         public Player(Color color, byte type, Image uiPlayer, Image bulletImage, double speed)
         {
             _lives = 3;
@@ -54,6 +56,7 @@ namespace AlienInvadersBuisnessLogic
             _uiPlayer = uiPlayer;
             _position = 0;
             _canMove = true;
+            _canShoot = true;
             SetImage(color, type);
             
         }
@@ -103,6 +106,18 @@ namespace AlienInvadersBuisnessLogic
             set
             {
                 _canMove = value;
+            }
+        }
+
+        public bool CanShoot
+        {
+            get
+            {
+                return _canShoot;
+            }
+            set
+            {
+                _canShoot = value;
             }
         }
 
@@ -173,7 +188,6 @@ namespace AlienInvadersBuisnessLogic
                     }
                     else
                     {
-                        //TODO: USE ACTUALWIDTH INSTEAD.
                         Canvas.SetLeft(_uiPlayer, 720);
                         _position = 720;
                     }
