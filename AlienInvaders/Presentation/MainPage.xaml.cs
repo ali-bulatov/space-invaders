@@ -7,6 +7,7 @@ using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -27,19 +28,22 @@ namespace AlienInvaders
         public MainPage()
         {
             this.InitializeComponent();
+            // Load previous settings
             loadSettings();
-
         }
 
         private void OnStartButtonClicked(object sender, RoutedEventArgs e)
         {
             //Determine the difficulty level chosen
             ComboBoxItem levelItem = _cmbLevel.SelectedItem as ComboBoxItem;
+            //Parse to int
             int difLevel = int.Parse(levelItem.Content.ToString());
             //Determine the color chosen
             ComboBoxItem colorItem = _cmbTankColor.SelectedItem as ComboBoxItem;
+            //Cast to string
             string colorString = colorItem.Content.ToString();
             int tankColor;
+            // Determine the color chose and return the index
             switch (colorString)
             {
                 case "Red":
@@ -62,9 +66,11 @@ namespace AlienInvaders
                     tankColor = 0;
                     break;
             }
+            // Determine the natk type chosen
             ComboBoxItem tankItem = _cmbBoxTankType.SelectedItem as ComboBoxItem;
             string tankString = tankItem.Content.ToString();
             int tankType;
+            // Return the index of the chosen tank
             switch (tankString)
             {
                 case "Tank 1":
@@ -80,18 +86,29 @@ namespace AlienInvaders
                     tankType = 0;
                     break;
             }
-            //create an array
+            //create an array to pass to the game page
             int[] passingChars = new int[] { difLevel,tankColor,tankType};
-            // pass color,difficulty and navigate to the game page
+            // pass color,difficulty,type and navigate to the game page
             this.Frame.Navigate(typeof(GamePage), passingChars);
         }    
+        /// <summary>
+        /// Exit and save chosen settings
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnExitButtonClicked(object sender, RoutedEventArgs e)
         {
+            // Save settings
             saveToFile();
+            // Exit
             CoreApplication.Exit();
         }
+        /// <summary>
+        /// Save settings to a local file
+        /// </summary>
         public async void saveToFile()
         {
+            //List to strore settings
             List<String> prevSettings = new List<String>();
             ComboBoxItem colorItem = _cmbTankColor.SelectedItem as ComboBoxItem;
             string colorString = colorItem.Content.ToString();
@@ -99,38 +116,53 @@ namespace AlienInvaders
             string typeString = typeItem.Content.ToString();
             ComboBoxItem levelItem = _cmbLevel.SelectedItem as ComboBoxItem;
             string levelString = levelItem.Content.ToString();
+            // Add color,type,level chosen to the list
             prevSettings.Add(colorString);
             prevSettings.Add(typeString);
             prevSettings.Add(levelString);
-
+            // new storage folder (current)
             StorageFolder folder = ApplicationData.Current.LocalFolder;
+            // if file exists save list to a file
             if (File.Exists(folder.Path+"/mainPage.txt"))
             {
                 StorageFile saveFile = await folder.GetFileAsync("mainPage.txt");
+                // write to a file
                 await FileIO.WriteLinesAsync(saveFile, prevSettings);
             }
+            // else create a new a file and then add list
             else
             {
+                // create a new file mainPage.txt
                StorageFile saveFile = await folder.CreateFileAsync("mainPage.txt");
+                // write to a file
                 await FileIO.WriteLinesAsync(saveFile, prevSettings);   
             }
         }
+        /// <summary>
+        /// Load previous saved settings
+        /// </summary>
         public async void loadSettings()
         {
+            // folder = current folder
             StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
             StorageFile savedSetting = null;
+            // exception handling if file does not excist
             try
             {
                 savedSetting = await storageFolder.GetFileAsync("mainPage.txt");
             }
+            // create a new file if none found
             catch (FileNotFoundException)
             {
                 savedSetting = await storageFolder.CreateFileAsync("mainPage.txt", CreationCollisionOption.ReplaceExisting);
                 await FileIO.WriteTextAsync(savedSetting, "0");
             }
+            // load a file
             finally
             {
+                // create a new list and write file into it
                 IList<String> fileLines = await FileIO.ReadLinesAsync(savedSetting);
+                // for each string check the content
                 foreach(String word in fileLines)
                 {
                     if (word.StartsWith("Y"))
@@ -148,10 +180,6 @@ namespace AlienInvaders
                     else if (word.StartsWith("G"))
                     {
                         _cmbTankColor.SelectedIndex = 2;
-                    }
-                    if (word.StartsWith("Y"))
-                    {
-                        _cmbTankColor.SelectedIndex = 1;
                     }
                     else if (word.StartsWith("Tank 1"))
                     {
@@ -188,19 +216,35 @@ namespace AlienInvaders
                 }
             }
         }
+        /// <summary>
+        /// How to button opens a flyout window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnHowToButtonClicked(object sender, RoutedEventArgs e)
         {
+            // show fly out
             _flyHowTo.ShowAt(_menuGrid);
         }
-
+        /// <summary>
+        /// Navigates to score page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnScoreButtonClicked(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(HighScore));
         }
-
-        private void OnCreditsButtonClicked(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Show credits
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void OnCreditsButtonClicked(object sender, RoutedEventArgs e)
         {
-
+            string message = "Nelson George Shaw"+"\n"+"Jonathan Rei Nellas"+"\n"+"Alikhan Bulatov"+"\n"+"\n"+"\n"+ "© All rigths reserved 2017.";
+            MessageDialog msgDialog = new MessageDialog(message);
+            await msgDialog.ShowAsync();
         }
     }
 }
