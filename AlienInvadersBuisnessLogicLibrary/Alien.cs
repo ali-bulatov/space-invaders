@@ -79,6 +79,9 @@ namespace AlienInvadersBuisnessLogic
                 _yPosition = value;
             }
         }
+        /// <summary>
+        /// Enemy bullet property
+        /// </summary>
         public EnemyBullet EnemyBullet
         {
             get
@@ -144,14 +147,19 @@ namespace AlienInvadersBuisnessLogic
         }
 
         /// <summary>
-        /// Alien shooting
+        /// Allows alien to shoot
         /// </summary>
         public void Shoot()
         {
+            // Current yPosition of the alien
             double yPosition = _yPosition;
+            // Add height of the alien to the yPosition
             yPosition += _uiAlien.Height;
+            // bullet position
             double bulletPosition = _xPosition;
+            // Spawn bullet in the middle of the alien
             bulletPosition += (_uiAlien.Width / 2);
+            // draw a bullet
             _enemyBullet.Draw(bulletPosition, yPosition);
         }
         /// <summary>
@@ -159,40 +167,51 @@ namespace AlienInvadersBuisnessLogic
         /// </summary>
         public void MoveVertical()
         {
+            // move on y axis
             _yPosition += 5;
+            // set image to the new position
             Canvas.SetTop(_uiAlien, _yPosition);
         }
         /// <summary>
-        /// Move alien horizontally
+        /// Move alien horizontally returns bool value
         /// </summary>
         public bool MoveHorizontal()
         {
+            // check the direction of the alien
             if (_direction == Direction.Right)
             {
-
+                // if position is bigger than the width of canvas
                 if (_xPosition >= 720)
                 {
+                    // set the position of the alien
                     Canvas.SetLeft(_uiAlien, _xPosition);
                     return true;
                 }
                 else
                 {
+                    // move alien on x axis
                     _xPosition += 5;
+                    // set the position of the alien
                     Canvas.SetLeft(_uiAlien, _xPosition);
                     return false;
                 }
             }
+            // else if position is smaller than 0 (start of the canvas)
             else
             {
                 if (_xPosition <= 0)
                 {
+                    // move to the left
                     _xPosition -= 5;
+                    // set the new position
                     Canvas.SetLeft(_uiAlien, _xPosition);
                     return true;
                 }
                 else
                 {
+                    // move to the left
                     _xPosition -= 5;
+                    // set the new position
                     Canvas.SetLeft(_uiAlien, _xPosition);
                     return false;
                 }

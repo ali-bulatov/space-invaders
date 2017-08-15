@@ -13,9 +13,12 @@ namespace AlienInvadersBuisnessLogic
     /// </summary>
     public class MotherShip
     {
+        /// <summary>
+        /// Current moving direction of the mothership
+        /// </summary>
         private Direction _direction;
         /// <summary>
-        /// 
+        /// Randomizer user to spawn mothership at a random time
         /// </summary>
         private Random _randomizer;
         /// <summary>
@@ -31,7 +34,7 @@ namespace AlienInvadersBuisnessLogic
         /// </summary>
         private double _position;
         /// <summary>
-        /// 
+        /// bonus points given for killing the otherShip
         /// </summary>
         private int _bounsPoint;
         /// <summary>
@@ -51,7 +54,9 @@ namespace AlienInvadersBuisnessLogic
             _uiMotherShip = uiMotherShip;
             _bounsPoint = 500;
         }
-
+        /// <summary>
+        /// Bonus points constructor
+        /// </summary>
         public int BonusPoint
         {
             get
@@ -72,12 +77,14 @@ namespace AlienInvadersBuisnessLogic
                 if (_position >= 720)
                 {
                     _position += 4;
+                    // set position
                     Canvas.SetLeft(_uiMotherShip, _position);
                     return true;
                 }
                 else
                 {
                     _position += 4;
+                    // set position
                     Canvas.SetLeft(_uiMotherShip, _position);
                     return false;
                 }
@@ -87,17 +94,23 @@ namespace AlienInvadersBuisnessLogic
                 if (_position <= 0)
                 {
                     _position -= 4;
+                    // set position
                     Canvas.SetLeft(_uiMotherShip, _position);
                     return true;
                 }
                 else
                 {
                     _position -= 4;
+                    // set position
                     Canvas.SetLeft(_uiMotherShip, _position);
                     return false;
                 }
             }
         }
+        /// <summary>
+        /// Spawns the mothership randomly returns bool value
+        /// </summary>
+        /// <returns></returns>
         public bool Spawn()
         {
             //check whether it is visible or not
@@ -107,11 +120,15 @@ namespace AlienInvadersBuisnessLogic
             }
             else
             {
+                // choose a random number from 1 to 25
                 int randomNumber = _randomizer.Next(1, 26);
+                // if random number is equal to 25 show Mother Ship
                 if (randomNumber == 25)
                 {
                     _uiMotherShip.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                    // generate a random position 0 or 1
                     int randomPostiion = _randomizer.Next(0, 2);
+                    // reset position of the alien
                     ResetPosition(randomPostiion);
                     return true;
                 }
@@ -123,18 +140,22 @@ namespace AlienInvadersBuisnessLogic
         /// </summary>
         public void ResetPosition(int randomPosition)
         {
+            // if random position equals to 0 move left
             if (randomPosition == 0)
             {
                 _direction = Direction.Left;
                 _position = 0;
                 _startPosition = 0;
+                // set position
                 Canvas.SetLeft(_uiMotherShip, _startPosition);
             }
+            // move right (random number =1)
             else
             {
                 _direction = Direction.Right;
                 _position = 720;
                 _startPosition = 720;
+                // set position
                 Canvas.SetLeft(_uiMotherShip, _startPosition);
             }
         }
